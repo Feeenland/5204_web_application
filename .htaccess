@@ -1,0 +1,14 @@
+# Aktivierung, muss stehen
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+# .php entfernen für Aufruf
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+# www.domain.com/news should point to www.domain.com/index.php?p=news
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^([^/]+)$ index.php?p=$1 [L]
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^([^/]+)/([^/]+)$ index?p=$1 [NC, L]
+
+

@@ -1,0 +1,24 @@
+{
+  "name": "webapplication",
+  "version": "1.0.0",
+  "description": "project SAE 5204 web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test command"
+  },
+  "author": "laura lea mueller",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglifycss": "^1.1.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.8.0",
+    "bootstrap": "^4.5.0",
+    "node-sass": "^4.14.1"
+  }
+}
