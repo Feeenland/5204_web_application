@@ -1,0 +1,12 @@
+/*main css*/
+body{
+  background-color: #000004;
+
+  .error_message{ // to print the error message
+    color: $info;
+  }
+  .has_error{ // to outline a error field
+    border: 2px solid $danger;
+  }
+
+}

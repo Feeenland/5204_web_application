@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="" />
+    <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,10 +38,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ppihZ5uJoNiVyGqWLtkaZOYV11" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -46,9 +59,22 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../5100_php_website_laura_lea_mueller_WDD919" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\5204_php\img" />
+      <recent name="C:\xampp\htdocs\5204_php" />
+      <recent name="C:\xampp\htdocs\5204_php\templates" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\5204_php\js" />
+      <recent name="C:\xampp\htdocs\5204_php\scss" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="js.build_tools.gulp">
@@ -83,7 +109,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615886551108</updated>
-      <workItem from="1615886553266" duration="2837000" />
+      <workItem from="1615886553266" duration="12978000" />
+      <workItem from="1616229424486" duration="3088000" />
+      <workItem from="1616427168369" duration="2327000" />
     </task>
     <servers />
   </component>
@@ -95,9 +123,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1615887848676" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1616427175529">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616427175529" />
     <state x="794" y="439" key="NewPhpFileDialog" timestamp="1615886582688">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="439" key="NewPhpFileDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1615886582688" />
+    <state x="590" y="338" key="com.intellij.ide.util.TipDialog" timestamp="1616427168383">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="590" y="338" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616427168383" />
+    <state x="2436" y="358" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.30.1680.1010@1920.30.1680.1010" timestamp="1616229424963" />
   </component>
 </project>

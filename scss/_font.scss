@@ -1,0 +1,31 @@
+// ### fonts css ### */
+
+/* Trade Winds */
+@font-face {
+  font-family: 'Trade Winds';
+  //font-style: normal;
+  src: local('Libre Franklin ExtraLight'), local('LibreFranklin-ExtraLight'),
+  url('../fonts/TradeWinds-Regular.ttf') format('ttf')
+}
+/* Roboto */
+@font-face {
+  font-family: 'Roboto';
+  // font-style: normal;
+  font-weight: bold;
+  src: local('Libre Franklin'), local('LibreFranklin-Regular'),
+  url('../fonts/Roboto-Regular.ttf') format('ttf')
+}
+
+
+
+/*
+
+!* frank-ruhl-libre-500 - latin *!
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  //font-style: normal;
+  font-weight: bold;
+  src: local('Frank Ruhl Libre Medium'), local('FrankRuhlLibre-Medium'),
+  url('../../public/fonts/frank-ruhl-libre-v6-latin-500.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *!
+  url('../../public/fonts/frank-ruhl-libre-v6-latin-500.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!
+}*/
