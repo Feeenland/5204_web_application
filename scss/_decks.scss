@@ -1,0 +1,32 @@
+
+.filter_deck{
+  margin-top: 50px;
+
+  .filter__color_check{
+    display: flex;
+    margin-top: 20px;
+    label{
+      padding-left: 5px;
+      padding-right: 15px;
+    }
+  }
+}
+
+.decks{
+  margin-top: 50px;
+  &__deck{
+    margin-top: 30px;
+    display: flex;
+  }
+  &__img{
+    margin-right: 20px;
+    width: 150px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #555555,2px 2px 1px black, 3px 3px 1px #555555,
+    4px 4px 1px black,5px 5px 1px #555555, 6px 6px 1px black, 7px 7px 1px #555555;
+  }
+  &__text{
+    margin-top: 10px;
+  }
+}

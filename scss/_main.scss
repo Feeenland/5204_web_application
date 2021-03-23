@@ -8,5 +8,34 @@ body{
   .has_error{ // to outline a error field
     border: 2px solid $danger;
   }
+  h1, h2{
+    text-shadow: 1px 1px 0 #a34c24,
+    1px -1px 0 #a34c24,
+    -1px 1px 0 #a34c24,
+    -1px -1px 0 #a34c24,
+    1px 0px 0 #a34c24,
+    0px 1px 0 #a34c24,
+    -1px 0px 0 #a34c24,
+    0px -1px 0 #a34c24,
+    2px 2px 0 #4d020a,
+    2px -2px 0 #4d020a,
+    -2px 2px 0 #4d020a,
+    -2px -2px 0 #4d020a,
+    2px 0px 0 #4d020a,
+    0px 2px 0 #4d020a,
+    -2px 0px 0 #4d020a,
+    0px -2px 0 #4d020a;
+    text-transform: uppercase;
+    letter-spacing:1px;
+}
+
+  .nav{
+    padding: 30px;
+  }
+  .color__img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 25px;
+  }
 
 }

@@ -60,13 +60,13 @@ $colors: (
 );
 // scss-docs-end colors-map
 
-$primary:       #ad714a; // medium brown
-$secondary:     #a96734; // dark brown
-$success:       #71401a; //dark bron btn
-$info: #7b0202;
-$warning:       $yellow;
-$danger:        #5A0202;
-$light:         #d9b784; //light brown
+$primary: #96939b; //black/white
+$secondary:     #335f24; //green
+$success:       #3d70da; //blue
+$info:          #d73e5c; //red
+$warning:       #cb9135; //magic yellow
+$danger:        #ec0202;//#5A0202;
+$light: rgba(255, 255, 255, 0.25);
 $dark:          #000004; // background
 
 
@@ -358,9 +358,9 @@ $transition-collapse:         height .35s ease;
 
 // stylelint-disable value-keyword-case
 $font-family-sans-serif:      system-ui, -apple-system, "Roboto", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Trade Winds", "Courier New", monospace;
+$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Lakki Reddy", "Courier New", monospace;//Trade Winds
 // stylelint-enable value-keyword-case
-$font-family-base:            'Roboto', sans-serif;
+$font-family-base:            'Roboto', sans-serif; //font-family: 'Lakki Reddy', cursive;
 $font-family-code:            var(--bs-font-monospace);
 
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
@@ -397,11 +397,11 @@ $h5-font-size:                $font-size-base * 1.25;
 $h6-font-size:                $font-size-base;*/
 
 $headings-margin-bottom:      $spacer / 2;
-$headings-font-family:        'Trade Winds';
+$headings-font-family:        'Lakki Reddy';
 $headings-font-style:         null;
 $headings-font-weight:        400;
 $headings-line-height:        1.1;
-$headings-color:              null;
+$headings-color:              $warning;
 
 // scss-docs-start display-headings
 $display-font-sizes: (

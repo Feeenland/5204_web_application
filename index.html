@@ -9,66 +9,213 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-    <ul class="navbar-nav">
+<nav class="navbar bg-dark justify-content-between nav">
+    <h1>Magic decks </h1>
+   <!-- <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" href="#">Login</a>
         </li>
-    </ul>
+    </ul>-->
+    <button class="btn btn_1 btn-outline-warning">Login</button>
 </nav>
 
-
-<div class="container">
+<div class="container filter_deck">
     <div class="row justify-content-between">
-        <div class="col-12 col-md-6">
-            <h1>Magic deks </h1>
+        <div class="col-12 col-md-2">
+            <p>deck Filter</p>
         </div>
-        <div class="col-12 col-md-6">
-
-        </div>
-    </div>
-</div>
-
-<div class="container filter_deks">
-    <div class="row justify-content-between">
-        <div class="col-12 col-md-6">
-            <h2>Filter</h2>
-        </div>
-        <div class="col-12 col-md-6">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="dek or card name" aria-label="search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-            </form>
+        <div class="col-12 col-md-5">
             <form action="">
-                <div class="checkbox">
+                <div class="checkbox filter__color_check">
                     <input type="checkbox" id="color1" name="color1" value="green">
                     <label for="color1"> green</label><br>
                     <input type="checkbox" id="color2" name="color2" value="blue">
                     <label for="color2"> blue</label><br>
-
+                    <input type="checkbox" id="color3" name="color3" value="white">
+                    <label for="color2"> white</label><br>
+                    <input type="checkbox" id="color4" name="color4" value="red">
+                    <label for="color2"> red</label><br>
+                    <input type="checkbox" id="color5" name="color5" value="black">
+                    <label for="color2"> black</label><br>
                 </div>
+
+                <label for="deck">Choose a deck:</label>
+                <select id="deck" name="deck">
+                    <option value="all">all</option>
+                    <option value="standard">standard</option>
+                    <option value="future">future</option>
+                    <option value="historic">historic</option>
+                    <option value="gladiator">gladiator</option>
+                    <option value="pioneer">pioneer</option>
+                    <option value="modern">modern</option>
+                    <option value="legacy">legacy</option>
+                    <option value="pauper">pauper</option>
+                    <option value="vintage">vintage</option>
+                    <option value="penny">penny</option>
+                    <option value="commander">commander</option>
+                    <option value="brawl">brawl</option>
+                    <option value="duel">duel</option>
+                    <option value="oldschool">oldschool</option>
+                    <option value="premodern">premodern</option>
+                </select>
             </form>
-            <ul>
-                <li>B</li>
-                <li>G</li>
-                <li>Y</li>
-                <li>R</li>
-                <li>W</li>
-            </ul>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-5">
             <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="dek or card name" aria-label="search">
+                <input class="form-control mr-sm-2" type="search" placeholder="deck or card name" aria-label="search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
             </form>
         </div>
     </div>
 </div>
 
+<div class="container decks">
+    <div class="row">
+        <article class="col-12 col-md-6 col-lg-4 decks__deck">
+            <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
 
+            <div class="decks__text">
+                <h2>deck Name</h2>
+                <p>deck art (modern)</p>
+                <img class="color__img" src="img/white.png" alt="">
+                <img class="color__img" src="img/blue.png" alt="">
+                <img class="color__img" src="img/blue.png" alt="">
+                <img class="color__img" src="img/blue.png" alt="">
+                <img class="color__img" src="img/blue.png" alt="">
+                <p>created By NAME</p>
+            </div>
+        </article>
+
+        <article class="col-12 col-md-6 col-lg-4 decks__deck">
+            <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
+            <div class="decks__text">
+                <h2>deck Name</h2>
+                <p>deck art (modern)</p>
+                <img class="color__img" src="img/green.png" alt="">
+                <img class="color__img" src="img/red.png" alt="">
+                <p>created By NAME</p>
+            </div>
+        </article>
+
+        <article class="col-12 col-md-6 col-lg-4 decks__deck">
+            <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
+            <div class="decks__text">
+                <h2>deck Name</h2>
+                <p>deck art (modern)</p>
+                <img class="color__img" src="img/black.png" alt="">
+                <p>created By NAME</p>
+            </div>
+        </article>
+
+        <article class="col-12 col-md-6 col-lg-4 decks__deck">
+            <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
+
+            <div class="decks__text">
+                <h2>deck Name</h2>
+                <p>deck art (modern)</p>
+                <img class="color__img" src="img/black.png" alt="">
+                <p>created By NAME</p>
+            </div>
+        </article>
+    </div>
+</div>
+
+<div class="container login">
+    <div class="row justify-content-between">
+        <div class="col-12 col-lg-6 login__register">
+                <form action="index.php?p=login" method="POST">
+                    <h2>New Register</h2>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="name" class="col col-form-label">name:</label>
+                        <input
+                                type="text"
+                                name="name"
+                                class="form-control"
+                                id="name"
+                                placeholder="kate"
+                                value="">
+                    </div>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="card" class="col col-form-label">Most loved magic card:</label>
+                        <input
+                                type="text"
+                                name="card"
+                                class="form-control"
+                                id="card"
+                                placeholder="card name"
+                                value="">
+                    </div>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="newuser" class="col col-form-label">nik name:</label>
+                        <input
+                                type="text"
+                                name="nik"
+                                class="form-control"
+                                id="newuser"
+                                placeholder="kitty =^.^="
+                                value="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="newPassword" class="col col-form-label">Passwort:</label>
+                        <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                id="newPassword"
+                                placeholder="Password">
+                        <p class="error_message"></p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn_1 btn btn_send">Senden</button>
+                    </div>
+                </form>
+        </div>
+        <div class="col-0 col-md-1 login__space">
+
+        </div>
+        <div class="col-12 col-lg-5 login__login">
+                <form action="index.php?p=login" method="POST">
+                    <h2>Login</h2>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="user" class="col col-form-label">nik name:</label>
+                        <input
+                                type="text"
+                                name="email"
+                                class="form-control"
+                                id="user"
+                                placeholder="kitty =^.^="
+                                value="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col col-form-label">Passwort:</label>
+                        <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                id="inputPassword"
+                                placeholder="Password">
+                        <p class="error_message"></p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn_1 btn btn_send">Senden</button>
+                    </div>
+                </form>
+
+            <button class="btn btn_1">forgot password!</button>
+        </div>
+    </div>
+</div>
+
+<img class="" src="img/MTG_Symbols_0-1.png" alt="magic deck">
 
 <!-- js -->
 <script src="js/jquery-3.3.1.slim.min.js"></script>
