@@ -24,6 +24,7 @@
     <button class="btn btn_1 btn-outline-warning">Login</button>
 </nav>
 
+<!-- home -->
 <div class="container filter_deck">
     <div class="row justify-content-between">
         <div class="col-12 col-md-2">
@@ -125,6 +126,7 @@
     </div>
 </div>
 
+<!-- login form -->
 <div class="container login">
     <div class="row justify-content-between">
         <div class="col-12 col-lg-6 login__register">
@@ -214,6 +216,107 @@
         </div>
     </div>
 </div>
+
+
+<!-- after login -->
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Hello Name</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn_1 btn-outline-success"> Create new Dek </button>
+            <button class="btn btn_1 btn-outline-success"> Add new Cards </button>
+        </div>
+        <div class="col">
+            <button class="btn btn_1 btn-outline-success"> Show all Decks /show my stuff </button>
+        </div>
+    </div>
+    <div class="row"> <!-- optional this or the decks from home-->
+        <div class="col-12 col-md-6">
+            <h2>my Decks</h2>
+            <!-- load home section, filtered py creator + add buttons! -->
+
+            <button class="btn btn_1">Edit</button>
+            <button class="btn btn_1">Delete</button>
+
+        </div>
+        <div class="col-12 col-md-6">
+            <h2>my Cards</h2>
+
+            <div class="cards">
+                <div class="row">
+                    <div class="col">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
+                        </form>
+                        <form action="" class="cards_filter">
+                            <div class="checkbox filter__color_check">
+                                <input type="checkbox" id="colorG" name="color1" value="green">
+                                <label for="colorG"> green</label><br>
+                                <input type="checkbox" id="colorB" name="color2" value="blue">
+                                <label for="colorB"> blue</label><br>
+                                <input type="checkbox" id="colorW" name="color3" value="white">
+                                <label for="colorW"> white</label><br>
+                                <input type="checkbox" id="colorR" name="color4" value="red">
+                                <label for="colorR"> red</label><br>
+                                <input type="checkbox" id="colorBlack" name="color5" value="black">
+                                <label for="colorBlack"> black</label><br>
+                            </div>
+
+                            <label for="legality">legality in deck:</label>
+                            <select id="legality" name="legality">
+                                <option value="all">all</option>
+                                <option value="standard">standard</option>
+                                <option value="future">future</option>
+                                <option value="historic">historic</option>
+                                <option value="gladiator">gladiator</option>
+                                <option value="pioneer">pioneer</option>
+                                <option value="modern">modern</option>
+                                <option value="legacy">legacy</option>
+                                <option value="pauper">pauper</option>
+                                <option value="vintage">vintage</option>
+                                <option value="penny">penny</option>
+                                <option value="commander">commander</option>
+                                <option value="brawl">brawl</option>
+                                <option value="duel">duel</option>
+                                <option value="oldschool">oldschool</option>
+                                <option value="premodern">premodern</option>
+                            </select>
+                        </form>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col cards__card">
+
+                        <div>
+                            <img src="img/tsr-235-tarmogoyf.png" alt="">
+                            <button class="btn btn_1">X</button>
+                        </div>
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+                        <img src="img/tsr-235-tarmogoyf.png" alt="">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <img class="" src="img/MTG_Symbols_0-1.png" alt="magic deck">
 

@@ -9085,8 +9085,7 @@ body {
     display: flex; }
   .decks__img {
     margin-right: 20px;
-    width: 150px;
-    height: 250px;
+    width: 170px;
     border-radius: 10px;
     -webkit-box-shadow: 1px 1px 6px #555555,2px 2px 1px black, 3px 3px 1px #555555, 4px 4px 1px black,5px 5px 1px #555555, 6px 6px 1px black, 7px 7px 1px #555555;
             box-shadow: 1px 1px 6px #555555,2px 2px 1px black, 3px 3px 1px #555555, 4px 4px 1px black,5px 5px 1px #555555, 6px 6px 1px black, 7px 7px 1px #555555; }
@@ -9099,6 +9098,10 @@ body {
     padding: 30px; }
   .login__space {
     border-right: 3px solid #335f24; }
+
+.cards__card img {
+  width: 115px;
+  border-radius: 10px; }
 
 /* Trade Winds */
 @font-face {
