@@ -3,8 +3,11 @@
  * layout.php = This file connects the various contents and integrates the header and JS data.
  */
 
-$UserByNick = new CLogin();
-$UserByNick->getUserByNickname();
+if ($p == 'login'){
+    $UserCheck = new CLogin();
+    $UserCheck->userLogin();
+    print_r($UserCheck);
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +28,7 @@ $UserByNick->getUserByNickname();
     <div class="row">
         <div class="col-10 offset-1">
             <span class="login_output"> <!--// prints infos from the login (like failed etc.)-->
-                <?php if (isset($UserByNick->login_output)){print $UserByNick->login_output;} ?>
+                <?php if (isset($UserCheck->login_output)){print $UserCheck->login_output;} ?>
             </span>
         </div>
     </div>

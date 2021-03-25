@@ -18,7 +18,7 @@ $p ='home';
 if(isset($_GET['p']) && $_GET['p'] != ''){// from the get param, is p set and not empty ? load the page
     $p =$_GET['p'] ;
     if($_GET['p'] == 'login'){
-        include('controllers/CLogin.php');
+        include('controllers/login/CLogin.php');
         $pageTitle = 'Login';
     }else if($_GET['p'] == 'home'){
         $page = 'views/home.php';

@@ -16,7 +16,7 @@ class MUser extends Config{
                 print "false! MUser ";
                 return false; //found nothing
             }else{
-                print "fetch!";
+                print "fetch! ";
                 return $result->fetch_assoc();
             }
 

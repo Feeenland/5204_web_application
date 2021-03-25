@@ -72,7 +72,7 @@
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control<?php if(strlen($UserByNick->errorMessage)>0){ ?> has_error <?php } ?>"
+                                class="form-control<?php if(strlen($UserCheck->errorMessage)>0){ ?> has_error <?php } ?>"
                                 id="nickname"
                                 placeholder="kitty =^.^="
                                 value="">
@@ -82,11 +82,11 @@
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control<?php if(strlen($UserByNick->errorMessage)>0){ ?> has_error <?php } ?>"
+                                class="form-control<?php if(strlen($UserCheck->errorMessage)>0){ ?> has_error <?php } ?>"
                                 id="inputPassword"
                                 placeholder="Password">
-                        <?php if (isset($UserByNick->errorMessage) && (strlen($UserByNick->errorMessage)>0)) { ?>
-                            <p class="error_message"><?php print $UserByNick->errorMessage; ?></p>
+                        <?php if (isset($UserCheck->errorMessage) && (strlen($UserCheck->errorMessage)>0)) { ?>
+                            <p class="error_message"><?php print $UserCheck->errorMessage; ?></p>
                         <?php } ?>
                     </div>
                     <div class="row justify-content-center">
