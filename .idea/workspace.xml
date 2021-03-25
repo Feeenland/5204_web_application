@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/min_css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/min_css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_decks.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/_decks.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +26,30 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="5204_oop_magic@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="5204_oop_magic@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="5204_oop_magic@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="5204_oop_magic: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="5204_oop_magic@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="5204_oop_magic: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="users: table" type="dbc44a63:MariaImplModel$Table" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="FavoritesManager">
@@ -71,6 +90,8 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\5204_php" />
+      <recent name="C:\xampp\htdocs\5204_php\views" />
+      <recent name="C:\xampp\htdocs\5204_php\helpers" />
       <recent name="C:\xampp\htdocs\5204_php\js" />
       <recent name="C:\xampp\htdocs\5204_php\scss" />
     </key>
@@ -116,7 +137,7 @@
       <updated>1615886551108</updated>
       <workItem from="1615886553266" duration="12978000" />
       <workItem from="1616229424486" duration="3088000" />
-      <workItem from="1616427168369" duration="18029000" />
+      <workItem from="1616427168369" duration="40724000" />
     </task>
     <servers />
   </component>
@@ -124,18 +145,30 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615887848676">
+    <state x="1076" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616582113900">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1615887848676" />
+    <state x="1076" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616582113900" />
+    <state x="714" y="134" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1616584255151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="714" y="134" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616584255151" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1616427175529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616427175529" />
-    <state x="794" y="439" key="NewPhpFileDialog" timestamp="1615886582688">
+    <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1616581969382">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="439" key="NewPhpFileDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1615886582688" />
+    <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616581969382" />
+    <state x="764" y="318" key="NewPhpClassDialog" timestamp="1616584223278">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="764" y="318" key="NewPhpClassDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616584223278" />
+    <state x="794" y="439" key="NewPhpFileDialog" timestamp="1616583670634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="439" key="NewPhpFileDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616583670634" />
     <state x="590" y="338" key="com.intellij.ide.util.TipDialog" timestamp="1616427168383">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

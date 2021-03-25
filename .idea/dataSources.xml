@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="5204_oop_magic@localhost" read-only="true" uuid="a54f848c-9f1d-4218-a790-3e099b431abe">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/5204_oop_magic?server=1&amp;db=5204_oop_magic</jdbc-url>
+    </data-source>
+  </component>
+</project>
