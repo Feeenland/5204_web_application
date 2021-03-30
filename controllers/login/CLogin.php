@@ -1,6 +1,5 @@
 <?php
 
-include('models/MUser.php');
 include('CLoginGetUserByNickname.php');
 
 class CLogin extends CLoginGetUserByNickname{

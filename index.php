@@ -5,15 +5,27 @@
  */
 
 // database connection
-include('database/Config.php');
+include('database/DBConnection.php');
 // helpers
 include('helpers/validations.php');
 include('helpers/disinfect.php');
+
+// models
+include('models/AbstractModel.php');
+include('models/MUser.php');
+
+// views
+include('views/AbstractView.php');
+include('views/LoginView.php');
+
 
 session_start();
 //error_reporting(E_WARNING); // don't show the warnings
 $pageElement= null;
 $p ='home';
+
+$user = new MUser();
+$user->getUsersByNickname('test');
 
 if(isset($_GET['p']) && $_GET['p'] != ''){// from the get param, is p set and not empty ? load the page
     $p =$_GET['p'] ;

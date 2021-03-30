@@ -16,7 +16,12 @@ class Config {
         $this->dbname = "5204_oop_magic";
 
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        return $conn;
+        if ($conn){
+            return $conn;
+        }else{
+            die("DB Verbindung fehlgeschlagen");
+        }
+
         //return new mysqli($this->servername, $this->username, $this->password, $this->dbname);
     }
 

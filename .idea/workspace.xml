@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="" />
+    <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/login/CLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login/CLogin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/MUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/MUser.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,11 +99,11 @@
       <recent name="C:\xampp\htdocs\5204_php\scss" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\5204_php\database" />
       <recent name="C:\xampp\htdocs\5204_php\controllers\login" />
       <recent name="C:\xampp\htdocs\5204_php\fonts" />
       <recent name="C:\xampp\htdocs\5204_php\img" />
       <recent name="C:\xampp\htdocs\5204_php" />
-      <recent name="C:\xampp\htdocs\5204_php\templates" />
     </key>
   </component>
   <component name="RunManager">
@@ -135,7 +141,7 @@
       <updated>1615886551108</updated>
       <workItem from="1615886553266" duration="12978000" />
       <workItem from="1616229424486" duration="3088000" />
-      <workItem from="1616427168369" duration="47003000" />
+      <workItem from="1616427168369" duration="59765000" />
     </task>
     <servers />
   </component>
@@ -159,10 +165,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616581969382" />
-    <state x="764" y="318" key="NewPhpClassDialog" timestamp="1616679348058">
+    <state x="764" y="318" key="NewPhpClassDialog" timestamp="1616873386365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="764" y="318" key="NewPhpClassDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616679348058" />
+    <state x="764" y="318" key="NewPhpClassDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616873386365" />
     <state x="794" y="439" key="NewPhpFileDialog" timestamp="1616583670634">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
