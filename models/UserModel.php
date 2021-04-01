@@ -5,7 +5,7 @@ class UserModel extends AbstractModel {
 
     protected $table = 'users';
 
-    private $fields = [
+    protected $fields = [
         'id',
         'name',
         'nickname',
@@ -15,7 +15,7 @@ class UserModel extends AbstractModel {
         'login_try'
     ];
 
-    private $values = [];
+    protected $values = [];
 
     public function getUsersByNickname($nickname) {
 
