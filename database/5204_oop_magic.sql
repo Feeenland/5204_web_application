@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 30. Mrz 2021 um 17:56
+-- Erstellungszeit: 01. Apr 2021 um 13:16
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.10
 
@@ -95,6 +95,42 @@ INSERT INTO `colors` (`id`, `color`, `abbr`, `basic_land`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `decks`
+--
+
+CREATE TABLE `decks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `format_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `decks_has_cards`
+--
+
+CREATE TABLE `decks_has_cards` (
+  `id` int(11) NOT NULL,
+  `deck_id` int(11) NOT NULL,
+  `cards_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `decks_has_colors`
+--
+
+CREATE TABLE `decks_has_colors` (
+  `id` int(11) NOT NULL,
+  `deck_id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `formats`
 --
 
@@ -166,10 +202,10 @@ CREATE TABLE `set_edition` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `nickname` varchar(20) NOT NULL,
-  `favourite_card` varchar(50) NOT NULL,
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `nickname` varchar(200) NOT NULL,
+  `favourite_card` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `login_try` int(3) NOT NULL,
   `banned_at` timestamp NULL DEFAULT NULL
@@ -180,7 +216,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nickname`, `favourite_card`, `password`, `login_try`, `banned_at`) VALUES
-(1, 'test1', 'test', 'land', 'test', 0, NULL);
+(1, 'testxz', 'test', 'land', 'test', 0, NULL),
+(3, '', '', '', '', 0, NULL),
+(4, '', '', '', '', 0, NULL),
+(6, '', '', '', '', 0, NULL),
+(7, '', '', '', '', 0, NULL),
+(8, '', '', '', '', 0, NULL),
+(9, '', '', '', '', 0, NULL),
+(10, '', '', '', '', 0, NULL),
+(11, '', '', '', '', 0, NULL),
+(12, '', '', '', '', 0, NULL),
+(13, '', '', '', '', 0, NULL),
+(14, 'test3', 'test4', 'island', 'test', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,6 +274,30 @@ ALTER TABLE `cards_has_formats_has_legalities`
 --
 ALTER TABLE `colors`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `decks`
+--
+ALTER TABLE `decks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_deck` (`user_id`),
+  ADD KEY `fk_format_deck` (`format_id`);
+
+--
+-- Indizes für die Tabelle `decks_has_cards`
+--
+ALTER TABLE `decks_has_cards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_deck_card` (`cards_id`),
+  ADD KEY `fk_deck_deck` (`deck_id`);
+
+--
+-- Indizes für die Tabelle `decks_has_colors`
+--
+ALTER TABLE `decks_has_colors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_deck_collor` (`deck_id`),
+  ADD KEY `fk_color_color` (`color_id`);
 
 --
 -- Indizes für die Tabelle `formats`
@@ -283,6 +354,24 @@ ALTER TABLE `colors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT für Tabelle `decks`
+--
+ALTER TABLE `decks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `decks_has_cards`
+--
+ALTER TABLE `decks_has_cards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `decks_has_colors`
+--
+ALTER TABLE `decks_has_colors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT für Tabelle `formats`
 --
 ALTER TABLE `formats`
@@ -304,7 +393,7 @@ ALTER TABLE `set_edition`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT für Tabelle `users_has_cards`
@@ -336,6 +425,27 @@ ALTER TABLE `cards_has_formats_has_legalities`
   ADD CONSTRAINT `fk_card_ly` FOREIGN KEY (`cards_id`) REFERENCES `cards` (`id`),
   ADD CONSTRAINT `fk_format_ly` FOREIGN KEY (`formats_id`) REFERENCES `formats` (`id`),
   ADD CONSTRAINT `fk_legality_ly` FOREIGN KEY (`legalities_id`) REFERENCES `legalities` (`id`);
+
+--
+-- Constraints der Tabelle `decks`
+--
+ALTER TABLE `decks`
+  ADD CONSTRAINT `fk_format_deck` FOREIGN KEY (`format_id`) REFERENCES `formats` (`id`),
+  ADD CONSTRAINT `fk_user_deck` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints der Tabelle `decks_has_cards`
+--
+ALTER TABLE `decks_has_cards`
+  ADD CONSTRAINT `fk_deck_card` FOREIGN KEY (`cards_id`) REFERENCES `cards` (`id`),
+  ADD CONSTRAINT `fk_deck_deck` FOREIGN KEY (`deck_id`) REFERENCES `decks` (`id`);
+
+--
+-- Constraints der Tabelle `decks_has_colors`
+--
+ALTER TABLE `decks_has_colors`
+  ADD CONSTRAINT `fk_color_color` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`),
+  ADD CONSTRAINT `fk_deck_collor` FOREIGN KEY (`deck_id`) REFERENCES `decks` (`id`);
 
 --
 -- Constraints der Tabelle `users_has_cards`

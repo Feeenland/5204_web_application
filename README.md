@@ -8,27 +8,14 @@ SAE Institute Zürich, Submission date Apr, 29. 2021
 _The file to create the Database is in this folder:_
 
     Database:
-    5204_php / config / 5204_web_application.sql
-
-_If the access data for the database have to be adjusted, this can be found here:_
-
-    access data Database:
-    5204_php / database / config.php
+    5204_php / database / config / 5204_web_application.sql
 
 **Login**
 
-_These are the data to log into my website in the backend:_
+_These are the data to log into my website in the backend as a user:_
 
     Login:
-    Admin: email: lauralea@ledertatze.com PW: leder
-
-The only difference between admin and user is = the admin can edit/add and delete users
-
-**Email**
-
-_The contact site can send a email with a Message, change Email here:_
-
-    5100_php_website_laura_lea_mueller_WDD919 / web / controllers / contact.php
+    nickname: teacher PW: oop5204
 
 **Files**
 
@@ -37,6 +24,9 @@ _in every file at the top you find a description what this file does_
 **Folders**
 
 _to understand the folder structure please read the section Folder structure in the README.md_
+***
+## Database 
+![DB structure](img/readme/db.png)
 ***
 
 ## Overview ![paw](web/img/favicon/favicon-16x16.png)
