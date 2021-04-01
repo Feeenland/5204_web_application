@@ -12,7 +12,7 @@ include('helpers/disinfect.php');
 
 // models
 include('models/AbstractModel.php');
-include('models/MUser.php');
+include('models/UserModel.php');
 
 // views
 include('views/AbstractView.php');
@@ -24,8 +24,6 @@ session_start();
 $pageElement= null;
 $p ='home';
 
-$user = new MUser();
-$user->getUsersByNickname('test');
 
 if(isset($_GET['p']) && $_GET['p'] != ''){// from the get param, is p set and not empty ? load the page
     $p =$_GET['p'] ;

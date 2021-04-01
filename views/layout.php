@@ -4,9 +4,32 @@
  */
 
 if ($p == 'login'){
-    $UserCheck = new CLogin();
-    $UserCheck->userLogin();
-    print_r($UserCheck);
+    //$UserCheck = new CLogin();
+    //$UserCheck->userLogin();
+    //print_r($UserCheck);
+
+    $user = new UserModel();
+    $user->getUsersByNickname('test');
+    print_r($user);
+
+
+    $values2 = [
+        //'id' => 4,
+        'name' =>"test2",
+        'nickname' =>"test3",
+        'favourite_card' =>"island",
+        'password' =>"test"//,
+        //'banned_at' =>"2021-01-13 11:06:37",
+        //'login_try' => 1
+    ];
+
+    $user2 = new UserModel();
+    $user2->updateSave($values2);
+    print_r($user2);
+
+ /*   $user3 = new UserModel();
+    $user3->delete(5);      // delete works
+    print_r($user3);*/
 }
 ?>
 
@@ -28,7 +51,7 @@ if ($p == 'login'){
     <div class="row">
         <div class="col-10 offset-1">
             <span class="login_output"> <!--// prints infos from the login (like failed etc.)-->
-                <?php if (isset($UserCheck->login_output)){print $UserCheck->login_output;} ?>
+                <?php if (isset($user->login_output)){print $user->login_output;} ?>
             </span>
         </div>
     </div>

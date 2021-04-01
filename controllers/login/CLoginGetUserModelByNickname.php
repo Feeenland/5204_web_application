@@ -2,7 +2,7 @@
 
 //include('models/MUser.php');
 
-class CLoginGetUserByNickname  extends MUser{
+class CLoginGetUserModelByNickname  extends UserModel{
 
     public function getUserByNickname() {
 

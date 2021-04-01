@@ -1,8 +1,8 @@
 <?php
 
-include('CLoginGetUserByNickname.php');
+include('controllers/login/CLoginGetUserModelByNickname.php');
 
-class CLogin extends CLoginGetUserByNickname{
+class CLogin extends CLoginGetUserModelByNickname{
 
     public $login_tries = 3; // 3 tries get the user to log in
     public $ban_time = 60 * 60; // in seconds = 1h will the user be banner by 3 fails
@@ -13,7 +13,7 @@ class CLogin extends CLoginGetUserByNickname{
     public $errorMessage = '';
 
 
-    public function userLogin() {
+/*    public function userLogin() {
 
         if(isset($_POST['login_try']) ) {
 
@@ -33,11 +33,7 @@ class CLogin extends CLoginGetUserByNickname{
         }else{
             print "no login_try";
         }
-
-
-
-
-    }
+    }*/
 
 
 }
