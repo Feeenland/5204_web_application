@@ -14,7 +14,7 @@ if ($p == 'login'){
 
 
     $values2 = [
-        //'id' => 4,
+        'id' => 4,
         'name' =>"test2",
         'nickname' =>"test3",
         'favourite_card' =>"island",

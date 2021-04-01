@@ -1,35 +1,44 @@
 <?php
 
 
-class UserModel extends AbstractModel {
+class CardsModel extends AbstractModel {
 
-    protected $table = 'users';
+    protected $table = 'cards';
 
     private $fields = [
         'id',
+        'lang',
+        'scryfall_uri',
+        'cmc',
+        'mana_cost',
         'name',
-        'nickname',
-        'favourite_card',
-        'password',
-        'banned_at',
-        'login_try'
+        'power',
+        'toughness',
+        'image_uris',
+        'rarity',
+        'set_name', //FK
+        'type_line',
     ];
+    // TODO  set_name is FK, try to handle ?!
+    // TODO  lists, cards_has_color & cads_has_formats_has_legalities ??
+
+    // TODO delete,save,setFieldValue,getFieldValue,toString = is the same =  separate file ?
 
     private $values = [];
 
-    public function getUsersByNickname($nickname) {
+    public function getCardByName($name) {
 
         try{
-            $result = $this->getBySingleField('nickname', $nickname, 's');
+            $result = $this->getBySingleField('name', $name, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
                 return false; //found nothing
             }else{
                 print "fetch!? ";
-                $dbUsr = $result->fetch_assoc();
+                $dbValue = $result->fetch_assoc();
                 foreach ($this->fields as $field){
-                    if (array_key_exists($field, $dbUsr))
-                        $this->setFieldValue($field, $dbUsr[$field]);
+                    if (array_key_exists($field, $dbValue))
+                        $this->setFieldValue($field, $dbValue[$field]);
                 }
                 return true;
             }
@@ -46,23 +55,13 @@ class UserModel extends AbstractModel {
         $this->values[$fieldName] = $value;
     }
 
-    public function getFieldValue($fieldName){ // get value from one specific field
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        if (! array_key_exists($fieldName, $this->values)){
-            return null;
-        }
-        return $this->values[$fieldName];
-    }
-
+    // only to use if there are new cards released
     public function updateSave($values){
         try{
             foreach ($this->fields as $field){ //put the incoming values in to $this->values
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
-            print $this->toString();
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
@@ -76,28 +75,6 @@ class UserModel extends AbstractModel {
             //return false;
         }
     }
-
-    public function toString(){
-        $infos = '';
-        foreach($this->values as $key => $value){
-            $infos .= $key . ' - ' . $value . '<br>';
-
-        }
-        return $infos;
-    }
-
-    // only in use if i add a admin Sometime
-    public function delete($id){
-        try{
-            $this->deleteByID($id);
-            print "deleted";
-        }catch(Exception $exception){
-            die('Problem with database');
-            //return false;
-        }
-    }
-
-
 }
 
 

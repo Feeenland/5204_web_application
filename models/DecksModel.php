@@ -1,35 +1,32 @@
 <?php
 
 
-class UserModel extends AbstractModel {
+class DecksModel extends AbstractModel {
 
-    protected $table = 'users';
+    protected $table = 'cards';
 
     private $fields = [
         'id',
-        'name',
-        'nickname',
-        'favourite_card',
-        'password',
-        'banned_at',
-        'login_try'
+        'user_id', //FK
+        'format_id', //FK
+        'name'
     ];
 
     private $values = [];
 
-    public function getUsersByNickname($nickname) {
+    public function getDeckByName($name) {
 
         try{
-            $result = $this->getBySingleField('nickname', $nickname, 's');
+            $result = $this->getBySingleField('name', $name, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
                 return false; //found nothing
             }else{
                 print "fetch!? ";
-                $dbUsr = $result->fetch_assoc();
+                $dbValue = $result->fetch_assoc();
                 foreach ($this->fields as $field){
-                    if (array_key_exists($field, $dbUsr))
-                        $this->setFieldValue($field, $dbUsr[$field]);
+                    if (array_key_exists($field, $dbValue))
+                        $this->setFieldValue($field, $dbValue[$field]);
                 }
                 return true;
             }
@@ -46,23 +43,12 @@ class UserModel extends AbstractModel {
         $this->values[$fieldName] = $value;
     }
 
-    public function getFieldValue($fieldName){ // get value from one specific field
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        if (! array_key_exists($fieldName, $this->values)){
-            return null;
-        }
-        return $this->values[$fieldName];
-    }
-
     public function updateSave($values){
         try{
             foreach ($this->fields as $field){ //put the incoming values in to $this->values
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
-            print $this->toString();
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
@@ -77,16 +63,6 @@ class UserModel extends AbstractModel {
         }
     }
 
-    public function toString(){
-        $infos = '';
-        foreach($this->values as $key => $value){
-            $infos .= $key . ' - ' . $value . '<br>';
-
-        }
-        return $infos;
-    }
-
-    // only in use if i add a admin Sometime
     public function delete($id){
         try{
             $this->deleteByID($id);
@@ -96,8 +72,6 @@ class UserModel extends AbstractModel {
             //return false;
         }
     }
-
-
 }
 
 

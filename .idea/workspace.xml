@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/5204_oop_magic.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/5204_oop_magic.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/UserModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/UserModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,13 +44,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="5204_oop_magic: schema" type="ebfa3cd1:MariaImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="5204_oop_magic@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="5204_oop_magic: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="users: table" type="dbc44a63:MariaImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -84,25 +78,25 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\5204_php\models" />
       <recent name="C:\xampp\htdocs\5204_php" />
       <recent name="C:\xampp\htdocs\5204_php\views" />
       <recent name="C:\xampp\htdocs\5204_php\helpers" />
       <recent name="C:\xampp\htdocs\5204_php\js" />
-      <recent name="C:\xampp\htdocs\5204_php\scss" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\5204_php\database" />
+      <recent name="C:\xampp\htdocs\5204_php\img\readme" />
       <recent name="C:\xampp\htdocs\5204_php\img" />
+      <recent name="C:\xampp\htdocs\5204_php\database" />
       <recent name="C:\xampp\htdocs\5204_php\controllers\login" />
       <recent name="C:\xampp\htdocs\5204_php\fonts" />
-      <recent name="C:\xampp\htdocs\5204_php" />
     </key>
   </component>
   <component name="RunManager">
@@ -140,7 +134,7 @@
       <updated>1615886551108</updated>
       <workItem from="1615886553266" duration="12978000" />
       <workItem from="1616229424486" duration="3088000" />
-      <workItem from="1616427168369" duration="98282000" />
+      <workItem from="1616427168369" duration="106912000" />
     </task>
     <servers />
   </component>
@@ -152,18 +146,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1076" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616582113900" />
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1617115438646">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1617284455114">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617115438646" />
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617284455114" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1616427175529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616427175529" />
-    <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1617118199598">
+    <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1617278438633">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617118199598" />
+    <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617278438633" />
     <state x="764" y="318" key="NewPhpClassDialog" timestamp="1616873386365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
