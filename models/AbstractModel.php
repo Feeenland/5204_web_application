@@ -47,15 +47,21 @@ abstract class AbstractModel
                         $type = $type . "s"; //$type + s
                     }
                 }
-                $values = implode("', '", $values); //separate by comma
-                $values = "'".$values."'";
+                //$values = implode("', '", $values); //separate by comma
+                //$values = "'".$values."'";
+                print_r($values);
                 $conn = DBConnection::getConnection();
                 $sql = "UPDATE " . $this->table . " SET " . $fieldsArray . " WHERE id = ?";
-                //UPDATE users SET id= 1, name = 'testX' ,nickname = 'test' WHERE id = '1'
+                //UPDATE users name = 'testX' ,nickname = 'test' WHERE id = '1'
                 print "SQL statement:  " .$sql ."  ";
                 $stmt = $conn->prepare($sql);
-                print "type: " .$type ."  values: " . $values;
-                $stmt->bind_param($type, $values);
+
+                //call_user_func_array(array($stmt, "bind_param"), array_merge(array($type), $values));
+
+                // call method, override it in every specific model
+                $this->bindMyParams($stmt, true);
+
+
                 $stmt->execute();
                 print "update ";
                 return true;
@@ -92,7 +98,7 @@ abstract class AbstractModel
                 $stmt = $conn->prepare($sql);
                 print $sql;   print $type ." " . $values;
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
-                $stmt->bind_param($type, $values);
+                $this->bindMyParams($stmt, false);;
                 $stmt->execute();
                 print "save ";
                 return $stmt->insert_id;
@@ -101,6 +107,8 @@ abstract class AbstractModel
             }
         }
     }
+
+    protected abstract function bindMyParams($stmt, $update = false);
 
     protected function deleteByID($id)
     {
