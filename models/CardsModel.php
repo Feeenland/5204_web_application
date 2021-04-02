@@ -5,7 +5,7 @@ class CardsModel extends AbstractModel {
 
     protected $table = 'cards';
 
-    private $fields = [
+    protected $fields = [
         'id',
         'lang',
         'scryfall_uri',
@@ -19,12 +19,15 @@ class CardsModel extends AbstractModel {
         'set_name', //FK
         'type_line',
     ];
+
+    protected $colors = [];
+
     // TODO  set_name is FK, try to handle ?!
     // TODO  lists, cards_has_color & cads_has_formats_has_legalities ??
 
     // TODO delete,save,setFieldValue,getFieldValue,toString = is the same =  separate file ?
 
-    private $values = [];
+    protected $values = [];
 
     public function getCardByName($name) {
 
@@ -40,11 +43,30 @@ class CardsModel extends AbstractModel {
                     if (array_key_exists($field, $dbValue))
                         $this->setFieldValue($field, $dbValue[$field]);
                 }
+                $this->loadColors();
                 return true;
             }
         }catch(Exception $exception){
             die('Problem with database');
             //return false;
+        }
+    }
+
+    public function loadColors()
+    {
+        $ids = $this->loadManyToManyRelations(
+            $this->getFieldValue('id'),
+            'cards_id',
+            'colors_id',
+            'cards_has_colors'
+        );
+
+        $this->colors = [];
+        foreach($ids as $id)
+        {
+            $c = new ColorModel();
+            $c->getColorById($id[0]);
+            $this->colors[] = $c;
         }
     }
 
@@ -74,6 +96,23 @@ class CardsModel extends AbstractModel {
             die('Problem with database');
             //return false;
         }
+    }
+
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
+    }
+
+    public function toString()
+    {
+        $standard = parent::toString();
+        if ($this->colors != []){
+            $standard .= 'COLORS:';
+            foreach($this->colors as $c){
+                $standard .= '<p>' . $c->toString() .'</p>';
+            }
+        }
+        return $standard;
     }
 }
 

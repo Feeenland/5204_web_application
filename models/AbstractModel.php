@@ -110,6 +110,19 @@ abstract class AbstractModel
 
     protected abstract function bindMyParams($stmt, $update = false);
 
+    protected function loadManyToManyRelations($id_source, $fk_source, $fk_dest, $pivot_table)
+    {
+        $conn = DBConnection::getConnection();
+        $sql = "SELECT " . $fk_dest . " From " . $pivot_table . " WHERE " . $fk_source . "=?" ;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $id_source);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all();
+
+        // Select $fk_dest from $pivot_table WHERe $fk_source = $sourceE_id
+        // SELECT colors_id FROM cardsS_has_colors WHERE cards_id
+    }
+
     protected function deleteByID($id)
     {
         try{
@@ -123,4 +136,23 @@ abstract class AbstractModel
             return false;
         }
     }
+
+    public function toString(){
+        $infos = '';
+        foreach($this->values as $key => $value){
+            $infos .= $key . ' - ' . $value . '<br>';
+
+        }
+        return $infos;
+    }
+    public function getFieldValue($fieldName){ // get value from one specific field
+        if ( !in_array($fieldName, $this->fields)){
+            return 'invalid field';
+        }
+        if (! array_key_exists($fieldName, $this->values)){
+            return null;
+        }
+        return $this->values[$fieldName];
+    }
+
 }

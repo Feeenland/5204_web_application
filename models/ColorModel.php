@@ -5,14 +5,14 @@ class ColorModel extends AbstractModel {
 
     protected $table = 'colors';
 
-    private $fields = [
+    protected $fields = [
         'id',
         'color',
         'abbr',
         'basic_land'
     ];
 
-    private $values = [];
+    protected $values = [];
 
     public function getColorById($id) {
         try{
@@ -40,6 +40,11 @@ class ColorModel extends AbstractModel {
             return 'invalid field';
         }
         $this->values[$fieldName] = $value;
+    }
+
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
     }
 }
 
