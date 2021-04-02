@@ -5,7 +5,7 @@ class UserModel extends AbstractModel {
 
     protected $table = 'users';
 
-    private $fields = [
+    protected $fields = [
         'id',
         'name',
         'nickname',
@@ -15,7 +15,7 @@ class UserModel extends AbstractModel {
         'login_try'
     ];
 
-    private $values = [];
+    protected $values = [];
 
     public function getUsersByNickname($nickname) {
 
@@ -37,6 +37,21 @@ class UserModel extends AbstractModel {
             die('Problem with database');
             //return false;
         }
+    }
+
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // with or without ID
+        $types = $update ? 'ssssi' : 'ssss';
+        $name = $this->getFieldValue('name');
+        $nickname = $this->getFieldValue('nickname');
+        $favourite_card = $this->getFieldValue('favourite_card');
+        $password = $this->getFieldValue('password');
+        $id = $this->getFieldValue('id');
+        if($update)
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password, $id);
+        else
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password);
     }
 
     public function setFieldValue($fieldName, $value){
