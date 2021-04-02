@@ -39,6 +39,21 @@ class UserModel extends AbstractModel {
         }
     }
 
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // with or without ID
+        $types = $update ? 'ssssi' : 'ssss';
+        $name = $this->getFieldValue('name');
+        $nickname = $this->getFieldValue('nickname');
+        $favourite_card = $this->getFieldValue('favourite_card');
+        $password = $this->getFieldValue('password');
+        $id = $this->getFieldValue('id');
+        if($update)
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password, $id);
+        else
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password);
+    }
+
     public function setFieldValue($fieldName, $value){
         if ( !in_array($fieldName, $this->fields)){
             return 'invalid field';

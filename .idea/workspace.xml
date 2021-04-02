@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dae4ef5f-2af0-41a2-bd51-f2e7a474f0bc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/login/CLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login/CLogin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/login/CLoginGetUserByNickname.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login/CLoginGetUserModelByNickname.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/5204_oop_magic.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/5204_oop_magic.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/AbstractModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/AbstractModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/MUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/UserModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/UserModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/UserModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layout.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,19 +91,19 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\5204_php" />
-      <recent name="C:\xampp\htdocs\5204_php\views" />
-      <recent name="C:\xampp\htdocs\5204_php\helpers" />
-      <recent name="C:\xampp\htdocs\5204_php\js" />
-      <recent name="C:\xampp\htdocs\5204_php\scss" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\5204_php\database" />
       <recent name="C:\xampp\htdocs\5204_php\controllers\login" />
       <recent name="C:\xampp\htdocs\5204_php\fonts" />
       <recent name="C:\xampp\htdocs\5204_php\img" />
       <recent name="C:\xampp\htdocs\5204_php" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\5204_php" />
+      <recent name="C:\xampp\htdocs\5204_php\views" />
+      <recent name="C:\xampp\htdocs\5204_php\helpers" />
+      <recent name="C:\xampp\htdocs\5204_php\js" />
+      <recent name="C:\xampp\htdocs\5204_php\scss" />
     </key>
   </component>
   <component name="RunManager">
@@ -178,10 +173,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="439" key="NewPhpFileDialog/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1616583670634" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1617191675804">
+    <state x="461" y="162" key="SettingsEditor" timestamp="1617378813268">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617191675804" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.30.1680.1010@0.0.1920.1040" timestamp="1617378813268" />
     <state x="590" y="338" key="com.intellij.ide.util.TipDialog" timestamp="1616427168383">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
