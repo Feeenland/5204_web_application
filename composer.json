@@ -1,0 +1,17 @@
+{
+    "name": "feeenland/5204_web_application",
+    "description": "scool project modul 5204 sae institute",
+    "type": "project",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Controllers" : "controllers",
+            "Database" : "database",
+            "Helpers" : "helpers",
+            "Models" : "models",
+            "Templates" : "templates",
+            "Views" : "views"
+        }
+    }
+}
