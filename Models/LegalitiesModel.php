@@ -1,21 +1,21 @@
 <?php
 
+namespace Models;
 
-class UsersHasCardsModel extends AbstractModel {
+class LegalitiesModel extends AbstractModel {
 
-    protected $table = 'set_edition';
+    protected $table = 'legalities';
 
     private $fields = [
         'id',
-        'users_id',
-        'cards_id'
+        'legality'
     ];
 
     private $values = [];
 
-    public function getCardsByUser($user_id) {
+    public function getLegalityById($id) {
         try{
-            $result = $this->getBySingleField('id', $user_id, 's');
+            $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
                 return false; //found nothing
@@ -34,13 +34,10 @@ class UsersHasCardsModel extends AbstractModel {
         }
     }
 
-    public function setFieldValue($fieldName, $value){
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        $this->values[$fieldName] = $value;
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
     }
-    // TODO add delete an save/update
 }
 
 

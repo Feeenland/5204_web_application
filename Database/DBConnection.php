@@ -4,7 +4,8 @@
  * database connection according to the singleton Design Pattern
  * - open the connection only once, use it several times
  */
-
+namespace Database;
+use mysqli;
 
 class DBConnection
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace Controllers;
+
 class LoginController
 {
     private $login_tries = 3; // 3 tries get the user to log in

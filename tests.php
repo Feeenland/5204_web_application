@@ -1,15 +1,20 @@
 <?php
 
+use Models\CardsModel;
+use Views\LoginView;
 
-// database connection
-include('database/DBConnection.php');
-include('helpers/validations.php');
-include('helpers/disinfect.php');
-include('models/AbstractModel.php');
-include('models/CardsModel.php');
-include('models/ColorModel.php');
+include('bootstrap.php');
+
 
 
 $card = new CardsModel();
 $card->getCardByName('clariomultimatum');
 print $card->toString();
+
+
+$view = new LoginView();
+$view->showTemplate();
+
+
+
+

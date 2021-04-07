@@ -1,21 +1,23 @@
 <?php
 
+namespace Models;
 
-class DecksHasColorsModel extends AbstractModel {
+class ColorModel extends AbstractModel {
 
-    protected $table = 'deck_has_color';
+    protected $table = 'colors';
 
-    private $fields = [
+    protected $fields = [
         'id',
-        'deck_id', //FK
-        'color_id' //FK
+        'color',
+        'abbr',
+        'basic_land'
     ];
 
-    private $values = [];
- // TODO what happens if there are more then one = deck_id ?
-    public function getColorByDeckId($deck_id) { //get color by deck
+    protected $values = [];
+
+    public function getColorById($id) {
         try{
-            $result = $this->getBySingleField('id', $deck_id, 's');
+            $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
                 return false; //found nothing
@@ -34,13 +36,10 @@ class DecksHasColorsModel extends AbstractModel {
         }
     }
 
-    public function setFieldValue($fieldName, $value){
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        $this->values[$fieldName] = $value;
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
     }
-    // TODO add delete an save/update
 }
 
 

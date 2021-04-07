@@ -7,8 +7,8 @@ SAE Institute Zurich, Submission date Apr, 29. 2021
 * [Project structure](#project)
 * [Database structure](#database)
 * [Installation and system ](#installation)
-* [Folder structure](##folder-structure)
-* [source directory](##source-directory)
+* [Folder structure](#folder-structure)
+* [source directory](#source-directory)
 
 ## <a name="teacher-info"></a>Infos for the Teacher
 **Database**
@@ -25,13 +25,12 @@ _These are the data to log into my website in the backend as a user:_
     Login:
     nickname: teacher PW: oop5204
 
-**Files**
+**Files & Folders**
 
-_in every file at the top you find a description what this file does._
-
-**Folders**
-
-_the folder structure is created by the MVC model. to understand the folder structure please read the section Folder structure in the README.md_
+_In every PHP file at the top you find a description what this file does._  
+_The folder structure is created by the MVC model. 
+To understand the folder structure please read the section [Project structure](#project)
+and the [Folder structure](#folder-structure) in the README.md._
 ***
 
 ## <a name="overview"></a>Overview 
@@ -61,7 +60,7 @@ The Project is build by the MVC model.
  * HTML5
  * gulp
  * Bootstrap
- * Composer (namespace/autoload)
+ * Composer (namespaces)
  * twig (template system)
  * git
  * scryfall API
@@ -90,6 +89,13 @@ What the watcher actually does is:
 * it watches for changes in the html files and updates the live server on it.
 * it watches for changes in the js files and updates the live server on it.
 
+The composer i need for namespaces and the template system twig.  
+ [namespaces use explained](https://jtreminio.com/blog/composer-namespaces-in-5-minutes/)  
+ [namespaces detailed explained](https://code.tutsplus.com/tutorials/how-to-autoload-classes-with-composer-in-php--cms-35649)  
+ [twig for Developers](https://jtreminio.com/blog/composer-namespaces-in-5-minutes/)  
+ [twig for template Designers](https://twig.symfony.com/doc/3.x/templates.html)  
+
+
 Now you can work on this project.
 The watcher (gulp) is actually just for templating.
 With PHP the whole thing gets a bit more complicated, That's why I did the whole templating with style before I started with PHP. 
@@ -100,20 +106,20 @@ and then only added minor changes.
 **The folder structure by MVC**  
 
 1. `5204_php` = is the root folder. Folders:
-   + `controllers` = contains all the files which controls something.
+   + `Controllers` = contains all the files which controls something.
    + `css` = finished css files  
-   + `database` = contains the connection files for the DB.
+   + `Database` = contains the connection files for the DB.
    + `fonts` = contains all the used fonts.
-   + `helpers` = contains helper files.
+   + `Helpers` = contains helper files.
    + `img` = contains all images.
    + `js` = contains .js files.
    + `min_css` = contains the min css file.
-   + `models` = contains files which does something in the Database.
+   + `Models` = contains files which does something in the Database.
    + `node_modules` = contains files and folders from the node.
    + `scss` = contains all .scss files.
    + `templates` = contains every file that outputs some HTML.
    + `vendor` = contains files and folders from composer.
-   + `views` = contains files who includes files from template.
+   + `Views` = contains files who includes files from template.
 
 2. `5204_php` = is the root folder. Files:
    + .gitignore = tells git which files or folders it should ignore.
@@ -134,6 +140,8 @@ and then only added minor changes.
 **Pictures**  
 Nearly all of the pictures come from the [scryfall API](https://scryfall.com/docs/api).
 
-only 3 are not, i got the form:
-* [pinterest.com](https://www.pinterest.de/pin/535295105706622703/) 
+only 1 are not, i got the form:
+* [blog.gate-to-the-games.de](https://blog.gate-to-the-games.de/magic-booster-battle-limited-in-ganz-einfach/) 
+
+![magic](img/magic.png)
 

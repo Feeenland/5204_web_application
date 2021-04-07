@@ -1,5 +1,6 @@
 <?php
 
+namespace Models;
 
 class CardsModel extends AbstractModel {
 
@@ -25,7 +26,6 @@ class CardsModel extends AbstractModel {
     // TODO  set_name is FK, try to handle ?!
     // TODO  lists, cards_has_color & cads_has_formats_has_legalities ??
 
-    // TODO delete,save,setFieldValue,getFieldValue,toString = is the same =  separate file ?
 
     protected $values = [];
 
@@ -68,13 +68,7 @@ class CardsModel extends AbstractModel {
             $c->getColorById($id[0]);
             $this->colors[] = $c;
         }
-    }
-
-    public function setFieldValue($fieldName, $value){
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        $this->values[$fieldName] = $value;
+        // TODO optimize the DB query so that hundreds of queries do not have to be made (with JOIN / lazy loading)
     }
 
     // only to use if there are new cards released
@@ -87,7 +81,6 @@ class CardsModel extends AbstractModel {
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
-                //die('Speichern fehlgeschlagen');
             } else {
                 print " worked! ";
                 return true;

@@ -1,5 +1,8 @@
 <?php
 
+namespace Models;
+use Database\DBConnection;
+use Helpers;
 
 abstract class AbstractModel
 {
@@ -12,7 +15,8 @@ abstract class AbstractModel
             $sql = "SELECT * FROM " . $this->table . " WHERE " . $field . " = ?";
             $stmt = $conn->prepare($sql);
             if ($type === 's') {
-                $value = disinfect($value);
+                $d = new Helpers\disinfect();
+                $d->disinfect($value);
             }
             $stmt->bind_param($type, $value);
             $stmt->execute();
@@ -35,7 +39,8 @@ abstract class AbstractModel
                 $fieldsArray =implode(",", $fieldsArray); //separate by comma
                 $type = "";
                 foreach ($values as $value){
-                        disinfect($value); //save disinfected value in array
+                    $d = new Helpers\disinfect();
+                    $d->disinfect($value);
                 }
                 $v = $values['id']; //save the id
                 unset($values['id']); //delete the id
@@ -86,9 +91,9 @@ abstract class AbstractModel
                     if (is_numeric($value)) {
                         $type = $type . "i"; //$type + i
                     } else{
-                        $value = disinfect($value);
+                        $d = new Helpers\disinfect();
+                        $d->disinfect($value);
                         $type = $type . "s"; //$type + s
-                        disinfect($value); //save disinfected value in array
                     }
                 }
                 $values = implode("', '", $values); //separate by comma
@@ -118,9 +123,10 @@ abstract class AbstractModel
         $stmt->bind_param('i', $id_source);
         $stmt->execute();
         return $stmt->get_result()->fetch_all();
+        // TODO to secure it by empty result or something
 
-        // Select $fk_dest from $pivot_table WHERe $fk_source = $sourceE_id
-        // SELECT colors_id FROM cardsS_has_colors WHERE cards_id
+        // SELECT $fk_dest FROM $pivot_table WHERE $fk_source = $source_id
+        // SELECT colors_id FROM cards_has_colors WHERE cards_id
     }
 
     protected function deleteByID($id)
@@ -145,6 +151,7 @@ abstract class AbstractModel
         }
         return $infos;
     }
+
     public function getFieldValue($fieldName){ // get value from one specific field
         if ( !in_array($fieldName, $this->fields)){
             return 'invalid field';
@@ -153,6 +160,13 @@ abstract class AbstractModel
             return null;
         }
         return $this->values[$fieldName];
+    }
+
+    public function setFieldValue($fieldName, $value){
+        if ( !in_array($fieldName, $this->fields)){
+            return 'invalid field';
+        }
+        $this->values[$fieldName] = $value;
     }
 
 }

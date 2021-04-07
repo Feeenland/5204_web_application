@@ -1,20 +1,20 @@
 <?php
 
+namespace Models;
 
-class ColorModel extends AbstractModel {
+class SetEditionModel extends AbstractModel {
 
-    protected $table = 'colors';
+    protected $table = 'set_edition';
 
-    protected $fields = [
+    private $fields = [
         'id',
-        'color',
-        'abbr',
-        'basic_land'
+        'set_name',
+        'set'
     ];
 
-    protected $values = [];
+    private $values = [];
 
-    public function getColorById($id) {
+    public function getSetById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -41,7 +41,7 @@ class ColorModel extends AbstractModel {
         }
         $this->values[$fieldName] = $value;
     }
-
+    // TODO add save => if there are new releases
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.

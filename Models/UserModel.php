@@ -1,32 +1,38 @@
 <?php
 
+namespace Models;
 
-class DecksModel extends AbstractModel {
+class UserModel extends AbstractModel {
 
-    protected $table = 'cards';
+    protected $table = 'users';
 
-    private $fields = [
+    protected $fields = [
         'id',
-        'user_id', //FK
-        'format_id', //FK
-        'name'
+        'name',
+        'nickname',
+        'favourite_card',
+        'password',
+        'banned_at',
+        'login_try'
     ];
 
-    private $values = [];
+    protected $values = [];
 
-    public function getDeckByName($name) {
+    //protected $id = $values['id'];
+
+    public function getUsersByNickname($nickname) {
 
         try{
-            $result = $this->getBySingleField('name', $name, 's');
+            $result = $this->getBySingleField('nickname', $nickname, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
                 return false; //found nothing
             }else{
                 print "fetch!? ";
-                $dbValue = $result->fetch_assoc();
+                $dbUsr = $result->fetch_assoc();
                 foreach ($this->fields as $field){
-                    if (array_key_exists($field, $dbValue))
-                        $this->setFieldValue($field, $dbValue[$field]);
+                    if (array_key_exists($field, $dbUsr))
+                        $this->setFieldValue($field, $dbUsr[$field]);
                 }
                 return true;
             }
@@ -36,11 +42,19 @@ class DecksModel extends AbstractModel {
         }
     }
 
-    public function setFieldValue($fieldName, $value){
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        $this->values[$fieldName] = $value;
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // with or without ID
+        $types = $update ? 'ssssi' : 'ssss';
+        $name = $this->getFieldValue('name');
+        $nickname = $this->getFieldValue('nickname');
+        $favourite_card = $this->getFieldValue('favourite_card');
+        $password = $this->getFieldValue('password');
+        $id = $this->getFieldValue('id');
+        if($update)
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password, $id);
+        else
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password);
     }
 
     public function updateSave($values){
@@ -49,6 +63,7 @@ class DecksModel extends AbstractModel {
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
+            print $this->toString();
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
@@ -63,6 +78,7 @@ class DecksModel extends AbstractModel {
         }
     }
 
+    // only in use if i add a admin Sometime
     public function delete($id){
         try{
             $this->deleteByID($id);
@@ -72,6 +88,7 @@ class DecksModel extends AbstractModel {
             //return false;
         }
     }
+
 }
 
 

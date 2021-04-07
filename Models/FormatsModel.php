@@ -1,19 +1,21 @@
 <?php
 
+namespace Models;
 
-class SetEditionModel extends AbstractModel {
+class FormatsModel extends AbstractModel {
 
-    protected $table = 'set_edition';
+    protected $table = 'formats';
 
     private $fields = [
         'id',
-        'set_name',
-        'set'
+        'format',
+        'cards',
+        'sideboard'
     ];
 
     private $values = [];
 
-    public function getSetById($id) {
+    public function getFormatsById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -34,13 +36,10 @@ class SetEditionModel extends AbstractModel {
         }
     }
 
-    public function setFieldValue($fieldName, $value){
-        if ( !in_array($fieldName, $this->fields)){
-            return 'invalid field';
-        }
-        $this->values[$fieldName] = $value;
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
     }
-    // TODO add save => if there are new releases
 }
 
 
