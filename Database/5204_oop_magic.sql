@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Apr 2021 um 13:16
+-- Erstellungszeit: 09. Apr 2021 um 20:33
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.10
 
@@ -42,6 +42,13 @@ CREATE TABLE `cards` (
   `type_line` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `cards`
+--
+
+INSERT INTO `cards` (`id`, `lang`, `scryfall_uri`, `cmc`, `mana_cost`, `name`, `power`, `toughness`, `image_uris`, `rarity`, `set_name`, `type_line`) VALUES
+(2147483647, 'en', 'z', '10', 'z', 'clariomultimatum', '6', '5', 'g', 'g', 1, 'g');
+
 -- --------------------------------------------------------
 
 --
@@ -51,9 +58,16 @@ CREATE TABLE `cards` (
 CREATE TABLE `cards_has_colors` (
   `id` int(11) NOT NULL,
   `cards_id` int(11) NOT NULL,
-  `colors_id` int(11) NOT NULL,
-  `cards_colors_id` int(11) NOT NULL
+  `colors_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `cards_has_colors`
+--
+
+INSERT INTO `cards_has_colors` (`id`, `cards_id`, `colors_id`) VALUES
+(1, 2147483647, 2),
+(2, 2147483647, 5);
 
 -- --------------------------------------------------------
 
@@ -67,6 +81,15 @@ CREATE TABLE `cards_has_formats_has_legalities` (
   `formats_id` int(11) NOT NULL,
   `legalities_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `cards_has_formats_has_legalities`
+--
+
+INSERT INTO `cards_has_formats_has_legalities` (`id`, `cards_id`, `formats_id`, `legalities_id`) VALUES
+(1, 2147483647, 1, 1),
+(2, 2147483647, 12, 2),
+(3, 2147483647, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -101,7 +124,8 @@ INSERT INTO `colors` (`id`, `color`, `abbr`, `basic_land`) VALUES
 CREATE TABLE `decks` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `format_id` int(11) NOT NULL
+  `format_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -147,20 +171,20 @@ CREATE TABLE `formats` (
 
 INSERT INTO `formats` (`id`, `format`, `cards`, `sideboard`) VALUES
 (1, 'standard', 60, 15),
-(2, 'future', 0, 0),
-(3, 'historic', 0, 0),
-(4, 'gladiator', 0, 0),
-(5, 'pioneer', 0, 0),
-(6, 'modern', 0, 0),
-(7, 'legacy', 0, 0),
-(8, 'pauper', 0, 0),
-(9, 'vintage', 0, 0),
-(10, 'penny', 0, 0),
-(11, 'commander', 0, 0),
-(12, 'brawl', 0, 0),
-(13, 'duel', 0, 0),
-(14, 'oldschool', 0, 0),
-(15, 'premodern', 0, 0);
+(2, 'future', 60, 15),
+(3, 'historic', 60, 15),
+(4, 'gladiator', 60, 15),
+(5, 'pioneer', 60, 15),
+(6, 'modern', 60, 15),
+(7, 'legacy', 60, 15),
+(8, 'pauper', 60, 15),
+(9, 'vintage', 60, 15),
+(10, 'penny', 60, 15),
+(11, 'commander', 100, 0),
+(12, 'brawl', 60, 15),
+(13, 'duel', 60, 15),
+(14, 'oldschool', 60, 15),
+(15, 'premodern', 60, 15);
 
 -- --------------------------------------------------------
 
@@ -195,6 +219,13 @@ CREATE TABLE `set_edition` (
   `set` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `set_edition`
+--
+
+INSERT INTO `set_edition` (`id`, `set_name`, `set`) VALUES
+(1, 'Zen', 'z');
+
 -- --------------------------------------------------------
 
 --
@@ -216,9 +247,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nickname`, `favourite_card`, `password`, `login_try`, `banned_at`) VALUES
-(1, 'testxz', 'test', 'land', 'test', 0, NULL),
+(1, 'testXZU', 'test', 'land', 'test', 1, NULL),
 (3, '', '', '', '', 0, NULL),
-(4, '', '', '', '', 0, NULL),
+(4, 'aa', 'b', 'c', 'd', 0, NULL),
 (6, '', '', '', '', 0, NULL),
 (7, '', '', '', '', 0, NULL),
 (8, '', '', '', '', 0, NULL),
@@ -339,13 +370,13 @@ ALTER TABLE `users_has_cards`
 -- AUTO_INCREMENT für Tabelle `cards_has_colors`
 --
 ALTER TABLE `cards_has_colors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `cards_has_formats_has_legalities`
 --
 ALTER TABLE `cards_has_formats_has_legalities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `colors`
@@ -387,7 +418,7 @@ ALTER TABLE `legalities`
 -- AUTO_INCREMENT für Tabelle `set_edition`
 --
 ALTER TABLE `set_edition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
