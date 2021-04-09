@@ -24,10 +24,9 @@ class UserModel extends AbstractModel {
 
         try{
             $result = $this->getBySingleField('nickname', $nickname, 's');
+
             if($result->num_rows == 0){
                 print "false! MUser ";
-                print_r($result);
-                var_dump($result->num_rows);
                 return false; //found nothing
             }else{
                 print "fetch!? ";
@@ -46,17 +45,26 @@ class UserModel extends AbstractModel {
 
     protected function bindMyParams($stmt, $update = false)
     {
+
+        // SQL statement: UPDATE users SET
+        // name = ? ,
+        //nickname = ? ,
+        //favourite_card = ? ,
+        //password = ? ,
+        //login_try = ? WHERE id = ?
         // with or without ID
-        $types = $update ? 'ssssi' : 'ssss';
+        $types = $update ? 'sssssii' : 'sssssi';
         $name = $this->getFieldValue('name');
         $nickname = $this->getFieldValue('nickname');
         $favourite_card = $this->getFieldValue('favourite_card');
         $password = $this->getFieldValue('password');
+        $banned_at = $this->getFieldValue('banned_at');
+        $login_try = $this->getFieldValue('login_try');
         $id = $this->getFieldValue('id');
         if($update)
-            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password, $id);
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try, $id);
         else
-            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password);
+            $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try);
     }
 
     public function updateSave($values){

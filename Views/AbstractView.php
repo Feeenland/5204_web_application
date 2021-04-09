@@ -25,7 +25,18 @@ abstract class AbstractView
 
     public function showTemplate(){
         $tmpl = $this->twig->load($this->tmpl);
+
         echo $tmpl->render($this->data);
+    }
+
+    public function assignData($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    public function addToKey($key, $value)
+    {
+        $this->data[$key][] = $value;
     }
 
     public function addInfos($infos)

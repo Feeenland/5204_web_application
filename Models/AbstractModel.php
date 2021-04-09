@@ -7,6 +7,8 @@ use Helpers;
 abstract class AbstractModel
 {
     protected $table;
+    protected $fields = [];
+    protected $values = [];
 
     protected function getBySingleField($field, $value, $type = 's')
     {
@@ -24,6 +26,16 @@ abstract class AbstractModel
         }catch(Exception $e){
             die($e->getMessage());
         }
+    }
+
+    public function save()
+    {
+        $this->saveValues(
+            $this->fields,
+            $this->values,
+            $this->getFieldValue('id') ?
+                $this->getFieldValue('id') : 0
+        );
     }
 
     protected function saveValues($fields, $values, $id = 0)

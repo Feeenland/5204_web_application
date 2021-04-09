@@ -40,7 +40,8 @@ class LoginController
             $view->showTemplate();
         } else {
             $view = $this->view = new LoginView();
-            $this->view->addInfos($this->infos);
+            // $this->view->addInfos($this->infos);
+            $this->view->addToKey('infos', $this->infos);
             $this->view->addErrorMessages($this->errorMessages);
             $view->showTemplate();
         }
@@ -51,10 +52,11 @@ class LoginController
 
         // valid user?
         $usr = new UserModel();
-        $usr->getUsersByNickname($nick);
+        $userfound =$usr->getUsersByNickname($nick);
+        var_dump($usr);
+        die();
         print $nick;
-        print_r ($usr);
-        if ($usr == false) { // TODO it returns an object not true or false why!!!!!!
+        if ($userfound == false) { // TODO it returns an object not true or false why!!!!!!
             // Return fail message
             print 'false usr';
             $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben'; // mail is wrong
@@ -65,9 +67,9 @@ class LoginController
             if($usr->getFieldValue('banned_at') == null || $usr->getFieldValue('login_try') <= 1) {
                 // check password
                 //if (password_verify($pwd, $usr['password'])) { //match the pw with pw in DB //TODO add the pw hash
-                if ($pwd == $usr['password']) { //match the pw with pw in DB
+                if ($pwd == $usr->getFieldValue('password')) { //match the pw with pw in DB
                     // reset login_try, if there are any
-                    if ($usr['login_try'] != 0) {
+                    if ($usr->getFieldValue('login_try') != 0) {
                         $usr->setFieldValue('login_try', 0);
                     }
                     //print 'pw down';
@@ -83,7 +85,7 @@ class LoginController
                 } else {
                     $this->checkIfUserIsBanned($usr);
                     // increase failure counter
-                    $fails = $usr['login_try'] + 1; //every try +1, and banned at 3
+                    $fails = $usr->getFieldValue('login_try')+ 1; //every try +1, and banned at 3
                     // check failure counter, ban if needed
                     if ($fails >= $this->login_tries) { // user get banned, add timestamp in the field banned_at in the DB.
                         $values['banned_at'] =  date('Y-m-d H:i:s');
@@ -101,7 +103,8 @@ class LoginController
                     } else {
                         // update login_try ++ in DB.
                         $values['login_try'] = +1;
-                        $usr->updateSave($values); //TODO user update login_try
+                        $usr->setFieldValue('login_try', $fails);
+                        $usr->save(); //TODO user update login_try
                         //updateUserField($usr['id'], 'login_try', $fails, 'i');
                         $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben';
                         $this->errorMessages = 'Etwas wurde falsch eingegeben!';
@@ -114,9 +117,9 @@ class LoginController
         }
     }
 
-    private function checkIfUserIsBanned($usr){
+    private function checkIfUserIsBanned(UserModel $usr){
         // is user banned?
-        if ($usr['banned_at'] != null) {
+        if ($usr->getFieldValue('banned_at') != null) {
             $banned_at = date_create_from_format($this->db_datetime_format, $usr['banned_at']);
             $now = new DateTime();
             $interval = $now->getTimestamp() - $banned_at->getTimestamp(); // now - banned_at = how log is he banned jet.
@@ -129,9 +132,9 @@ class LoginController
                 $this->showLoginForm();
                 return true;
             } else { // waited long enough = reset the field banned_at an login_try in the DB.
-                updateUserField($usr['id'], 'banned_at', null, 's');
-                updateUserField($usr['id'], 'login_try', 0, 'i');
-                $usr['login_try'] = 0;
+                $usr->setFieldValue('banned_at',null);
+                $usr->setFieldValue('login_try', 0);
+                $usr->save();
                 return false;
             }
 
