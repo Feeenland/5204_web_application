@@ -26,6 +26,8 @@ class UserModel extends AbstractModel {
             $result = $this->getBySingleField('nickname', $nickname, 's');
             if($result->num_rows == 0){
                 print "false! MUser ";
+                print_r($result);
+                var_dump($result->num_rows);
                 return false; //found nothing
             }else{
                 print "fetch!? ";

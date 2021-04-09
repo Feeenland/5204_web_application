@@ -1,0 +1,33 @@
+
+{% block h1 %}Magic Card
+    {% block cardName %}
+        Fairy
+    {% endblock %}
+{% endblock %}
+
+
+{% block content%}
+
+    <div class="container card__single">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                    <img src="img/cards/{% block cardImage %}c16-143-burgeoning.jpg{% endblock %}" alt="magic card">
+            </div>
+            <div class="col">
+                {% block %}
+                    
+                {% endblock %}
+                rarity - g
+                set_name - 1
+                type_line - g
+                color - Green
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block %}
+{% endblock %}

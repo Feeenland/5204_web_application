@@ -6,23 +6,23 @@ class FormatsModel extends AbstractModel {
 
     protected $table = 'formats';
 
-    private $fields = [
+    public $fields = [
         'id',
         'format',
         'cards',
         'sideboard'
     ];
 
-    private $values = [];
+    public $values = [];
 
     public function getFormatsById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
-                print "false! MUser ";
+                //print "false!";
                 return false; //found nothing
             }else{
-                print "fetch!? ";
+                //print "fetch!? ";
                 $dbValue = $result->fetch_assoc();
                 foreach ($this->fields as $field){
                     if (array_key_exists($field, $dbValue))

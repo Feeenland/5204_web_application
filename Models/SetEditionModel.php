@@ -6,22 +6,22 @@ class SetEditionModel extends AbstractModel {
 
     protected $table = 'set_edition';
 
-    private $fields = [
+    protected $fields = [
         'id',
         'set_name',
         'set'
     ];
 
-    private $values = [];
+    protected $values = [];
 
     public function getSetById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
-                print "false! MUser ";
+                //print "false! ";
                 return false; //found nothing
             }else{
-                print "fetch!? ";
+                //print "fetch!? ";
                 $dbValue = $result->fetch_assoc();
                 foreach ($this->fields as $field){
                     if (array_key_exists($field, $dbValue))

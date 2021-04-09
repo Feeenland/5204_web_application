@@ -1,35 +1,21 @@
 <?php
-/**
- * The Index.php controls the whole website.
- * or to say so index.php is the whole website with different content each time.
- */
 
-// database connection
-include('database/DBConnection.php');
-// helpers
-include('helpers/validations.php');
-include('helpers/disinfect.php');
+use Controllers\LoginController;
+use Models\CardsModel;
+use Views\HomeView;
 
-// models
-include('models/AbstractModel.php');
-include('models/UserModel.php');
-
-// views
-include('views/AbstractView.php');
-include('views/LoginView.php');
-
+include('bootstrap.php');
 
 session_start();
 //error_reporting(E_WARNING); // don't show the warnings
 $pageElement= null;
 $p ='home';
 
-
-if(isset($_GET['p']) && $_GET['p'] != ''){// from the get param, is p set and not empty ? load the page
+// from the get param, is p set and not empty ? load the page
+if(isset($_GET['p']) && $_GET['p'] != ''){
     $p =$_GET['p'] ;
     if($_GET['p'] == 'login'){
-        include('controllers/login/CLogin.php');
-        $pageTitle = 'Login';
+        $controller = new LoginController();
     }else if($_GET['p'] == 'home'){
         $page = 'views/home.php';
         $pageTitle = 'Home';
@@ -38,7 +24,14 @@ if(isset($_GET['p']) && $_GET['p'] != ''){// from the get param, is p set and no
         $pageTitle = 'Magic user';
     }
 }else{
-    $page = 'views/home.php';
+
+    $view = new HomeView();
+    $view->showTemplate();
 }
 
-require 'views/layout.php';
+$card = new CardsModel();
+$card->getCardByName('clariomultimatum');
+print $card->toString();
+
+
+

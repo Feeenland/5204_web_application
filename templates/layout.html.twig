@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Magic Decks</title>
+    {% block head %}
+        <title>{% block title %}{% endblock %} - Magic Decks</title>
+    {% endblock %}
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -15,13 +18,23 @@
 <div class="container">
     <div class="row">
         <div class="col-10 offset-1">
-            <span class="login_output"> <!--// prints infos from the login (like failed etc.)-->
-               {# login output?
-                <?php if (isset($user->login_output)){print $user->login_output;} ?>#}
+            <span class="infos"> <!--// prints infos from the login (like failed etc.)-->
+                {% block info %}
+
+                {% endblock %}
             </span>
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{% block h1 %}Magic Decks{% endblock %}</h1>
+        </div>
+    </div>
+</div>
+
 
 {% block content %}
 

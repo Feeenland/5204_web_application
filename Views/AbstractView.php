@@ -15,6 +15,7 @@ abstract class AbstractView
 
     protected $tmpl = 'main.html.twig';
     protected $data= array();
+    // TODO can i also add a string?
 
     public function __construct()
     {
@@ -27,4 +28,12 @@ abstract class AbstractView
         echo $tmpl->render($this->data);
     }
 
+    public function addInfos($infos)
+    {
+        $this->data['infos'][] = $infos;
+    }
+    public function addErrorMessages($errorMessages)
+    {
+        $this->data['errorMessages'][] = $errorMessages;
+    }
 }
