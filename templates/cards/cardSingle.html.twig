@@ -8,9 +8,9 @@
     {% endfor %}
 {% endblock %}
 
-{% block h1 %}Magic Card
+{% block h1 %}
     {% block cardName %}
-        Fairy
+        {{ name }} {{ color }}
     {% endblock %}
 {% endblock %}
 
@@ -23,15 +23,10 @@
             <img src="img/cards/c16-143-burgeoning.jpg" class="card__single_img" alt="magic card">
         </div>
         <div class="col">
-            <div class="row justify-content-between">
-                <div class="col">
-                    <h2>Name tarmogoyf</h2>
-                </div>
-            </div>
             <div class="col">
                 <div class="row justify-content-between">
                     <div class="col-4">
-                        <p class="card__single_title">rarity: common</p>
+                        <p class="card__single_title">rarity: {{ rarity }}</p>
                     </div>
                     <div class="col-3">
                         <button class="btn_1 btn card__single_btn btn-outline-warning">+ cards</button>
@@ -42,7 +37,7 @@
                     <div class="col">
                         <p class="card__single_title">colors:</p>
                     </div>
-                    <div class="col">
+                    <div class="col">{{ color  }}
                         <img src="img/blue.png" class="color__img" alt="">
                     </div>
                     <div class="col">
@@ -61,37 +56,37 @@
                 <div class="row justify-content-between">
                     <div class="col">
                         <p class="card__single_title">cmc:</p>
-                        <p>10</p>
+                        <p>{{ cmc }}</p>
                     </div>
                     <div class="col">
                         <p class="card__single_title">mana cost:</p>
-                        <p>G WW B</p>
+                        <p>{{ mana_cost }}</p>
                     </div>
                     <div class="col">
                         <p class="card__single_title">power:</p>
-                        <p>8</p>
+                        <p>{{ power }}</p>
                     </div>
                     <div class="col">
                         <p class="card__single_title">toughness:</p>
-                        <p>6</p>
+                        <p>{{ toughness }}</p>
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <div class="col">
                         <p class="card__single_title">type:</p>
-                        <p>Creature — Lhurgoyf</p>
+                        <p>{{ type_line }}</p>
                     </div>
                     <div class="col">
                         <p class="card__single_title">language:</p>
-                        <p>En</p>
+                        <p>{{ lang  }}</p>
                     </div>
                     <div class="col">
                         <p class="card__single_title">set name:</p>
-                        <p>zen</p>
+                        <p>{{ set_name  }}</p>
                     </div>
                     <div class="col">
                         <button class="btn_1 btn btn-outline-warning">
-                            <a href="https://api.scryfall.com/cards/named?fuzzy=tarmogoyf" target="_blank">scryfall</a>
+                            <a href="{{ scryfall_uri }}" target="_blank">scryfall</a>
                         </button>
                     </div>
                 </div>
@@ -145,9 +140,6 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
-
-
-{% block %}
-{% endblock %}

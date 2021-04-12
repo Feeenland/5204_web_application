@@ -36,9 +36,13 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
     $view->showTemplate();
 }
 
-$card = new CardsModel();
+/*$card = new CardsModel();
 $card->getCardByName('clariomultimatum');
-print $card->toString();
+print $card->getFieldValue('name');
+print $card->toString();*/
+
+$c = new \Controllers\CardController();
+$c->getCardDetailByName();
 
 
 
