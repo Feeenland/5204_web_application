@@ -1,0 +1,153 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Card{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+{% block h1 %}Magic Card
+    {% block cardName %}
+        Fairy
+    {% endblock %}
+{% endblock %}
+
+
+{% block content%}
+
+<div class="container card__single">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+            <img src="img/cards/c16-143-burgeoning.jpg" class="card__single_img" alt="magic card">
+        </div>
+        <div class="col">
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h2>Name tarmogoyf</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-between">
+                    <div class="col-4">
+                        <p class="card__single_title">rarity: common</p>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn_1 btn card__single_btn btn-outline-warning">+ cards</button>
+                        <!-- <button class="btn_1 btn card__single_btn btn-outline-warning">+ deck</button>-->
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="card__single_title">colors:</p>
+                    </div>
+                    <div class="col">
+                        <img src="img/blue.png" class="color__img" alt="">
+                    </div>
+                    <div class="col">
+                        <img src="img/green.png" class="color__img" alt="">
+                    </div>
+                    <div class="col">
+                        <img src="img/red.png" class="color__img" alt="">
+                    </div>
+                    <div class="col">
+                        <img src="img/white.png" class="color__img" alt="">
+                    </div>
+                    <div class="col">
+                        <img src="img/black.png" class="color__img" alt="">
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="card__single_title">cmc:</p>
+                        <p>10</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title">mana cost:</p>
+                        <p>G WW B</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title">power:</p>
+                        <p>8</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title">toughness:</p>
+                        <p>6</p>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="card__single_title">type:</p>
+                        <p>Creature — Lhurgoyf</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title">language:</p>
+                        <p>En</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title">set name:</p>
+                        <p>zen</p>
+                    </div>
+                    <div class="col">
+                        <button class="btn_1 btn btn-outline-warning">
+                            <a href="https://api.scryfall.com/cards/named?fuzzy=tarmogoyf" target="_blank">scryfall</a>
+                        </button>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="card__single_title">Legalities:</p>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="card__single_title_colorless">standart:</p>
+                        <p>legal</p>
+                        <p class="card__single_title_colorless">future:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">historic:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">gladiator:</p>
+                        <p>not_legal</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title_colorless">pioneer:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">modern:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">legacy:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">pauper:</p>
+                        <p>not_legal</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title_colorless">vintage:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">penny:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">commander:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">brawl:</p>
+                        <p>not_legal</p>
+                    </div>
+                    <div class="col">
+                        <p class="card__single_title_colorless">duel:</p>
+                        <p>legal</p>
+                        <p class="card__single_title_colorless">pioneer:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">oldschool:</p>
+                        <p>not_legal</p>
+                        <p class="card__single_title_colorless">premodern:</p>
+                        <p>not_legal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block %}
+{% endblock %}

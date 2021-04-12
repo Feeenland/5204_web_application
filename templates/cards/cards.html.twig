@@ -1,0 +1,119 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Cards{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+
+{% block h1 %}
+        Cards
+{% endblock %}
+
+
+{% block content %}
+    <div class="container cards__many">
+        <div class="row justify-content-between">
+            <div class="col">
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
+                    <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search card</button>
+                </form>
+            </div>
+            <div class="col">
+                <div class="row cards__many_search">
+                    <div class="col">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
+                            <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search type</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form action="" class="cards__many_filter">
+                            <div class="checkbox color__picker">
+                                <input type="checkbox" id="colorG" name="color1" value="green">
+                                <label for="colorG"> green</label><br>
+                                <input type="checkbox" id="colorB" name="color2" value="blue">
+                                <label for="colorB"> blue</label><br>
+                                <input type="checkbox" id="colorW" name="color3" value="white">
+                                <label for="colorW"> white</label><br>
+                                <input type="checkbox" id="colorR" name="color4" value="red">
+                                <label for="colorR"> red</label><br>
+                                <input type="checkbox" id="colorBlack" name="color5" value="black">
+                                <label for="colorBlack"> black</label><br>
+                            </div>
+
+                            <label for="legality">legality in deck:</label>
+                            <select id="legality" name="legality">
+                                <option value="all">all</option>
+                                <option value="standard">standard</option>
+                                <option value="future">future</option>
+                                <option value="historic">historic</option>
+                                <option value="gladiator">gladiator</option>
+                                <option value="pioneer">pioneer</option>
+                                <option value="modern">modern</option>
+                                <option value="legacy">legacy</option>
+                                <option value="pauper">pauper</option>
+                                <option value="vintage">vintage</option>
+                                <option value="penny">penny</option>
+                                <option value="commander">commander</option>
+                                <option value="brawl">brawl</option>
+                                <option value="duel">duel</option>
+                                <option value="oldschool">oldschool</option>
+                                <option value="premodern">premodern</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between cards__many_cards">
+            <div class="col">
+                <article>
+                    <p class="cards__many_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">+</button>
+                    </p>
+                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="cards__many_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-warning">+</button>
+                    </p>
+                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="cards__many_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">+</button>
+                    </p>
+                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="cards__many_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-warning">+</button>
+                    </p>
+                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="cards__many_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-warning">+</button>
+                    </p>
+                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}

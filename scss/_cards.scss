@@ -1,0 +1,50 @@
+.card__single{
+  &_img{
+    border-radius: 18px;
+    width: 60%;
+    margin-bottom: 30px;
+    height: auto;
+    @include media-breakpoint-up(md) {
+      width: 100%;
+      border-radius: 13px;
+    }
+    @include media-breakpoint-up(xl) {
+      border-radius: 20px;
+    }
+  }
+  &_btn.btn_1{
+    margin: 2px;
+    float: right;
+  }
+  &_title{
+    @include title-warn;
+  }
+  &_title_colorless{
+    @include title-colorless;
+  }
+}
+.cards__many{
+  &_search{
+    margin-bottom: 30px;
+  }
+  &_filter{
+    margin-bottom: 30px;
+  }
+  &_cards{
+    img{
+      max-width: 250px;
+      height: auto;
+      border-radius: 13px;
+      position: center;
+    }
+    &_title{
+      @include title-warn;
+      button{
+        margin: 0 0 0 25px;
+      }
+    }
+    article{
+      margin-bottom: 30px;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Home{% endblock %}
+
+{% block title %}Decks{% endblock %}
 
 {% block info %}
     {% for info in infos %}
@@ -8,8 +9,9 @@
     {% endfor %}
 {% endblock %}
 
-
-{% block h1 %}{{ parent() }} Home{% endblock %}
+{% block h1 %}
+    Decks
+{% endblock %}
 
 {% block content %}
     <div class="container filter_deck">

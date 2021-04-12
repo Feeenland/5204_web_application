@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Deck{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+{% block h1 %}
+    {% block deckname %}
+        Destroy
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class="container deck__single">
+        <div class="row">
+            <div class="col">
+                <p class="deck__single_title">Format:</p>
+                <p>Standard</p>
+            </div>
+            <div class="col">
+                <p class="deck__single_title">colors:</p>
+                <img src="img/green.png" class="color__img" alt="green ">
+                <img src="img/blue.png" class="color__img" alt="green ">
+                <img src="img/white.png" class="color__img" alt="green ">
+            </div>
+            <div class="col">
+                <button class="btn btn_1 btn-outline-info">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Cards</h2>
+            </div>
+        </div>
+        <div class="row deck__single_cards">
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-warning">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

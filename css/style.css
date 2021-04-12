@@ -9049,35 +9049,69 @@ a.text-dark:hover, a.text-dark:focus {
 /* my scss*/
 /*main css*/
 body {
-  background-color: #000004; }
-  body .error_message {
-    color: #d73e5c; }
-  body .has_error {
-    border: 2px solid #ec0202; }
+  background-color: #000004;
+  font-size: 1.2rem; }
   body h1, body h2 {
     text-shadow: 1px 1px 0 #a34c24, 1px -1px 0 #a34c24, -1px 1px 0 #a34c24, -1px -1px 0 #a34c24, 1px 0px 0 #a34c24, 0px 1px 0 #a34c24, -1px 0px 0 #a34c24, 0px -1px 0 #a34c24, 2px 2px 0 #4d020a, 2px -2px 0 #4d020a, -2px 2px 0 #4d020a, -2px -2px 0 #4d020a, 2px 0px 0 #4d020a, 0px 2px 0 #4d020a, -2px 0px 0 #4d020a, 0px -2px 0 #4d020a;
     text-transform: uppercase;
     letter-spacing: 1px; }
+  body .infos {
+    font-size: 2rem; }
+  body .error_message {
+    color: #d73e5c; }
+  body .has_error {
+    border: 2px solid #ec0202; }
+  body .btn_1 {
+    margin: 15px; }
+    body .btn_1:hover {
+      color: #000004;
+      outline: #96939b; }
+      body .btn_1:hover a {
+        color: #000004;
+        outline: #96939b; }
+  body .btn_send {
+    width: 100%;
+    margin: 25px 0 0 0;
+    font-size: 1.3rem; }
   body .nav {
-    padding: 30px; }
+    padding: 20px;
+    border-bottom: 1px solid #cb9135;
+    margin-bottom: 50px; }
+    body .nav .nav__link {
+      font-size: 1.5rem;
+      color: #cb9135;
+      font-family: "Trade Winds", sans-serif; }
+    @media (min-width: 768px) {
+      body .nav {
+        margin-bottom: 100px; } }
   body .color__img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 25px; }
+    width: 35px;
+    height: 35px;
+    margin-bottom: 10px; }
+  body .title_colorless {
+    font-size: 1.3rem;
+    font-weight: bold; }
+  body .title_warn {
+    font-size: 1.3rem;
+    font-family: "Trade Winds", monospace;
+    color: #cb9135; }
+  body .color__picker {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    body .color__picker input {
+      margin-right: 5px;
+      margin-top: 8px;
+      margin-left: 15px; }
+    body .color__picker label {
+      margin-right: 15px; }
 
 .filter_deck {
   margin-top: 50px; }
-  .filter_deck .filter__color_check {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-top: 20px; }
-    .filter_deck .filter__color_check label {
-      padding-left: 5px;
-      padding-right: 15px; }
 
 .decks {
-  margin-top: 50px; }
+  margin-top: 50px;
+  margin-bottom: 50px; }
   .decks__deck {
     margin-top: 30px;
     display: -webkit-box;
@@ -9091,17 +9125,107 @@ body {
             box-shadow: 1px 1px 6px #555555,2px 2px 1px black, 3px 3px 1px #555555, 4px 4px 1px black,5px 5px 1px #555555, 6px 6px 1px black, 7px 7px 1px #555555; }
   .decks__text {
     margin-top: 10px; }
+  .decks_title {
+    font-size: 1.3rem;
+    font-weight: bold; }
+
+.deck__single_title {
+  font-size: 1.3rem;
+  font-weight: bold; }
+
+.deck__single_cards img {
+  max-width: 250px;
+  height: auto;
+  border-radius: 13px;
+  position: center; }
+
+.deck__single_cards_title {
+  font-size: 1.3rem;
+  font-family: "Trade Winds", monospace;
+  color: #cb9135; }
+  .deck__single_cards_title button {
+    margin: 0 0 0 25px; }
+
+.deck__single_cards article {
+  margin-bottom: 30px; }
+
+.create__deck {
+  margin-bottom: 30px; }
+  .create__deck_form {
+    padding: 30px; }
+
+.card__single_img {
+  border-radius: 18px;
+  width: 60%;
+  margin-bottom: 30px;
+  height: auto; }
+  @media (min-width: 768px) {
+    .card__single_img {
+      width: 100%;
+      border-radius: 13px; } }
+  @media (min-width: 1200px) {
+    .card__single_img {
+      border-radius: 20px; } }
+
+.card__single_btn.btn_1 {
+  margin: 2px;
+  float: right; }
+
+.card__single_title {
+  font-size: 1.3rem;
+  font-family: "Trade Winds", monospace;
+  color: #cb9135; }
+
+.card__single_title_colorless {
+  font-size: 1.3rem;
+  font-weight: bold; }
+
+.cards__many_search {
+  margin-bottom: 30px; }
+
+.cards__many_filter {
+  margin-bottom: 30px; }
+
+.cards__many_cards img {
+  max-width: 250px;
+  height: auto;
+  border-radius: 13px;
+  position: center; }
+
+.cards__many_cards_title {
+  font-size: 1.3rem;
+  font-family: "Trade Winds", monospace;
+  color: #cb9135; }
+  .cards__many_cards_title button {
+    margin: 0 0 0 25px; }
+
+.cards__many_cards article {
+  margin-bottom: 30px; }
 
 .login {
   margin-top: 50px; }
   .login form {
     padding: 30px; }
   .login__space {
+    border-right: 3px solid #3d70da; }
+  .login__space_register {
     border-right: 3px solid #335f24; }
+  .login__space_pw {
+    border-right: 3px solid #d73e5c; }
+  .login .login__img {
+    position: absolute;
+    top: -100px; }
 
-.cards__card img {
-  width: 115px;
-  border-radius: 10px; }
+.user__header {
+  margin-top: -50px;
+  margin-bottom: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center; }
+  .user__header_title {
+    font-size: 1.3rem;
+    font-weight: bold; }
 
 /* Trade Winds */
 @font-face {

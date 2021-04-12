@@ -1,3 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}ForgotPw{% endblock %}
+
+{% block info %}
+ {% for info in infos %}
+  {{ info }}
+ {% endfor %}
+{% endblock %}
+
 {% block content %}
- <h2>eigeloggt!</h2>
+ <div class="container user__header">
+  <div class="row justify-content-around">
+   <div class="col">
+    <p class="user__header_title">User Name</p>
+   </div>
+   <div class="col">
+    <button class="btn_1 btn btn-outline-success">My Decks</button>
+   </div>
+   <div class="col">
+    <button class="btn_1 btn btn-outline-success">My Cards</button>
+   </div>
+   <div class="col">
+    <button class="btn_1 btn btn-outline-warning">Add Deck</button>
+   </div>
+   <div class="col">
+    <button class="btn_1 btn btn-outline-warning">Add Cards</button>
+   </div>
+  </div>
+ </div>
+
+ {% block userContent %}
+ user content?
+ {% endblock %}
+
 {% endblock %}

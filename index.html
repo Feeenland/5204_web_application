@@ -24,15 +24,326 @@
     <button class="btn btn_1 btn-outline-warning">Login</button>
 </nav>
 
-<!-- home -->
-<div class="container filter_deck">
-    <div class="row justify-content-between">
-        <div class="col-12 col-md-2">
-            <p>deck Filter</p>
+<!-- user header -->
+<div class="container user__header">
+    <div class="row justify-content-around">
+        <div class="col">
+            <p class="user__header_title">User Name</p>
         </div>
+        <div class="col">
+            <button class="btn_1 btn btn-outline-success">My Decks</button>
+        </div>
+        <div class="col">
+            <button class="btn_1 btn btn-outline-success">My Cards</button>
+        </div>
+        <div class="col">
+            <button class="btn_1 btn btn-outline-warning">Add Deck</button>
+        </div>
+        <div class="col">
+            <button class="btn_1 btn btn-outline-warning">Add Cards</button>
+        </div>
+    </div>
+</div>
+
+<!-- create deck mask -->
+<div class="container create__deck">
+    <div class="row">
+        <div class="col-1 col-md-1 login__space">
+
+        </div>
+        <div class="col-11">
+
+            <form action="" class="create__deck_form">
+
+                <div class="form-group row">
+                    <label for="deckname" class="col col-form-label title_colorless">Deck name:</label>
+                    <input
+                            type="text"
+                            name="deckname"
+                            class="form-control"
+                            id="deckname"
+                            placeholder="Destroyer"
+                            value="">
+                </div>
+                <div class="checkbox color__picker">
+                    <p class="title_colorless">decide Deck colors: </p>
+                    <input type="checkbox" id="colorG" name="color1" value="green">
+                    <label for="colorG"> green</label><br>
+                    <input type="checkbox" id="colorU" name="color2" value="blue">
+                    <label for="colorB"> blue</label><br>
+                    <input type="checkbox" id="colorW" name="color3" value="white">
+                    <label for="colorW"> white</label><br>
+                    <input type="checkbox" id="colorR" name="color4" value="red">
+                    <label for="colorR"> red</label><br>
+                    <input type="checkbox" id="colorB" name="color5" value="black">
+                    <label for="colorBlack"> black</label><br>
+                </div>
+
+                <label for="legality" class="title_colorless">decide Deck format:</label>
+                <select id="legality" name="legality">
+                    <option value="all">all</option>
+                    <option value="standard">standard</option>
+                    <option value="future">future</option>
+                    <option value="historic">historic</option>
+                    <option value="gladiator">gladiator</option>
+                    <option value="pioneer">pioneer</option>
+                    <option value="modern">modern</option>
+                    <option value="legacy">legacy</option>
+                    <option value="pauper">pauper</option>
+                    <option value="vintage">vintage</option>
+                    <option value="penny">penny</option>
+                    <option value="commander">commander</option>
+                    <option value="brawl">brawl</option>
+                    <option value="duel">duel</option>
+                    <option value="oldschool">oldschool</option>
+                    <option value="premodern">premodern</option>
+                </select>
+                <button class="btn btn_1 btn_send btn-outline-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- cards -->
+<div class="container cards__many">
+    <div class="row justify-content-between">
+        <div class="col">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
+                <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search card</button>
+            </form>
+        </div>
+        <div class="col">
+            <div class="row cards__many_search">
+                <div class="col">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
+                        <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search type</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form action="" class="cards__many_filter">
+                        <div class="checkbox color__picker">
+                            <input type="checkbox" id="colorG" name="color1" value="green">
+                            <label for="colorG"> green</label><br>
+                            <input type="checkbox" id="colorB" name="color2" value="blue">
+                            <label for="colorB"> blue</label><br>
+                            <input type="checkbox" id="colorW" name="color3" value="white">
+                            <label for="colorW"> white</label><br>
+                            <input type="checkbox" id="colorR" name="color4" value="red">
+                            <label for="colorR"> red</label><br>
+                            <input type="checkbox" id="colorBlack" name="color5" value="black">
+                            <label for="colorBlack"> black</label><br>
+                        </div>
+
+                        <label for="legality">legality in deck:</label>
+                        <select id="legality" name="legality">
+                            <option value="all">all</option>
+                            <option value="standard">standard</option>
+                            <option value="future">future</option>
+                            <option value="historic">historic</option>
+                            <option value="gladiator">gladiator</option>
+                            <option value="pioneer">pioneer</option>
+                            <option value="modern">modern</option>
+                            <option value="legacy">legacy</option>
+                            <option value="pauper">pauper</option>
+                            <option value="vintage">vintage</option>
+                            <option value="penny">penny</option>
+                            <option value="commander">commander</option>
+                            <option value="brawl">brawl</option>
+                            <option value="duel">duel</option>
+                            <option value="oldschool">oldschool</option>
+                            <option value="premodern">premodern</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-between cards__many_cards">
+        <div class="col">
+            <article>
+                <p class="cards__many_cards_title">card Name
+                    <button class="btn btn_1 btn-outline-success">+</button>
+                </p>
+                <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+            </article>
+        </div>
+        <div class="col">
+            <article>
+                <p class="cards__many_cards_title">card Name
+                    <button class="btn btn_1 btn-outline-warning">+</button>
+                </p>
+                <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+            </article>
+        </div>
+        <div class="col">
+            <article>
+                <p class="cards__many_cards_title">card Name
+                    <button class="btn btn_1 btn-outline-success">+</button>
+                </p>
+                <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+            </article>
+        </div>
+        <div class="col">
+            <article>
+                <p class="cards__many_cards_title">card Name
+                    <button class="btn btn_1 btn-outline-warning">+</button>
+                </p>
+                <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+            </article>
+        </div>
+        <div class="col">
+            <article>
+                <p class="cards__many_cards_title">card Name
+                    <button class="btn btn_1 btn-outline-warning">+</button>
+                </p>
+                <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+            </article>
+        </div>
+    </div>
+</div>
+<!-- single card -->
+<div class="container card__single">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+            <img src="img/cards/c16-143-burgeoning.jpg" class="card__single_img" alt="magic card">
+        </div>
+        <div class="col">
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h2>Name tarmogoyf</h2>
+                </div>
+            </div>
+        <div class="col">
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <p class="card__single_title">rarity: common</p>
+                </div>
+                <div class="col-3">
+                    <button class="btn_1 btn card__single_btn btn-outline-warning">+ cards</button>
+                   <!-- <button class="btn_1 btn card__single_btn btn-outline-warning">+ deck</button>-->
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p class="card__single_title">colors:</p>
+                </div>
+                <div class="col">
+                    <img src="img/blue.png" class="color__img" alt="">
+                </div>
+                <div class="col">
+                    <img src="img/green.png" class="color__img" alt="">
+                </div>
+                <div class="col">
+                    <img src="img/red.png" class="color__img" alt="">
+                </div>
+                <div class="col">
+                    <img src="img/white.png" class="color__img" alt="">
+                </div>
+                <div class="col">
+                    <img src="img/black.png" class="color__img" alt="">
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p class="card__single_title">cmc:</p>
+                    <p>10</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title">mana cost:</p>
+                    <p>G WW B</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title">power:</p>
+                    <p>8</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title">toughness:</p>
+                    <p>6</p>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p class="card__single_title">type:</p>
+                    <p>Creature — Lhurgoyf</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title">language:</p>
+                    <p>En</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title">set name:</p>
+                    <p>zen</p>
+                </div>
+                <div class="col">
+                    <button class="btn_1 btn btn-outline-warning">
+                        <a href="https://api.scryfall.com/cards/named?fuzzy=tarmogoyf" target="_blank">scryfall</a>
+                    </button>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p class="card__single_title">Legalities:</p>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p class="card__single_title_colorless">standart:</p>
+                    <p>legal</p>
+                    <p class="card__single_title_colorless">future:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">historic:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">gladiator:</p>
+                    <p>not_legal</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title_colorless">pioneer:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">modern:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">legacy:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">pauper:</p>
+                    <p>not_legal</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title_colorless">vintage:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">penny:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">commander:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">brawl:</p>
+                    <p>not_legal</p>
+                </div>
+                <div class="col">
+                    <p class="card__single_title_colorless">duel:</p>
+                    <p>legal</p>
+                    <p class="card__single_title_colorless">pioneer:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">oldschool:</p>
+                    <p>not_legal</p>
+                    <p class="card__single_title_colorless">premodern:</p>
+                    <p>not_legal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- decks -->
+    <h1>DECKS</h1>
+<div class="container filter_deck">
+    <div class="row justify-content-around">
         <div class="col-12 col-md-5">
             <form action="">
-                <div class="checkbox filter__color_check">
+                <div class="checkbox color__picker">
+                    <p class="title_colorless">colors:</p>
                     <input type="checkbox" id="color1" name="color1" value="green">
                     <label for="color1"> green</label><br>
                     <input type="checkbox" id="color2" name="color2" value="blue">
@@ -45,7 +356,7 @@
                     <label for="color2"> black</label><br>
                 </div>
 
-                <label for="deck">Choose a deck:</label>
+                <label for="deck" class="title_colorless">Deck format:</label>
                 <select id="deck" name="deck">
                     <option value="all">all</option>
                     <option value="standard">standard</option>
@@ -68,8 +379,8 @@
         </div>
         <div class="col-12 col-md-5">
             <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="deck or card name" aria-label="search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="deck name" aria-label="search">
+                <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search</button>
             </form>
         </div>
     </div>
@@ -88,7 +399,8 @@
                 <img class="color__img" src="img/blue.png" alt="">
                 <img class="color__img" src="img/blue.png" alt="">
                 <img class="color__img" src="img/blue.png" alt="">
-                <p>created By NAME</p>
+                <p>created By:<br>
+                    <span class="title_colorless">NAME</span></p>
             </div>
         </article>
 
@@ -99,7 +411,9 @@
                 <p>deck art (modern)</p>
                 <img class="color__img" src="img/green.png" alt="">
                 <img class="color__img" src="img/red.png" alt="">
-                <p>created By NAME</p>
+                <p>created By:<br>
+                    <span class="title_colorless">NAME</span>
+                </p>
             </div>
         </article>
 
@@ -109,7 +423,9 @@
                 <h2>deck Name</h2>
                 <p>deck art (modern)</p>
                 <img class="color__img" src="img/black.png" alt="">
-                <p>created By NAME</p>
+                <p>created By:<br>
+                    <span class="title_colorless">NAME</span>
+                </p>
             </div>
         </article>
 
@@ -120,11 +436,67 @@
                 <h2>deck Name</h2>
                 <p>deck art (modern)</p>
                 <img class="color__img" src="img/black.png" alt="">
-                <p>created By NAME</p>
+                <p>created By:<br>
+                    <span class="decks_title">NAME</span>
+                </p>
             </div>
         </article>
     </div>
 </div>
+
+<!--Deck -->
+    <h1>Deck Name</h1>
+    <div class="container deck__single">
+        <div class="row">
+            <div class="col">
+                <p class="deck__single_title">Format:</p>
+                <p>Standard</p>
+            </div>
+            <div class="col">
+                <p class="deck__single_title">colors:</p>
+                <img src="img/green.png" class="color__img" alt="green ">
+                <img src="img/blue.png" class="color__img" alt="green ">
+                <img src="img/white.png" class="color__img" alt="green ">
+            </div>
+            <div class="col">
+                <button class="btn btn_1 btn-outline-info">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Cards</h2>
+            </div>
+            <!-- include cards -->
+
+        </div>
+        <div class="row deck__single_cards">
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-success">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+            <div class="col">
+                <article>
+                    <p class="deck__single_cards_title">card Name
+                        <button class="btn btn_1 btn-outline-warning">-</button>
+                    </p>
+                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
+                </article>
+            </div>
+        </div>
+    </div>
+
 
 <!-- login form -->
 <div class="container login">
@@ -217,108 +589,6 @@
     </div>
 </div>
 
-
-<!-- after login -->
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>Hello Name</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn_1 btn-outline-success"> Create new Dek </button>
-            <button class="btn btn_1 btn-outline-success"> Add new Cards </button>
-        </div>
-        <div class="col">
-            <button class="btn btn_1 btn-outline-success"> Show all Decks /show my stuff </button>
-        </div>
-    </div>
-    <div class="row"> <!-- optional this or the decks from home-->
-        <div class="col-12 col-md-6">
-            <h2>my Decks</h2>
-            <!-- load home section, filtered py creator + add buttons! -->
-
-            <button class="btn btn_1">Edit</button>
-            <button class="btn btn_1">Delete</button>
-
-        </div>
-        <div class="col-12 col-md-6">
-            <h2>my Cards</h2>
-
-            <div class="cards">
-                <div class="row">
-                    <div class="col">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-                        </form>
-                        <form action="" class="cards_filter">
-                            <div class="checkbox filter__color_check">
-                                <input type="checkbox" id="colorG" name="color1" value="green">
-                                <label for="colorG"> green</label><br>
-                                <input type="checkbox" id="colorB" name="color2" value="blue">
-                                <label for="colorB"> blue</label><br>
-                                <input type="checkbox" id="colorW" name="color3" value="white">
-                                <label for="colorW"> white</label><br>
-                                <input type="checkbox" id="colorR" name="color4" value="red">
-                                <label for="colorR"> red</label><br>
-                                <input type="checkbox" id="colorBlack" name="color5" value="black">
-                                <label for="colorBlack"> black</label><br>
-                            </div>
-
-                            <label for="legality">legality in deck:</label>
-                            <select id="legality" name="legality">
-                                <option value="all">all</option>
-                                <option value="standard">standard</option>
-                                <option value="future">future</option>
-                                <option value="historic">historic</option>
-                                <option value="gladiator">gladiator</option>
-                                <option value="pioneer">pioneer</option>
-                                <option value="modern">modern</option>
-                                <option value="legacy">legacy</option>
-                                <option value="pauper">pauper</option>
-                                <option value="vintage">vintage</option>
-                                <option value="penny">penny</option>
-                                <option value="commander">commander</option>
-                                <option value="brawl">brawl</option>
-                                <option value="duel">duel</option>
-                                <option value="oldschool">oldschool</option>
-                                <option value="premodern">premodern</option>
-                            </select>
-                        </form>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col cards__card">
-
-                        <div>
-                            <img src="img/tsr-235-tarmogoyf.png" alt="">
-                            <button class="btn btn_1">X</button>
-                        </div>
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-                        <img src="img/tsr-235-tarmogoyf.png" alt="">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<img class="" src="img/MTG_Symbols_0-1.png" alt="magic deck">
 
 <!-- js -->
 <script src="js/jquery-3.3.1.slim.min.js"></script>

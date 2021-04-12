@@ -1,0 +1,9 @@
+.user__header{
+  margin-top: -50px;
+  margin-bottom: 50px;
+  align-items: center;
+  text-align: center;
+  &_title{
+    @include title-colorless;
+  }
+}

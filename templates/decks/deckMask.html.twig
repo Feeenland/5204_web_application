@@ -1,0 +1,75 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Decks{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+{% block h1 %}
+    Create Deck
+{% endblock %}
+
+
+{% block content %}
+    <div class="container create__deck">
+        <div class="row">
+            <div class="col-1 col-md-1 login__space">
+
+            </div>
+            <div class="col-11">
+
+                <form action="" class="create__deck_form">
+
+                    <div class="form-group row">
+                        <label for="deckname" class="col col-form-label title_colorless">Deck name:</label>
+                        <input
+                                type="text"
+                                name="deckname"
+                                class="form-control"
+                                id="deckname"
+                                placeholder="Destroyer"
+                                value="">
+                    </div>
+                    <div class="checkbox color__picker">
+                        <p class="title_colorless">decide Deck colors: </p>
+                        <input type="checkbox" id="colorG" name="color1" value="green">
+                        <label for="colorG"> green</label><br>
+                        <input type="checkbox" id="colorU" name="color2" value="blue">
+                        <label for="colorB"> blue</label><br>
+                        <input type="checkbox" id="colorW" name="color3" value="white">
+                        <label for="colorW"> white</label><br>
+                        <input type="checkbox" id="colorR" name="color4" value="red">
+                        <label for="colorR"> red</label><br>
+                        <input type="checkbox" id="colorB" name="color5" value="black">
+                        <label for="colorBlack"> black</label><br>
+                    </div>
+
+                    <label for="legality" class="title_colorless">decide Deck format:</label>
+                    <select id="legality" name="legality">
+                        <option value="all">all</option>
+                        <option value="standard">standard</option>
+                        <option value="future">future</option>
+                        <option value="historic">historic</option>
+                        <option value="gladiator">gladiator</option>
+                        <option value="pioneer">pioneer</option>
+                        <option value="modern">modern</option>
+                        <option value="legacy">legacy</option>
+                        <option value="pauper">pauper</option>
+                        <option value="vintage">vintage</option>
+                        <option value="penny">penny</option>
+                        <option value="commander">commander</option>
+                        <option value="brawl">brawl</option>
+                        <option value="duel">duel</option>
+                        <option value="oldschool">oldschool</option>
+                        <option value="premodern">premodern</option>
+                    </select>
+                    <button class="btn btn_1 btn_send btn-outline-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

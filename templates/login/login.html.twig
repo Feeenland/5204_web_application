@@ -1,0 +1,76 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Login{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+{#  {% if data['content'] %}
+      {{ data['content'] }}
+  {% endif %}#}
+
+{% block content %}
+
+    <div class="container login">
+        <div class="row justify-content-between">
+            <div class="col-1 col-md-1 login__space">
+
+            </div>
+            <div class="col-11 col-lg-11 login__login">
+                <form action="index.php?p=login" method="POST">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <h2>Login</h2>
+                        </div>
+                        <div class="col-2">
+                            <img src="img/blue.png" class="login__img" alt="">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="nickname" class="col col-form-label">nick name:</label>
+                        <input
+                                type="text"
+                                name="nickname"
+                                class="form-control{#<?php if(strlen($user->errorMessage)>0){ ?> has_error <?php } ?>#}"
+                                id="nickname"
+                                placeholder="kitty =^.^="
+                                value="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col col-form-label">Passwort:</label>
+                        <input
+                                type="password"
+                                name="password"
+                                class="form-control{#<?php if(strlen($user->errorMessage)>0){ ?> has_error <?php } ?>#}"
+                                id="inputPassword"
+                                placeholder="Password">
+                        {# <?php if (isset($user->errorMessage) && (strlen($user->errorMessage)>0)) { ?>
+                         <p class="error_message"><?php print $user->errorMessage; ?></p>
+                         <?php } ?>#}
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Senden</button>
+                    </div>
+                </form>
+
+                <button class="btn btn_1 btn-outline-secondary">
+                    <a class="nav-link" href="index?p=register">Register</a>
+                </button>
+                <br>
+                <button class="btn btn_1 btn-outline-info">
+                    <a class="nav-link" href="index?p=forgotPw">Forgot password!</a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

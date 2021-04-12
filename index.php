@@ -1,6 +1,9 @@
 <?php
 
+use Controllers\ForgotPwController;
+use Controllers\HomeController;
 use Controllers\LoginController;
+use Controllers\RegisterController;
 use Models\CardsModel;
 use Views\HomeView;
 
@@ -16,12 +19,16 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
     $p =$_GET['p'] ;
     if($_GET['p'] == 'login'){
         $controller = new LoginController();
+    }else if($_GET['p'] == 'register'){
+        $controller = new RegisterController();
+    }else if($_GET['p'] == 'forgotPw'){
+        $controller = new ForgotPwController();
     }else if($_GET['p'] == 'home'){
-        $page = 'views/home.php';
+        $view= new HomeController();
         $pageTitle = 'Home';
-    }else if($_GET['p'] == 'admin'){
+    }else if($_GET['p'] == 'user'){
+        $view= new HomeController();
         $page ='views/admin.php';
-        $pageTitle = 'Magic user';
     }
 }else{
 

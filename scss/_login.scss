@@ -8,6 +8,16 @@
     //border-right: 2px solid $success;
   }
   &__space{
+    border-right: 3px solid $success;
+  }
+  &__space_register{
     border-right: 3px solid $secondary;
+  }
+  &__space_pw{
+    border-right: 3px solid $info;
+  }
+  .login__img{
+    position: absolute;
+    top: -100px;
   }
 }

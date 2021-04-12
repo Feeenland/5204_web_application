@@ -5,6 +5,6 @@ namespace Views;
 
 class LoginView extends AbstractView
 {
-    protected $tmpl = 'login.html.twig';
+    protected $tmpl = '/login/login.html.twig';
 
 }

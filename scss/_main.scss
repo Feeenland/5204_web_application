@@ -1,13 +1,8 @@
 /*main css*/
 body{
   background-color: #000004;
+  font-size: 1.2rem;
 
-  .error_message{ // to print the error message
-    color: $info;
-  }
-  .has_error{ // to outline a error field
-    border: 2px solid $danger;
-  }
   h1, h2{
     text-shadow: 1px 1px 0 #a34c24,
     1px -1px 0 #a34c24,
@@ -27,15 +22,79 @@ body{
     0px -2px 0 #4d020a;
     text-transform: uppercase;
     letter-spacing:1px;
-}
-
+  }
+  .infos{
+    font-size: 2rem;
+  }
+  .error_message{ // to print the error message
+    color: $info;
+  }
+  .has_error{ // to outline a error field
+    border: 2px solid $danger;
+  }
+  .btn_1{
+    margin: 15px;
+    &:hover{
+      color: $dark;
+      outline: $primary;
+      a{
+        color: $dark;
+        outline: $primary;
+      }
+    }
+  }
+  .btn_send{
+    width: 100%;
+    margin: 25px 0 0 0;
+    font-size: 1.3rem;
+  }
   .nav{
-    padding: 30px;
+    padding: 20px;
+    .nav__link{
+      font-size: 1.5rem;
+      color: $warning;
+      font-family: "Trade Winds", sans-serif;
+    }
+    border-bottom: 1px solid $warning;
+    margin-bottom: 50px;
+    @include media-breakpoint-up(md) {
+      margin-bottom: 100px;
+    }
   }
   .color__img{
-    width: 40px;
-    height: 40px;
-    margin-bottom: 25px;
+    width: 35px;
+    height: 35px;
+    margin-bottom: 10px;
   }
+ .title_colorless{
+   font-size: 1.3rem;
+   font-weight: bold;
+ }
+ .title_warn{
+   font-size: 1.3rem;
+   font-family: "Trade Winds", monospace;
+   color: $warning;
+ }
+  .color__picker{
+    display: flex;
+    input{
+      margin-right: 5px;
+      margin-top: 8px;
+      margin-left: 15px;
+    }
+    label{
+      margin-right: 15px;
+    }
+  }
+}
 
+
+@mixin title-warn {
+  font-size: 1.3rem;
+  font-family: "Trade Winds", monospace;
+  color: $warning;
+}
+@mixin title-colorless {
+  font-size: 1.3rem;
+  font-weight: bold;
 }

@@ -1,0 +1,83 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}ForgotPw{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container login">
+        <div class="row justify-content-between">
+
+            <div class="col-0 col-md-1 login__space_pw">
+
+            </div>
+            <div class="col-11 col-lg-11 login__register">
+                <form action="index.php?p=forgotPw" method="POST">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <h2>Forgot Password</h2>
+                        </div>
+                        <div class="col-2">
+                            <img src="img/red.png" class="login__img" alt="">
+                        </div>
+                    </div>
+                    <input type="hidden" name="forgotPw" value="1">
+                    <div class="form-group row">
+                        <label for="name" class="col col-form-label">name:</label>
+                        <input
+                                type="text"
+                                name="name"
+                                class="form-control"
+                                id="name"
+                                placeholder="kate"
+                                value="">
+                    </div>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="card" class="col col-form-label">favorite card:</label>
+                        <input
+                                type="text"
+                                name="card"
+                                class="form-control"
+                                id="card"
+                                placeholder="card name"
+                                value="">
+                    </div>
+                    <input type="hidden" name="login_try" value="1">
+                    <div class="form-group row">
+                        <label for="nickname" class="col col-form-label">nick name:</label>
+                        <input
+                                type="text"
+                                name="nickname"
+                                class="form-control"
+                                id="nickname"
+                                placeholder="kitty =^.^="
+                                value="">
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Senden</button>
+                    </div>
+                </form>
+
+                <button class="btn btn_1 btn-outline-success">
+                    <a class="nav-link" href="index?p=login">Login</a>
+                </button>
+                <br>
+                <button class="btn btn_1 btn-outline-secondary">
+                    <a class="nav-link" href="index?p=register">Register</a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

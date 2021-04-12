@@ -81,6 +81,7 @@ class LoginController
                     $view = $this->view = new UserView();
                     $this->view->addInfos($this->infos);
                     $view->showTemplate();
+                    $p = 'user';
 
                 } else {
                     $this->checkIfUserIsBanned($usr);
