@@ -34,7 +34,7 @@ class LoginController
         if (isset($_SESSION['logged_in'])) { // this case should not happen
             $_SESSION['logged_in'] == 1;
             $this->infos = 'Sie sind bereits eingeloggt';
-            $view = $this->view = new HomeView();
+            $view = $this->view = new UserView();
             $this->view->addInfos($this->infos);
             $this->view->addErrorMessages($this->errorMessages);
             $view->showTemplate();
@@ -56,7 +56,7 @@ class LoginController
         var_dump($usr);
         die();
         print $nick;
-        if ($userfound == false) { // TODO it returns an object not true or false why!!!!!!
+        if ($userfound == false) {
             // Return fail message
             print 'false usr';
             $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben'; // mail is wrong

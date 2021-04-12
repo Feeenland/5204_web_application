@@ -3,6 +3,7 @@
 namespace Models;
 use Database\DBConnection;
 use Helpers;
+use Helpers\disinfect;
 
 abstract class AbstractModel
 {
@@ -17,7 +18,7 @@ abstract class AbstractModel
             $sql = "SELECT * FROM " . $this->table . " WHERE " . $field . " = ?";
             $stmt = $conn->prepare($sql);
             if ($type === 's') {
-                $d = new Helpers\disinfect();
+                $d = new Disinfect();
                 $d->disinfect($value);
             }
             $stmt->bind_param($type, $value);
@@ -51,7 +52,7 @@ abstract class AbstractModel
                 $fieldsArray =implode(",", $fieldsArray); //separate by comma
                 $type = "";
                 foreach ($values as $value){
-                    $d = new Helpers\disinfect();
+                    $d = new Disinfect();
                     $d->disinfect($value);
                 }
                 $v = $values['id']; //save the id
@@ -103,7 +104,7 @@ abstract class AbstractModel
                     if (is_numeric($value)) {
                         $type = $type . "i"; //$type + i
                     } else{
-                        $d = new Helpers\disinfect();
+                        $d = new Disinfect();
                         $d->disinfect($value);
                         $type = $type . "s"; //$type + s
                     }
