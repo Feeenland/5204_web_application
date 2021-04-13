@@ -49,10 +49,13 @@ class RegisterController
                // TODO prepared statement error?!
            }else{
                print 'nickname is not free';
+               $view = $this->view = new RegisterView();
                $this->infos = 'I am sorry this nickname is already taken';
                $this->errorMessages = 'This Nickname is not free!';
+               $this->view->addInfos($this->infos);
+               $this->view->addErrorMessages($this->errorMessages);
+               $view->showTemplate();
            }
-
        }
     }
 

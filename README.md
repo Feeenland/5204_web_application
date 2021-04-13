@@ -10,6 +10,29 @@ SAE Institute Zurich, Submission date Apr, 29. 2021
 * [Folder structure](#folder-structure)
 * [source directory](#source-directory)
 
+vorgeben für das projekt:  
+●Erstelle ein responsives Layout mit Hilfe von HTML/CSS/Bootstrap. Berücksichtige
+alle Design-Prinzipien, die du in den bisherigen Modulen gelernt hast.  
+● Erstelle eine Datenbank, in der alle relevanten Daten gespeichert werden (z.B.
+Nutzer, Artikel, Inhalt etc.)  
+● Erstelle zwei Layouts:
+○ ein Layout für unregistrierte Nutzer (Besucher)  
+○ ein Layout für registrierte & eingeloggte Nutzer (Autoren)  
+● Es sollte ein Login-Formular für registrierte Nutzer existieren.  
+● Sobald ein Nutzer eingeloggt ist sollte er Daten asynchron bearbeiten können.  
+● Erstelle ein Formular, über das sich unregistrierte Nutzer anmelden können. Dieses
+sollte mindestens vier Felder enthalten, die entsprechend asynchron validiert
+werden (z.B. Nutzername, Emailadresse, Passwort, Vor- und Nachname).  
+● Implementiere grundlegende Datenverschlüsselung beim asynchron Datentransfer
+von und zur Datenbank.  
+● Erstelle ein PDF und README.md oder README.txt, in dem du deine
+Datenarchitektur und die genutzten PHP-OOP-Techniken beschreibst.  
+Optional:  
+● Erstelle eine “Passwort vergessen”-Seite, über die ein zufallsgeneriertes Passwort
+angefordert werden kann.  
+● Binde eine Funktion zur Email-Validierung ein.  
+● Füge eine Suchfunktion ein.  
+● Erstelle deine App entsprechend des MVC-Modells.  
 ## <a name="teacher-info"></a>Infos for the Teacher
 **Database**
 
@@ -63,7 +86,7 @@ The Project is build by the MVC model.
  * Composer (namespaces)
  * twig (template system)
  * git
- * scryfall API
+ * [scryfall API](https://scryfall.com/docs/api)
  
 To edit or change the project open gitBash or any other console in the root folder.
 
