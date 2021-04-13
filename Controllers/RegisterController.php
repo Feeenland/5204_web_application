@@ -3,9 +3,10 @@
 
 namespace Controllers;
 
-
+use Helpers\Disinfect;
 use Helpers\Validation;
 use Models\UserModel;
+use Views\LoginView;
 use Views\RegisterView;
 
 class RegisterController
@@ -15,17 +16,36 @@ class RegisterController
     protected $errorMessages;
     protected $register = false;
 
+    protected $fields = [
+        'name',
+        'nickname',
+        'favourite_card',
+        'password',
+    ];
+
+    public $rules = [
+        'name' => ['required', 'max15chars'],
+        'nickname' => ['required','freeNickname', 'max15chars'],
+        'favourite_card' => ['required', 'max35chars'],
+        'password' => ['required', 'min5chars']
+    ];
+
     public function __construct()
     {
-        if(isset($_POST['register']) )
-        {
+        if (isset($_POST['register'])) {
             $name = $_REQUEST['name'];
-            $card = $_REQUEST['card'];
+            $card = $_REQUEST['favourite_card'];
             $nick = $_REQUEST['nickname'];
             $pwd = $_REQUEST['password'];
 
-           $this->createNewUser($name, $card, $nick, $pwd);
-        }else{
+            $d = new Disinfect();
+            $name = $d->disinfect($name);
+            $card = $d->disinfect($card);
+            $nick = $d->disinfect($nick);
+            $pwd = $d->disinfect($pwd);
+
+            $this->createNewUser($name, $card, $nick, $pwd);
+        } else {
             $view = $this->view = new RegisterView();
             $view->showTemplate();
         }
@@ -33,67 +53,118 @@ class RegisterController
 
     public function createNewUser($name, $card, $nick, $pwd)
     {
-       $this->validateNewUsers($name, $card, $nick, $pwd);
 
-       if ($this->register == true){
-            print 'new user?';
-            $u = new UserModel();
-            $nickexist =$u->getUsersByNickname($nick);
-           if ($nickexist == false) {
-               print 'create usr';
-               $values['name'] = $name;
-               $values['nickname'] = $nick;
-               $values['favourite_card'] = $card;
-               $values['password'] = $pwd; // TODO hash PW
-               $u->updateSave($values);
-               // TODO prepared statement error?!
-           }else{
-               print 'nickname is not free';
-               $view = $this->view = new RegisterView();
-               $this->infos = 'I am sorry this nickname is already taken';
-               $this->errorMessages = 'This Nickname is not free!';
-               $this->view->addInfos($this->infos);
-               $this->view->addErrorMessages($this->errorMessages);
-               $view->showTemplate();
-           }
-       }
-    }
-
-
-    public function validateNewUsers($name, $card, $nick, $pwd)
-    {
-        $view ='';
-        $infos ='';
-       $errorMessages ='';
+        $u = new UserModel();
+        $nickexist = $u->getUsersByNickname($nick);
 
         $valid = new Validation();
-        if ($valid->isValid($name)){
-            if ($valid->isValid($card)){
-                if ($valid->isValid($nick)){
-                    if ($valid->isValid($pwd)){
-                        $this->register = true;
-                    }else{
-                        $this->isNotValid();
-                    }
-                }else{
-                    $this->isNotValid();
-                }
-            }else{
-                $this->isNotValid();
-            }
+        $errors = $valid->validateFields($this->rules);
+
+        if (!$nickexist == false || count($errors) != 0) { //nickname not free
+            print 'nickname is not free';
+            $view = $this->view = new RegisterView();
+            $this->errorMessages = 'This Nickname is not free!';
+            $this->view->addErrorMessagesMany('nickname',$this->errorMessages);
+            // TODO async nickname!
+
+                // errors in fields! Show Field
+                return $this->showErrorsValues(
+                    $errors,
+                    [
+                        'name' => $_REQUEST['name'],
+                        'nickname' => $_REQUEST['nickname'],
+                        'favourite_card' => $_REQUEST['favourite_card'],
+                        'password' => $_REQUEST['password']
+                    ]);
         }else{
-            $this->isNotValid();
+            print 'no errors';
+            $u = new UserModel();
+
+                print 'create usr';
+                $values['name'] = $name;
+                $values['nickname'] = $nick;
+                $values['favourite_card'] = $card;
+                $values['password'] = $pwd; // TODO hash PW
+                $u->updateSave($values);
+                $view = $this->view = new LoginView();
+                $this->infos = 'you are registered, log in :)';
+                $this->view->addInfos($this->infos);
+                $view->showTemplate();
+
+                // TODO prepared statement error?!
+
         }
+
+
+
+        /* // it works but is the nickname is not free it says it at the end !
+        $valid = new Validation();
+        $errors = $valid->validateFields($this->rules);
+        if (count($errors) != 0) {
+            // errors in fields! Show Field
+            return $this->showErrorsValues(
+                $errors,
+                [
+                    'name' => $_REQUEST['name'],
+                    'nickname' => $_REQUEST['nickname'],
+                    'favourite_card' => $_REQUEST['favourite_card'],
+                    'password' => $_REQUEST['password']
+                ]);
+        }else{
+            print 'no errors';
+            $u = new UserModel();
+            $nickexist = $u->getUsersByNickname($nick);
+            if ($nickexist == false) {
+                print 'create usr';
+                $values['name'] = $name;
+                $values['nickname'] = $nick;
+                $values['favourite_card'] = $card;
+                $values['password'] = $pwd; // TODO hash PW
+                $u->updateSave($values);
+                $view = $this->view = new LoginView();
+                $this->infos = 'you are registered, log in :)';
+                $this->view->addInfos($this->infos);
+                $view->showTemplate();
+
+                // TODO prepared statement error?!
+            }else {
+                print 'nickname is not free';
+                $view = $this->view = new RegisterView();
+                $this->infos = 'I am sorry this nickname is already taken';
+                $this->errorMessages = 'This Nickname is not free!';
+                $this->view->addInfos($this->infos);
+                $this->view->addErrorMessagesMany('nickname',$this->errorMessages);
+                // TODO async nickname!
+                $view->showTemplate();
+            }
+        }*/
+    }
+
+
+    public function showErrorsValues($errors = [], $values = [])
+    {
         $view = $this->view = new RegisterView();
-        $this->view->addInfos($this->infos);
-        $this->view->addErrorMessages($this->errorMessages);
+        //print_r($errors);
+        //print_r($values);
+
+        foreach ($this->fields as $field){
+            //print $field . '<br>';
+            if (isset($errors[$field])){
+                $this->view->addErrorMessagesMany($field, $errors[$field][0]);
+            }
+            if (isset($values[$field])){
+                $this->view->addValuesMany($field, $values[$field]);
+                //print $values[$field];
+            }
+        }
+
         $view->showTemplate();
 
-    }
-
-    public function isNotValid()
-    {
-        $this->infos = 'Please enter everywhere something between 1-30 letters';
-        $this->errorMessages = 'Something was entered incorrectly!';
+        return [
+            'errors' => $errors,
+            'values' => $values
+        ];
     }
 }
+
+

@@ -116,7 +116,7 @@ abstract class AbstractModel
                 $stmt = $conn->prepare($sql);
                 print $sql;   print $type ." " . $values;
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
-                $this->bindMyParams($stmt, false);;
+                $this->bindMyParams($stmt, false);
                 $stmt->execute();
                 print "save ";
                 return $stmt->insert_id;

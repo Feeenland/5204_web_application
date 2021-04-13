@@ -47,4 +47,14 @@ abstract class AbstractView
     {
         $this->data['errorMessages'][] = $errorMessages;
     }
+    public function addErrorMessagesMany($errorKey, $value)
+    {
+        $this->data['errorMessages'][] = $errorKey;
+        $this->data['errorMessages'][$errorKey][] = $value;
+    }
+    public function addValuesMany($valueKey, $value)
+    {
+        $this->data['values'][] = $valueKey;
+        $this->data['values'][$valueKey][] = $value;
+    }
 }

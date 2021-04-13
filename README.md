@@ -15,8 +15,8 @@ vorgeben für das projekt:
 alle Design-Prinzipien, die du in den bisherigen Modulen gelernt hast.  
 ● Erstelle eine Datenbank, in der alle relevanten Daten gespeichert werden (z.B.
 Nutzer, Artikel, Inhalt etc.)  
-● Erstelle zwei Layouts:
-○ ein Layout für unregistrierte Nutzer (Besucher)  
+● Erstelle zwei Layouts:  
+○ ein Layout für unregistrierte Nutzer (Besucher)    
 ○ ein Layout für registrierte & eingeloggte Nutzer (Autoren)  
 ● Es sollte ein Login-Formular für registrierte Nutzer existieren.  
 ● Sobald ein Nutzer eingeloggt ist sollte er Daten asynchron bearbeiten können.  
