@@ -2,7 +2,7 @@
 
 namespace Models;
 use Database\DBConnection;
-use Helpers;
+use mysqli;
 use Helpers\disinfect;
 
 abstract class AbstractModel
@@ -44,42 +44,16 @@ abstract class AbstractModel
         if (isset($id) && $id !=0){// update
             try{
                 $fieldsArray = array();
-                    /*foreach ($fields as $field){ //safe existing fields in a array with = ?,
-                        if (isset($values[$field]) && $field != 'id'){
-                            $fieldsArray[] = $field . " = ? ";
-                        }
-                    }*/
                 foreach ($fields as $field){
                     $str[] = '?';
                     $fieldsArray[] = $field;
                 }
                 $fieldsArray =implode(", ", $fieldsArray); //separate by comma
-                //$type = "";
-                /*foreach ($values as $value){
-                    $d = new Disinfect();
-                    $d->disinfect($value);
-                }*/
-                //$v = $values['id']; //save the id
-                //unset($values['id']); //delete the id
-                //$values['id'] = $v;// put the id at the end
-                /*foreach ($values as $value){
-                    if (is_numeric($value)) {
-                        $type = $type . "i"; //$type + i
-                    } else{
-                        $type = $type . "s"; //$type + s
-                    }
-                }*/
-                //$values = implode("', '", $values); //separate by comma
-                //$values = "'".$values."'";
-                //print_r($values);
                 print $fieldsArray . '<br>';
                 $conn = DBConnection::getConnection();
                 $sql = "UPDATE " . $this->table . " SET " . $fieldsArray . " WHERE id = ?";
-                //UPDATE users name = 'testX' ,nickname = 'test' WHERE id = '1'
                 print "SQL statement:  " .$sql ."  ";
                 $stmt = $conn->prepare($sql);
-
-                //call_user_func_array(array($stmt, "bind_param"), array_merge(array($type), $values));
 
                 // call method, override it in every specific model
                 $this->bindMyParams($stmt, true);
@@ -94,12 +68,6 @@ abstract class AbstractModel
             try{
                 $str = array();
                 $fieldsArray = array();
-                /*foreach ($fields as $field){
-                    if (isset($values[$field])){
-                        $str[] = '?';
-                        $fieldsArray[] = $field;
-                    }
-                }*/
                 foreach ($fields as $field){
                     if ($field != 'id'){
                         $str[] = '?';
@@ -108,27 +76,12 @@ abstract class AbstractModel
                 }
                 $str = implode(",", $str); //separate by comma
                 $fieldsArray =implode(", ", $fieldsArray); //separate by comma
-                $type = "";
-                //print_r($values) ;
-               /* foreach ($values as $value){
-                    $d = new Disinfect();
-                    if (is_numeric($value)) {
-                        $type = $type . "i"; //$type + i
-                    } else{
-
-                        $d->disinfect($value);
-                        $type = $type . "s"; //$type + s
-                    }
-                }*/
-                //$values = implode("', '", $values); //separate by comma
-                //$values = "'".$values."'";
                 print $fieldsArray . '<br>';
                 print $str . '<br>';
                 $conn = DBConnection::getConnection();
                 //$sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $stmt = $conn->prepare($sql);
-                //print $sql;   print $type ." " . $values;
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
                 $this->bindMyParams($stmt, false);
                 $stmt->execute();

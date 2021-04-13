@@ -11,6 +11,7 @@ class CardsModel extends AbstractModel {
         'lang',
         'scryfall_uri',
         'cmc',
+        'oracle_text',
         'mana_cost',
         'name',
         'power',

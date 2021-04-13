@@ -4,7 +4,8 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "twig/twig": "^3.3"
+        "twig/twig": "^3.3",
+      "ext-mysqli": "*"
     },
     "autoload": {
         "psr-0": {

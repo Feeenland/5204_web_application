@@ -1,6 +1,7 @@
 <?php
 
 namespace Models;
+use mysqli;
 
 class UserModel extends AbstractModel {
 
@@ -45,6 +46,7 @@ class UserModel extends AbstractModel {
 
     protected function bindMyParams($stmt, $update = false)
     {
+
         // SQL statement: UPDATE users SET
         // name = ? ,
         //nickname = ? ,
@@ -62,9 +64,11 @@ class UserModel extends AbstractModel {
         $id = $this->getFieldValue('id');
         if($update){
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try, $id);
+            print_r($stmt);
             print $types.'<br>'. $name.'<br>'. $nickname.'<br>'. $favourite_card.'<br>'. $password.'<br>'.  $banned_at. '<br>'.$login_try.'<br>'. $id;
         }else{
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try);
+            print_r($stmt);
             print $types.'<br> name: '. $name.'<br> nick: '. $nickname.'<br> card: '.
                 $favourite_card.'<br> pw: '. $password.'<br> banned: '.  $banned_at. '<br> login: '.$login_try. '<br>';
         }
