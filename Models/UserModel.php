@@ -72,6 +72,7 @@ class UserModel extends AbstractModel {
             print $types.'<br> name: '. $name.'<br> nick: '. $nickname.'<br> card: '.
                 $favourite_card.'<br> pw: '. $password.'<br> banned: '.  $banned_at. '<br> login: '.$login_try. '<br>';
         }
+        return $stmt;
     }
 
     public function updateSave($values){

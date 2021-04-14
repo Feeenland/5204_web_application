@@ -83,7 +83,9 @@ abstract class AbstractModel
                 $sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $stmt = $conn->prepare($sql);
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
-                $this->bindMyParams($stmt, false);
+                print_r($stmt);
+                $stmt = $this->bindMyParams($stmt, false);
+                print_r($stmt);
                 $stmt->execute();
                 print 'saved? ';
                 return $stmt->insert_id;

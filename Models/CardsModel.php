@@ -19,6 +19,7 @@ class CardsModel extends AbstractModel {
         'image_uris',
         'rarity',
         'set_name', //FK
+        'collector_number',
         'type_line',
     ];
 
