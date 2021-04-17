@@ -33,6 +33,16 @@ class CardsModel extends AbstractModel {
 
     protected $values = [];
 
+    public function CountCards($search){
+        try {
+
+
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+
     public function getCardByName($name) {
 
         try{

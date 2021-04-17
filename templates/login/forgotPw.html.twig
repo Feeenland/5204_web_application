@@ -34,21 +34,23 @@
                         <input
                                 type="text"
                                 name="name"
-                                class="form-control"
+                                class="form-control {% if errorMessages['name'][0] %} has_error {% endif %}"
                                 id="name"
                                 placeholder="kate"
-                                value="">
+                                value="{{ values['name'][0] }}">
+                        <p class="error_message">{{ errorMessages['name'][0] }}</p>
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
-                        <label for="card" class="col col-form-label title_colorless">favorite card:</label>
+                        <label for="favourite_card" class="col col-form-label title_colorless">favorite card:</label>
                         <input
                                 type="text"
-                                name="card"
-                                class="form-control"
-                                id="card"
+                                name="favourite_card"
+                                class="form-control {% if errorMessages['favourite_card'][0] %} has_error {% endif %}"
+                                id="favourite_card"
                                 placeholder="card name"
-                                value="">
+                                value="{{ values['favourite_card'][0] }}">
+                        <p class="error_message">{{ errorMessages['favourite_card'][0] }}
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
@@ -56,20 +58,21 @@
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control"
+                                class="form-control {% if errorMessages['nickname'][0] %} has_error {% endif %}"
                                 id="nickname"
                                 placeholder="kitty =^.^="
-                                value="">
+                                value="{{ values['nickname'][0] }}">
+                        <p class="error_message">{{ errorMessages['nickname'][0] }}</p>
                     </div>
                     <div class="form-group row">
                         <label for="newPassword" class="col col-form-label title_colorless">Enter New Password:</label>
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control"
+                                class="form-control {% if errorMessages['password'][0] %} has_error {% endif %}"
                                 id="newPassword"
                                 placeholder="New Password">
-                        <p class="error_message"></p>
+                        <p class="error_message">{{ errorMessages['password'][0] }}</p>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Send</button>
@@ -91,3 +94,6 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    <script src="js/login/forgotPw.js"></script>
+{% endblock %}

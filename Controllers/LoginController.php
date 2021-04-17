@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Helpers\disinfect;
+use Helpers\Validation;
 use Models\UserModel;
 use Views\HomeView;
 use Views\LoginView;
@@ -15,12 +17,28 @@ class LoginController
     protected $infos;
     protected $errorMessages;
 
+    protected $fields = [
+        'name',
+        'nickname',
+        'favourite_card',
+        'password',
+    ];
+
+    public $rules = [
+        'nickname' => ['required'],
+        'password' => ['required']
+    ];
+
     public function __construct()
     {
         if(isset($_POST['login_try']) )
         {
             $nick = $_REQUEST['nickname'];
             $pwd = $_REQUEST['password'];
+
+            $d = new Disinfect();
+            $nick = $d->disinfect($nick);
+            $pwd = $d->disinfect($pwd);
 
             $this->doLoginAttempt($nick, $pwd);
         }else{
@@ -32,7 +50,7 @@ class LoginController
     public function showLoginForm()
     {
         if (isset($_SESSION['logged_in'])) { // this case should not happen
-            $_SESSION['logged_in'] == 1;
+            //$_SESSION['logged_in'] == 1;
             $this->infos = 'Sie sind bereits eingeloggt';
             $view = $this->view = new UserView();
             $this->view->addInfos($this->infos);
@@ -49,17 +67,21 @@ class LoginController
 
     public function doLoginAttempt($nick, $pwd)
     {
-
+        session_destroy();
         // valid user?
+
+        $valid = new Validation();
+        $errors = $valid->validateFields($this->rules);
+
         $usr = new UserModel();
         $userfound =$usr->getUsersByNickname($nick);
-        var_dump($usr);
-        die();
+        //var_dump($usr);
+        //die();
         print $nick;
         if ($userfound == false) {
             // Return fail message
             print 'false usr';
-            $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben'; // mail is wrong
+            $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben'; // nickname is wrong
             $this->errorMessages = 'Etwas wurde falsch eingegeben!';
 
             $this->showLoginForm();
@@ -70,25 +92,32 @@ class LoginController
                 if ($pwd == $usr->getFieldValue('password')) { //match the pw with pw in DB
                     // reset login_try, if there are any
                     if ($usr->getFieldValue('login_try') != 0) {
-                        $usr->setFieldValue('login_try', 0);
+                        print 'set login try to 0' . '<br>';
+                        $values['login_try'] = $usr->setFieldValue('login_try', 0);
+                        $values['id'] = $usr->getFieldValue('id');
+                        $usr->updateSave($values);
                     }
                     //print 'pw down';
                     // start session = user is logged in
                     $_SESSION['logged_in'] = 1;
-                    $this->infos = 'Hallo ' . $usr['name'] . ' ' . $usr['nickname'] . '<br> sie haben sich korrekt eingeloggt';
+                    print 'session 1, alles richtig' . '<br>';
+                    $this->view = new UserView();
+                    $this->infos = 'Hallo ' . $usr->getFieldValue('name') . ' ' . $usr->getFieldValue('nickname') . '<br> sie haben sich korrekt eingeloggt';
 
                     //die('correct password'); //logged in
-                    $view = $this->view = new UserView();
                     $this->view->addInfos($this->infos);
-                    $view->showTemplate();
+                    $this->view->showTemplate();
+                    //$this->showLoginForm();
                     $p = 'user';
 
                 } else {
                     $this->checkIfUserIsBanned($usr);
+                    print 'check user banned?' . '<br>';
                     // increase failure counter
                     $fails = $usr->getFieldValue('login_try')+ 1; //every try +1, and banned at 3
                     // check failure counter, ban if needed
                     if ($fails >= $this->login_tries) { // user get banned, add timestamp in the field banned_at in the DB.
+                        print 'user wird gebannt ?' . '<br>';
                         $values['banned_at'] =  date('Y-m-d H:i:s');
                         $usr->updateSave($values); //TODO user update login_try
                         //updateUserField($usr['id'], 'banned_at', date('Y-m-d H:i:s'), 's');
@@ -102,10 +131,15 @@ class LoginController
                         $this->view->addInfos($this->infos);
                         $view->showTemplate();
                     } else {
+                        print 'update login try' . '<br>';
                         // update login_try ++ in DB.
-                        $values['login_try'] = +1;
-                        $usr->setFieldValue('login_try', $fails);
-                        $usr->save(); //TODO user update login_try
+                        $values['login_try'] = $fails;
+                        $values['id'] = $usr->getFieldValue('id');
+                        print_r($values);
+                        //$usr->setFieldValue('login_try', $fails);
+                        print 'set field value login try' . '<br>';
+                        $usr->updateSave($values);
+                        //$usr->save(); //TODO user update login_try
                         //updateUserField($usr['id'], 'login_try', $fails, 'i');
                         $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben';
                         $this->errorMessages = 'Etwas wurde falsch eingegeben!';

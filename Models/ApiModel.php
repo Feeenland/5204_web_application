@@ -26,6 +26,26 @@ class ApiModel
         }
     }
 
+    public function getCardsByScryfallId($scryfall_id) {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = ("SELECT id FROM cards WHERE scryfall_id = ?");
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $scryfall_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result->num_rows == 0){
+                return false; //found nothing
+            }else{
+                return $result->fetch_assoc();
+            }
+            return $stmt->get_result();
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+
     public function createSet($set_name, $set) {
         try{
             $conn = DBConnection::getConnection();
@@ -73,7 +93,7 @@ class ApiModel
 
 
             $stmt->execute();
-            print_r($stmt);
+            //print_r($stmt);
             return $stmt->insert_id;
         }catch(Exception $e){
             die($e->getMessage());

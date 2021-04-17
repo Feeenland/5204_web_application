@@ -14,7 +14,6 @@ class RegisterController
     protected $view;
     protected $infos;
     protected $errorMessages;
-    protected $register = false;
 
     protected $fields = [
         'name',
@@ -54,18 +53,17 @@ class RegisterController
     public function createNewUser($name, $card, $nick, $pwd)
     {
 
-        $u = new UserModel();
-        $nickexist = $u->getUsersByNickname($nick);
+       // $u = new UserModel();
+        //$nickexist = $u->getUsersByNickname($nick);
 
         $valid = new Validation();
         $errors = $valid->validateFields($this->rules);
 
-        if (!$nickexist == false || count($errors) != 0) { //nickname not free
-            print 'nickname is not free';
+        if (count($errors) != 0) { //nickname not free
+            print 'errors';
             $view = $this->view = new RegisterView();
-            $this->errorMessages = 'This Nickname is not free!';
-            $this->view->addErrorMessagesMany('nickname',$this->errorMessages);
-            // TODO async nickname!
+            //$this->errorMessages = 'This Nickname is not free!';
+            //$this->view->addErrorMessagesMany('nickname',$this->errorMessages);
 
                 // errors in fields! Show Field
                 return $this->showErrorsValues(
@@ -90,54 +88,8 @@ class RegisterController
                 $this->infos = 'you are registered, log in :)';
                 $this->view->addInfos($this->infos);
                 $view->showTemplate();
-
-                // TODO prepared statement error?!
-
         }
 
-
-
-        /* // it works but is the nickname is not free it says it at the end !
-        $valid = new Validation();
-        $errors = $valid->validateFields($this->rules);
-        if (count($errors) != 0) {
-            // errors in fields! Show Field
-            return $this->showErrorsValues(
-                $errors,
-                [
-                    'name' => $_REQUEST['name'],
-                    'nickname' => $_REQUEST['nickname'],
-                    'favourite_card' => $_REQUEST['favourite_card'],
-                    'password' => $_REQUEST['password']
-                ]);
-        }else{
-            print 'no errors';
-            $u = new UserModel();
-            $nickexist = $u->getUsersByNickname($nick);
-            if ($nickexist == false) {
-                print 'create usr';
-                $values['name'] = $name;
-                $values['nickname'] = $nick;
-                $values['favourite_card'] = $card;
-                $values['password'] = $pwd; // TODO hash PW
-                $u->updateSave($values);
-                $view = $this->view = new LoginView();
-                $this->infos = 'you are registered, log in :)';
-                $this->view->addInfos($this->infos);
-                $view->showTemplate();
-
-                // TODO prepared statement error?!
-            }else {
-                print 'nickname is not free';
-                $view = $this->view = new RegisterView();
-                $this->infos = 'I am sorry this nickname is already taken';
-                $this->errorMessages = 'This Nickname is not free!';
-                $this->view->addInfos($this->infos);
-                $this->view->addErrorMessagesMany('nickname',$this->errorMessages);
-                // TODO async nickname!
-                $view->showTemplate();
-            }
-        }*/
     }
 
 

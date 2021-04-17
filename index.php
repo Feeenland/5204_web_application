@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\CardController;
 use Controllers\ForgotPwController;
 use Controllers\HomeController;
 use Controllers\LoginController;
@@ -11,6 +12,7 @@ include('bootstrap.php');
 
 session_start();
 //error_reporting(E_WARNING); // don't show the warnings
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $pageElement= null;
 $p ='home';
 
@@ -23,9 +25,11 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $controller = new RegisterController();
     }else if($_GET['p'] == 'forgotPw'){
         $controller = new ForgotPwController();
-    }else if($_GET['p'] == 'home'){
-        $view= new HomeController();
+    }else if($_GET['p'] == 'home') {
+        $view = new HomeController();
         $pageTitle = 'Home';
+    }else if($_GET['p'] == 'card') {
+        $view = new CardController($_GET['method']);
     }else if($_GET['p'] == 'user'){
         $view= new HomeController();
         $page ='views/admin.php';

@@ -11,6 +11,24 @@ abstract class AbstractModel
     protected $fields = [];
     protected $values = [];
 
+    protected function searchByLetters($field, $value, $type = 's')
+    {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT * FROM " . $this->table . " WHERE " . $field . " = ?";
+            $stmt = $conn->prepare($sql);
+            if ($type === 's') {
+                $d = new Disinfect();
+                $d->disinfect($value);
+            }
+            $stmt->bind_param($type, $value);
+            $stmt->execute();
+            return $stmt->get_result();
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
     protected function getBySingleField($field, $value, $type = 's')
     {
         try{
@@ -39,16 +57,38 @@ abstract class AbstractModel
         );
     }
 
-    protected function saveValues($fields, $values, $id = 0)
+ /*   public function updateUserField(){ //to update a specific user field
+        try{
+            //UPDATE users SET login_try = 1 WHERE id= 4;
+            $_value = 1;
+            $_id = 4;
+            $db_connection = $conn = DBConnection::getConnection();
+            $stmt = $db_connection->prepare('UPDATE users SET login_try = ? WHERE id = ?');
+            $stmt->bind_param('ii',$_value,  $_id);
+            $stmt->execute();
+            return true;
+        }catch(Exception $exception){
+        die('update failed');
+        }
+    }*/
+
+
+    public function saveValues($fields, $values, $id = 0)
     {
         if (isset($id) && $id !=0){// update
             try{
                 $fieldsArray = array();
                 foreach ($fields as $field){
-                    $str[] = '?';
-                    $fieldsArray[] = $field;
+                    if ($field == 'id'){
+                        print 'is id!';
+
+                    } else{
+                        $fieldsArray[] = $field;
+                        $str[] = '?';
+                    }
+
                 }
-                $fieldsArray =implode(", ", $fieldsArray); //separate by comma
+                $fieldsArray =implode("= ?, ", $fieldsArray) . '= ?'; //separate by comma
                 print $fieldsArray . '<br>';
                 $conn = DBConnection::getConnection();
                 $sql = "UPDATE " . $this->table . " SET " . $fieldsArray . " WHERE id = ?";

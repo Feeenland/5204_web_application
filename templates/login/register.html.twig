@@ -20,7 +20,7 @@
 
             </div>
             <div class="col-11 col-lg-11 login__register">
-                <form action="index.php?p=register" method="POST">
+                <form id="register__form" action="index.php?p=register" method="POST">
                     <div class="row justify-content-between">
                         <div class="col">
                             <h2>New Register</h2>
@@ -76,7 +76,7 @@
                         <p class="error_message">{{ errorMessages['password'][0] }}</p>
                     </div>
                     <div class="row justify-content-center">
-                        <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Send</button>
+                        <button id="register__submit" type="submit" class="btn_1 btn btn_send btn-outline-primary">Send</button>
                     </div>
                 </form>
 
@@ -95,3 +95,6 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    <script src="js/login/register.js"></script>
+{% endblock %}

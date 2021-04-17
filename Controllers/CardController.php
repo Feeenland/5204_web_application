@@ -26,10 +26,43 @@ class CardController
         'color  ',
     ];
 
-    public function getCardDetailByName() {
+/*    public function __construct($method, $id = null) {
+        switch($method) {
+            case 'printCard':
+                $this->getCardDetailByName($_POST['cardId']);
+                break;
+
+            case 'search':
+                $this->SearchCard($_POST['search']);
+                break;
+
+            case 'searchcount':
+                $this->SearchCount($_POST['search']);
+                break;
+
+            case 'searchhard':
+                $this->SearchHard($_POST['search']);
+                break;
+        }
+    }
+    */
+
+    public function SearchCount($count){
+        //count possible cards
+        $card = new CardsModel();
+    }
+
+    public function SearchCard($cards){
+        //if possible cards > 20, print cards
+    }
+    public function SearchHard($cards){
+        // print all possible cards
+    }
+
+    public function getCardDetailByName(/*$cardId*/) {
 
         $card = new CardsModel();
-        $card->getCardByName('clariomultimatum');
+        $card->getCardByName('Fury Sliver');
         print $card->toString();
         $view = $this->view = new CardSingleView();
 
