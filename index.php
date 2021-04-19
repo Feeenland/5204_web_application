@@ -29,7 +29,7 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $view = new HomeController();
         $pageTitle = 'Home';
     }else if($_GET['p'] == 'card') {
-        $view = new CardController($_GET['method']);
+        $view = new CardController($_GET['method']); // TODO understand this?
     }else if($_GET['p'] == 'user'){
         $view= new HomeController();
         $page ='views/admin.php';
@@ -45,8 +45,9 @@ $card->getCardByName('clariomultimatum');
 print $card->getFieldValue('name');
 print $card->toString();*/
 
+/*
 $c = new \Controllers\CardController();
-$c->getCardDetailByName();
+$c->getCardDetailByName();*/
 
 
 

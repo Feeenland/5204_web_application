@@ -27,10 +27,10 @@ class UserModel extends AbstractModel {
             $result = $this->getBySingleField('nickname', $nickname, 's');
 
             if($result->num_rows == 0){
-                print "false! MUser ";
+                //print "false! MUser ";
                 return false; //found nothing
             }else{
-                print "fetch!? ";
+                //print "fetch!? ";
                 $dbUsr = $result->fetch_assoc();
                 foreach ($this->fields as $field){
                     if (array_key_exists($field, $dbUsr))
@@ -64,13 +64,11 @@ class UserModel extends AbstractModel {
         $id = $this->getFieldValue('id');
         if($update){
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try, $id);
-            print_r($stmt);
-            print $types.'<br>'. $name.'<br>'. $nickname.'<br>'. $favourite_card.'<br>'. $password.'<br>'.  $banned_at. '<br>'.$login_try.'<br>'. $id;
+            //print $types.'<br>'. $name.'<br>'. $nickname.'<br>'. $favourite_card.'<br>'. $password.'<br>'.  $banned_at. '<br>'.$login_try.'<br>'. $id;
         }else{
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try);
-            print_r($stmt);
-            print $types.'<br> name: '. $name.'<br> nick: '. $nickname.'<br> card: '.
-                $favourite_card.'<br> pw: '. $password.'<br> banned: '.  $banned_at. '<br> login: '.$login_try. '<br>';
+            //print $types.'<br> name: '. $name.'<br> nick: '. $nickname.'<br> card: '.
+                //$favourite_card.'<br> pw: '. $password.'<br> banned: '.  $banned_at. '<br> login: '.$login_try. '<br>';
         }
         return $stmt;
     }
@@ -81,13 +79,13 @@ class UserModel extends AbstractModel {
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
-            print $this->toString();
+            //print $this->toString();
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
             if ($result == false) {
                 print ' Speichern fehlgeschlagen ';
                 //die('Speichern fehlgeschlagen');
             } else {
-                print " worked! ";
+                //print " worked! ";
                 return true;
             }
         }catch(Exception $exception){
@@ -100,7 +98,7 @@ class UserModel extends AbstractModel {
     public function delete($id){
         try{
             $this->deleteByID($id);
-            print "deleted";
+            //print "deleted";
         }catch(Exception $exception){
             die('Problem with database');
             //return false;

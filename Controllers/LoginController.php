@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use DateTime;
 use Helpers\disinfect;
 use Helpers\Validation;
 use Models\UserModel;
@@ -13,14 +14,13 @@ class LoginController
 {
     protected $login_tries = 3; // 3 tries get the user to log in
     protected $ban_time = 60 * 60; // in seconds = 1h will the user be banner by 3 fails
+    protected $db_datetime_format = 'Y-m-d H:i:s';
     protected $view;
     protected $infos;
     protected $errorMessages;
 
     protected $fields = [
-        'name',
         'nickname',
-        'favourite_card',
         'password',
     ];
 
@@ -47,24 +47,6 @@ class LoginController
         }
     }
 
-    public function showLoginForm()
-    {
-        if (isset($_SESSION['logged_in'])) { // this case should not happen
-            //$_SESSION['logged_in'] == 1;
-            $this->infos = 'Sie sind bereits eingeloggt';
-            $view = $this->view = new UserView();
-            $this->view->addInfos($this->infos);
-            $this->view->addErrorMessages($this->errorMessages);
-            $view->showTemplate();
-        } else {
-            $view = $this->view = new LoginView();
-            // $this->view->addInfos($this->infos);
-            $this->view->addToKey('infos', $this->infos);
-            $this->view->addErrorMessages($this->errorMessages);
-            $view->showTemplate();
-        }
-    }
-
     public function doLoginAttempt($nick, $pwd)
     {
         session_destroy();
@@ -75,34 +57,78 @@ class LoginController
 
         $usr = new UserModel();
         $userfound =$usr->getUsersByNickname($nick);
-        //var_dump($usr);
-        //die();
-        print $nick;
-        if ($userfound == false) {
-            // Return fail message
-            print 'false usr';
-            $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben'; // nickname is wrong
-            $this->errorMessages = 'Etwas wurde falsch eingegeben!';
 
-            $this->showLoginForm();
-        } else {
-            if($usr->getFieldValue('banned_at') == null || $usr->getFieldValue('login_try') <= 1) {
+        //print $nick;
+        if ($userfound == false ||  count($errors) != 0) { // errors
+            // Return fail message
+            //print 'false usr';
+            if ($userfound == false){
+                $generalerr ='this user does not exist!';
+            }
+            $info ='Please enter Your login data!';
+
+            return $this->showErrorsValues(
+                $info, $generalerr, $errors,
+                [
+                    'nickname' => $_REQUEST['nickname'],
+                    'password' => $_REQUEST['password'],
+                ]);
+        } else { //no errors from feedback
+
+            if ($usr->getFieldValue('banned_at') != null){ // if user is banned
+
+                $banned_at = date_create_from_format($this->db_datetime_format, $usr->getFieldValue('banned_at'));
+                $now = new DateTime();
+                //print_r($now);
+                $interval = $now->getTimestamp() - $banned_at->getTimestamp(); // now - banned_at = how log is he banned jet.
+                //print $interval.'and'.$ban_time;
+
+                if ($interval <= $this->ban_time) { //still banned
+                    $info = 'You were banned due to incorrect login attempts,
+                                 try again later!  time of banishment:' . date('Y-m-d H:i:s');
+                    $generalerr = 'still banned !';
+
+                    return $this->showErrorsValues(
+                        $info, $generalerr, $errors,
+                        [
+                            'nickname' => $_REQUEST['nickname'],
+                            'password' => $_REQUEST['password'],
+                        ]);
+
+                } else { // waited long enough = reset the field banned_at an login_try in the DB.
+                    $values['login_try'] = null;
+                    $values['banned_at'] = null;
+                    $values['id'] = $usr->getFieldValue('id');
+                    $usr->updateSave($values);
+
+                    $this->view = new UserView();
+                    $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
+                        . ' you are logged in';
+
+                    $this->view->addInfos($this->infos);
+                    $this->view->assignData('nickname', $usr->getFieldValue('nickname'));
+                    $this->view->assignData('nickname', $usr->getFieldValue('favorite_card'));
+                    $this->view->showTemplate();
+
+                    return false;
+                }
+
+            }else if($usr->getFieldValue('banned_at') == null || $usr->getFieldValue('login_try') <= 1) { // user is not banned
                 // check password
-                //if (password_verify($pwd, $usr['password'])) { //match the pw with pw in DB //TODO add the pw hash
+                // TODO add the pw hash
                 if ($pwd == $usr->getFieldValue('password')) { //match the pw with pw in DB
                     // reset login_try, if there are any
-                    if ($usr->getFieldValue('login_try') != 0) {
-                        print 'set login try to 0' . '<br>';
-                        $values['login_try'] = $usr->setFieldValue('login_try', 0);
+                    if ($usr->getFieldValue('login_try') != 0) { // set login try to 0
+                        //print 'set login try to 0' . '<br>';
+                        $values['login_try'] = null;
                         $values['id'] = $usr->getFieldValue('id');
                         $usr->updateSave($values);
                     }
-                    //print 'pw down';
-                    // start session = user is logged in
                     $_SESSION['logged_in'] = 1;
-                    print 'session 1, alles richtig' . '<br>';
+                    //print 'session 1, alles richtig' . '<br>';
                     $this->view = new UserView();
-                    $this->infos = 'Hallo ' . $usr->getFieldValue('name') . ' ' . $usr->getFieldValue('nickname') . '<br> sie haben sich korrekt eingeloggt';
+                    $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
+                        . ' you are logged in';
 
                     //die('correct password'); //logged in
                     $this->view->addInfos($this->infos);
@@ -110,70 +136,88 @@ class LoginController
                     //$this->showLoginForm();
                     $p = 'user';
 
-                } else {
-                    $this->checkIfUserIsBanned($usr);
-                    print 'check user banned?' . '<br>';
+                } else { //pw not correct
+
+                    //print 'check user banned?' . '<br>';
                     // increase failure counter
                     $fails = $usr->getFieldValue('login_try')+ 1; //every try +1, and banned at 3
+                    //print $fails;
                     // check failure counter, ban if needed
                     if ($fails >= $this->login_tries) { // user get banned, add timestamp in the field banned_at in the DB.
-                        print 'user wird gebannt ?' . '<br>';
+                        //print 'user wird gebannt ' . '<br>';
                         $values['banned_at'] =  date('Y-m-d H:i:s');
-                        $usr->updateSave($values); //TODO user update login_try
-                        //updateUserField($usr['id'], 'banned_at', date('Y-m-d H:i:s'), 's');
-                        $this->infos = 'Aufgrund falscher login versuche wurden sie gebannt <br>
-                                 versuchen sie es später erneut! <br> zeit der Bannung: ' . date('Y-m-d H:i:s');
-                        $this->errorMessages = 'Gebannt! um: ' . date('Y-m-d H:i:s');
-                        //die('ban user: ' . date('Y-m-d H:i:s'));
+                        $values['login_try'] = null;
+                        $usr->updateSave($values);
 
-                        $view = $this->view = new LoginView();
-                        $this->view->adderrorMessages($this->errorMessages);
-                        $this->view->addInfos($this->infos);
-                        $view->showTemplate();
-                    } else {
-                        print 'update login try' . '<br>';
+                        $generalerr ='You are Banned try later again! ';
+                        $info = 'You were banned due to incorrect login attempts,
+                             try again later!  time of banishment:' . date('Y-m-d H:i:s');
+
+                        return $this->showErrorsValues(
+                            $info, $generalerr, $errors,
+                            [
+                                'nickname' => $_REQUEST['nickname'],
+                                'password' => $_REQUEST['password'],
+                            ]);
+                    } else {//user can try again, login_try +1
+                        //print 'update login try' . '<br>';
                         // update login_try ++ in DB.
+                        $fails = $usr->getFieldValue('login_try')+ 1;
                         $values['login_try'] = $fails;
                         $values['id'] = $usr->getFieldValue('id');
-                        print_r($values);
-                        //$usr->setFieldValue('login_try', $fails);
-                        print 'set field value login try' . '<br>';
+                        //print_r($values);
+                        //print 'set field value login try +1' . '<br>';
                         $usr->updateSave($values);
-                        //$usr->save(); //TODO user update login_try
-                        //updateUserField($usr['id'], 'login_try', $fails, 'i');
-                        $this->infos = 'fehlerhafter login versuch, etwas wurde falsch eingegeben';
-                        $this->errorMessages = 'Etwas wurde falsch eingegeben!';
-                        //die('mistake counter incremented');
 
-                        $this->showLoginForm();
+                        $generalerr ='Something was entered incorrectly!';
+                        $info = 'Something was entered incorrectly!';
+
+                        return $this->showErrorsValues(
+                            $info, $generalerr, $errors,
+                            [
+                                'nickname' => $_REQUEST['nickname'],
+                                'password' => $_REQUEST['password'],
+                            ]);
                     }
                 }
             }
         }
+
     }
 
-    private function checkIfUserIsBanned(UserModel $usr){
-        // is user banned?
-        if ($usr->getFieldValue('banned_at') != null) {
-            $banned_at = date_create_from_format($this->db_datetime_format, $usr['banned_at']);
-            $now = new DateTime();
-            $interval = $now->getTimestamp() - $banned_at->getTimestamp(); // now - banned_at = how log is he banned jet.
-            //print $interval.'and'.$ban_time;
-            if ($interval <= $this->ban_time) { //still banned
-                $this->infos = 'Aufgrund zu vieler falscher login versuche wurden sie gebannt <br>
-                                    versuchen sie es später erneut! ';
-                $this->errorMessages ='Immernoch Gebannt ! ';
 
-                $this->showLoginForm();
-                return true;
-            } else { // waited long enough = reset the field banned_at an login_try in the DB.
-                $usr->setFieldValue('banned_at',null);
-                $usr->setFieldValue('login_try', 0);
-                $usr->save();
-                return false;
-            }
+    public function showErrorsValues($info, $generalerr, $errors = [], $values = [])
+    {
+        $view = $this->view = new LoginView();
+        //print_r($errors);
+        //print_r($values);
 
+        if (isset($info)){
+        $this->view->addInfos($info);
         }
+        if (isset($generalerr)){
+            //print $generalerr;
+            $this->view->addErrorMessagesMany('generalError', $generalerr);
+            //print $values[$field];
+        }
+
+        foreach ($this->fields as $field){
+            //print $field . '<br>';
+            if (isset($errors[$field])){
+                $this->view->addErrorMessagesMany($field, $errors[$field][0]);
+            }
+            if (isset($values[$field])){
+                $this->view->addValuesMany($field, $values[$field]);
+                //print $values[$field];
+            }
+        }
+
+        $view->showTemplate();
+
+        return [
+            'errors' => $errors,
+            'values' => $values
+        ];
     }
 
     public function doLogout()
@@ -183,39 +227,4 @@ class LoginController
         $page = 'templates/forms/login.php';
     }
 }
-
-/** [}]{{}
- * Response fr Browser
- *
- * div
- *  h2 Login erfolgreich /h2
- *  p Herzlich willkommen Laura /p
- * /div
- *
- * Response fuer javascript / ajax
- * {
- *  success : true,
- *  message : {
- *      title : "Login erfolgreich",
- *      text : "Herzlich willkommen Laura"
- *      },
- *  user : {
- *      nickname : "Laura"
- *      }
- *  }
- *
- * EerrorMessages per AJAx
- * {
- *      success : false,
- *      errors : [
- *        { 'username' : 'Der Benutzername muss eingegeben werden' } ,
- *        { 'password' : 'Das eingegebene passwort ist ungueltig' }
- *      ]
- * }
- */
-
-/**
- * This file controls the login.
- * the user has 3 tries to log in correctly if he writes the password wrong 3time he get banned for a hour.
- */
 

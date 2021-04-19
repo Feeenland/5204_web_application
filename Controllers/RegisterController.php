@@ -53,17 +53,11 @@ class RegisterController
     public function createNewUser($name, $card, $nick, $pwd)
     {
 
-       // $u = new UserModel();
-        //$nickexist = $u->getUsersByNickname($nick);
-
         $valid = new Validation();
         $errors = $valid->validateFields($this->rules);
 
         if (count($errors) != 0) { //nickname not free
-            print 'errors';
-            $view = $this->view = new RegisterView();
-            //$this->errorMessages = 'This Nickname is not free!';
-            //$this->view->addErrorMessagesMany('nickname',$this->errorMessages);
+            //print 'errors';
 
                 // errors in fields! Show Field
                 return $this->showErrorsValues(
@@ -78,7 +72,7 @@ class RegisterController
             print 'no errors';
             $u = new UserModel();
 
-                print 'create usr';
+                //print 'create usr';
                 $values['name'] = $name;
                 $values['nickname'] = $nick;
                 $values['favourite_card'] = $card;
@@ -88,6 +82,7 @@ class RegisterController
                 $this->infos = 'you are registered, log in :)';
                 $this->view->addInfos($this->infos);
                 $view->showTemplate();
+                return true;
         }
 
     }

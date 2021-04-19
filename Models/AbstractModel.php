@@ -80,7 +80,7 @@ abstract class AbstractModel
                 $fieldsArray = array();
                 foreach ($fields as $field){
                     if ($field == 'id'){
-                        print 'is id!';
+                        //print 'is id!';
 
                     } else{
                         $fieldsArray[] = $field;
@@ -89,17 +89,17 @@ abstract class AbstractModel
 
                 }
                 $fieldsArray =implode("= ?, ", $fieldsArray) . '= ?'; //separate by comma
-                print $fieldsArray . '<br>';
+                //print $fieldsArray . '<br>';
                 $conn = DBConnection::getConnection();
                 $sql = "UPDATE " . $this->table . " SET " . $fieldsArray . " WHERE id = ?";
-                print "SQL statement:  " .$sql ."  ";
+                //print "SQL statement:  " .$sql ."  ";
                 $stmt = $conn->prepare($sql);
 
                 // call method, override it in every specific model
                 $this->bindMyParams($stmt, true);
 
                 $stmt->execute();
-                print "update ";
+                //print "update ";
                 return true;
             }catch(Exception $e){
                 die($e->getMessage());
@@ -116,16 +116,14 @@ abstract class AbstractModel
                 }
                 $str = implode(",", $str); //separate by comma
                 $fieldsArray =implode(", ", $fieldsArray); //separate by comma
-                print $fieldsArray . '<br>';
-                print $str . '<br>';
+                //print $fieldsArray . '<br>';
+                //print $str . '<br>';
                 $conn = DBConnection::getConnection();
                 //$sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $stmt = $conn->prepare($sql);
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
-                print_r($stmt);
                 $stmt = $this->bindMyParams($stmt, false);
-                print_r($stmt);
                 $stmt->execute();
                 print 'saved? ';
                 return $stmt->insert_id;
