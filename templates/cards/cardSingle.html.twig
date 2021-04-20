@@ -1,6 +1,7 @@
+
 {% extends 'layout.html.twig' %}
 
-{% block title %}Card{% endblock %}
+{% block title %}{{ name }}{% endblock %}
 
 {% block info %}
     {% for info in infos %}
@@ -10,7 +11,7 @@
 
 {% block h1 %}
     {% block cardName %}
-        {{ name }} {{ color }}
+        {{ name }}
     {% endblock %}
 {% endblock %}
 

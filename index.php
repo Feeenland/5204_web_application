@@ -1,24 +1,32 @@
 <?php
 
-use Controllers\CardController;
+use Controllers\CardsController;
+use Controllers\CardSingleController;
+use Controllers\DeckMaskController;
+use Controllers\DecksController;
 use Controllers\ForgotPwController;
 use Controllers\HomeController;
 use Controllers\LoginController;
 use Controllers\RegisterController;
-use Models\CardsModel;
+use Controllers\UserController;
+use Views\DefaultView;
 use Views\HomeView;
 
 include('bootstrap.php');
 
+/*
+session_name('user');*/
 session_start();
+
+//print_r($_SESSION);
+
 //error_reporting(E_WARNING); // don't show the warnings
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $pageElement= null;
-$p ='home';
+$loggedInUser = '';
 
 // from the get param, is p set and not empty ? load the page
 if(isset($_GET['p']) && $_GET['p'] != ''){
-    $p =$_GET['p'] ;
     if($_GET['p'] == 'login'){
         $controller = new LoginController();
     }else if($_GET['p'] == 'register'){
@@ -27,27 +35,31 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $controller = new ForgotPwController();
     }else if($_GET['p'] == 'home') {
         $view = new HomeController();
-        $pageTitle = 'Home';
     }else if($_GET['p'] == 'card') {
-        $view = new CardController($_GET['method']); // TODO understand this?
+        $view = new CardsController($_GET['method']); // TODO understand this?
     }else if($_GET['p'] == 'user'){
-        $view= new HomeController();
-        $page ='views/admin.php';
+        $view= new UserController();
+    }else if($_GET['p'] == 'addDecks'){
+        $view= new DeckMaskController();
+    }else if($_GET['p'] == 'decks'){
+        $view= new DecksController();
+    }else if($_GET['p'] == 'cards'){
+        $view= new CardsController();
+    }else if($_GET['p'] == 'cardSingle'){
+        $view= new CardSingleController();
+    }else{
+        $view= new DefaultView();
     }
 }else{
-
     $view = new HomeView();
     $view->showTemplate();
 }
 
-/*$card = new CardsModel();
-$card->getCardByName('clariomultimatum');
-print $card->getFieldValue('name');
-print $card->toString();*/
 
 /*
-$c = new \Controllers\CardController();
-$c->getCardDetailByName();*/
+$c = new \Controllers\CardsController();
+$c->getCardDetailByName();
+$c->getCardDetailByName($name);?*/
 
 
 

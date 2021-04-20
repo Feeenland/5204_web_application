@@ -21,6 +21,18 @@ abstract class AbstractView
     {
         $this->loader = new FilesystemLoader(__DIR__ . '/../templates');
         $this->twig = new Environment($this->loader);
+
+
+        if (isset($_SESSION)){
+            if (isset($_SESSION['userId']))
+            {
+                $this->assignData('session', 'true');
+            }
+            /*if ($_SESSION['userID']){
+                $this->assignData('session', 'true');
+            }*/
+        }
+
     }
 
     public function showTemplate(){
@@ -42,6 +54,10 @@ abstract class AbstractView
     public function addInfos($infos)
     {
         $this->data['infos'][] = $infos;
+    }
+    public function addCards($card)
+    {
+        $this->data['cards'][] = $card;
     }
     public function addErrorMessages($errorMessages)
     {

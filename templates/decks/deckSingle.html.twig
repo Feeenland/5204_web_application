@@ -1,7 +1,8 @@
+
+
 {% extends 'layout.html.twig' %}
 
-
-{% block title %}Deck{% endblock %}
+{% block title %}Deck{{ deckname }}{% endblock %}
 
 {% block info %}
     {% for info in infos %}
@@ -10,9 +11,7 @@
 {% endblock %}
 
 {% block h1 %}
-    {% block deckname %}
-        Destroy
-    {% endblock %}
+    Deckname {{ deckname }}
 {% endblock %}
 
 {% block content %}

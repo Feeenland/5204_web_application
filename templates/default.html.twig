@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}not found{% endblock %}
+
+{% block info %}
+    {% for info in infos %}
+        {{ info }}
+    {% endfor %}
+{% endblock %}
+
+{% block h1 %} sorry :( can't find this ! {% endblock %}

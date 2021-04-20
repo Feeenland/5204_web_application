@@ -6,6 +6,7 @@ use DateTime;
 use Helpers\disinfect;
 use Helpers\Validation;
 use Models\UserModel;
+use Views\DecksView;
 use Views\HomeView;
 use Views\LoginView;
 use Views\UserView;
@@ -39,8 +40,30 @@ class LoginController
             $d = new Disinfect();
             $nick = $d->disinfect($nick);
             $pwd = $d->disinfect($pwd);
-
             $this->doLoginAttempt($nick, $pwd);
+
+        }else if (isset($_GET['action'])){
+            switch($_GET['action']){    // if already logged in then log out.
+                case 'logout':
+                    $_SESSION = [];
+                    session_destroy();
+                    session_unset();
+                    print 'destroyed';
+                    $info= 'You have been logged out';
+                    $view = $this->view = new LoginView();
+                    $this->view->addInfos($info);
+                    $view->showTemplate();
+                    break;
+                default:
+                    if(isset($_SESSION)){ // this case should not happen
+                        $info= 'You are logged in !';
+                        $view = $this->view = new DecksView();
+                        $this->view->addInfos($info);
+                        $view->showTemplate();
+                    }else{
+                        $c = new HomeController();
+                    }
+            }
         }else{
             $view = $this->view = new LoginView();
             $view->showTemplate();
@@ -49,7 +72,7 @@ class LoginController
 
     public function doLoginAttempt($nick, $pwd)
     {
-        session_destroy();
+        //session_destroy();
         // valid user?
 
         $valid = new Validation();
@@ -57,7 +80,6 @@ class LoginController
 
         $usr = new UserModel();
         $userfound =$usr->getUsersByNickname($nick);
-
         //print $nick;
         if ($userfound == false ||  count($errors) != 0) { // errors
             // Return fail message
@@ -101,16 +123,25 @@ class LoginController
                     $values['id'] = $usr->getFieldValue('id');
                     $usr->updateSave($values);
 
-                    $this->view = new UserView();
+                    $userId =$usr->getFieldValue('id');
+                    $userNick =$usr->getFieldValue('nickname');
+                    $_SESSION['userId'] =$userId;
+                    $_SESSION['userNick'] =$userNick;
+                    //echo session_id();
+
+                    //$c = new DecksController();
+                    //$c->loggedIn($nick);
+
+                    $this->view = new DecksView();
                     $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
                         . ' you are logged in';
 
                     $this->view->addInfos($this->infos);
-                    $this->view->assignData('nickname', $usr->getFieldValue('nickname'));
-                    $this->view->assignData('nickname', $usr->getFieldValue('favorite_card'));
+                    $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
+                    $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
                     $this->view->showTemplate();
-
-                    return false;
+                    $p = 'user';
+                    return true;
                 }
 
             }else if($usr->getFieldValue('banned_at') == null || $usr->getFieldValue('login_try') <= 1) { // user is not banned
@@ -124,17 +155,25 @@ class LoginController
                         $values['id'] = $usr->getFieldValue('id');
                         $usr->updateSave($values);
                     }
-                    $_SESSION['logged_in'] = 1;
+
+                    $userId =$usr->getFieldValue('id');
+                    $userNick =$usr->getFieldValue('nickname');
+                    $_SESSION['userId'] =$userId;
+                    $_SESSION['userNick'] =$userNick;
                     //print 'session 1, alles richtig' . '<br>';
-                    $this->view = new UserView();
+
+                    //$c = new DecksController();
+                    //$c->loggedIn($nick);
+
+                    $this->view = new DecksView();
                     $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
                         . ' you are logged in';
-
-                    //die('correct password'); //logged in
                     $this->view->addInfos($this->infos);
+                    $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
+                    $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
                     $this->view->showTemplate();
-                    //$this->showLoginForm();
                     $p = 'user';
+                    return $p = 'user';
 
                 } else { //pw not correct
 
@@ -220,11 +259,5 @@ class LoginController
         ];
     }
 
-    public function doLogout()
-    {
-        session_destroy();
-        $infos = 'Sie wurden ausgeloggt';
-        $page = 'templates/forms/login.php';
-    }
 }
 

@@ -4,20 +4,23 @@
 namespace Controllers;
 
 
-use Views\HomeView;
+use Models\DecksModel;
+use Views\DeckMaskView;
 
-class HomeController extends UserController
+class DeckMaskController extends UserController
 {
     public $view;
+    protected $infos;
 
     public function __construct()
     {
         $user = $this->getUserByNicknameSession();
 
-        $view = $this->view = new HomeView();
+        $this->view = new DeckMaskView();
         $this->view->addToKey('nickname', $this->userNick);
         $this->view->addToKey('name', $this->userName);
-        $view->showTemplate();
+        $this->view->showTemplate();
+
     }
 
 }

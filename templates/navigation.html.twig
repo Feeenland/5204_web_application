@@ -2,7 +2,19 @@
 <nav class="navbar bg-dark justify-content-between nav">
     <a class="nav-link nav__link" href="index?p=home">Magic decks</a>
 
-    <button class="btn btn_1 btn-outline-warning">
-        <a class="nav-link" href="index?p=login">Login</a>
-    </button>
+
+
+        {% if session %}
+            <h1>{{ nickname[0] }}</h1>
+            <button class="btn btn_1 btn-outline-warning">
+                <a class="nav-link" href="index?p=login&action=logout">Logout</a>
+            </button>
+        {% else %}
+            <button class="btn btn_1 btn-outline-warning">
+                <a class="nav-link" href="index?p=login">Login</a>
+            </button>
+        {% endif %}
+
+
 </nav>
+

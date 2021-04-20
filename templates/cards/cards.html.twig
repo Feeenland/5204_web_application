@@ -1,5 +1,6 @@
-{% extends 'layout.html.twig' %}
 
+
+{% extends 'layout.html.twig' %}
 
 {% block title %}Cards{% endblock %}
 
@@ -9,9 +10,8 @@
     {% endfor %}
 {% endblock %}
 
-
 {% block h1 %}
-        Cards
+    Cards
 {% endblock %}
 
 
@@ -23,6 +23,7 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
                     <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search card</button>
                 </form>
+                <button class="btn btn_1 btn-outline-success">Search in My Cards / all Cards</button>
             </div>
             <div class="col">
                 <div class="row cards__many_search">
@@ -74,34 +75,20 @@
             </div>
         </div>
         <div class="row justify-content-between cards__many_cards">
+            {% for  card in cards %}
+                <div class="col">
+                    <article>
+                        <p class="cards__many_cards_title">{{ name }}
+                            <button class="btn btn_1 btn-outline-success">+</button>
+                        </p>
+                        <img class="cards__many_cards_img" src="{{ image_uris }}" alt="magic deck">
+                    </article>
+                </div>
+            {% endfor %}
             <div class="col">
                 <article>
                     <p class="cards__many_cards_title">card Name
                         <button class="btn btn_1 btn-outline-success">+</button>
-                    </p>
-                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
-            <div class="col">
-                <article>
-                    <p class="cards__many_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-warning">+</button>
-                    </p>
-                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
-            <div class="col">
-                <article>
-                    <p class="cards__many_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-success">+</button>
-                    </p>
-                    <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
-            <div class="col">
-                <article>
-                    <p class="cards__many_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-warning">+</button>
                     </p>
                     <img class="cards__many_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
                 </article>

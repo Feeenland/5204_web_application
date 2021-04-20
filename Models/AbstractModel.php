@@ -57,21 +57,6 @@ abstract class AbstractModel
         );
     }
 
- /*   public function updateUserField(){ //to update a specific user field
-        try{
-            //UPDATE users SET login_try = 1 WHERE id= 4;
-            $_value = 1;
-            $_id = 4;
-            $db_connection = $conn = DBConnection::getConnection();
-            $stmt = $db_connection->prepare('UPDATE users SET login_try = ? WHERE id = ?');
-            $stmt->bind_param('ii',$_value,  $_id);
-            $stmt->execute();
-            return true;
-        }catch(Exception $exception){
-        die('update failed');
-        }
-    }*/
-
 
     public function saveValues($fields, $values, $id = 0)
     {

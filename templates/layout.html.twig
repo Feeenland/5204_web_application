@@ -15,6 +15,12 @@
 <body>
 
 {% include 'navigation.html.twig' %}
+
+{% if session %}
+    {% include 'user.html.twig' %}
+{% endif %}
+
+
 <div class="container">
     <div class="row">
         <div class="col-10 offset-1">
@@ -26,6 +32,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="container">
     <div class="row">

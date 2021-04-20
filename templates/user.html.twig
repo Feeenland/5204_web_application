@@ -1,37 +1,28 @@
-{% extends 'layout.html.twig' %}
 
-
-{% block title %}ForgotPw{% endblock %}
-
-{% block info %}
- {% for info in infos %}
-  {{ info }}
- {% endfor %}
-{% endblock %}
-
-{% block content %}
  <div class="container user__header">
   <div class="row justify-content-around">
    <div class="col">
-    <p class="user__header_title">User Name</p>
+    <p class="user__header_title">{{ name[0] }}</p>
    </div>
    <div class="col">
-    <button class="btn_1 btn btn-outline-success">My Decks</button>
+    <button class="btn_1 btn btn-outline-success">
+     <a href="index?p=decks">My Decks</a>
+    </button>
    </div>
    <div class="col">
-    <button class="btn_1 btn btn-outline-success">My Cards</button>
+    <button class="btn_1 btn btn-outline-success">
+     <a href="index?p=cards">My Cards</a>
+    </button>
    </div>
    <div class="col">
-    <button class="btn_1 btn btn-outline-warning">Add Deck</button>
-   </div>
-   <div class="col">
-    <button class="btn_1 btn btn-outline-warning">Add Cards</button>
+    <button class="btn_1 btn btn-outline-warning">
+     <a href="index?p=addDecks">Add Deck</a>
+    </button>
    </div>
   </div>
  </div>
 
- {% block userContent %}
- user content?
- {% endblock %}
 
-{% endblock %}
+
+
+
