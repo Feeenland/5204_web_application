@@ -24,6 +24,7 @@ class CardsModel extends AbstractModel {
     ];
 
     protected $colors = [];
+    protected $cards = [];
     protected $set = [];
     protected $formats = [];
     protected $legalities = [];
@@ -33,10 +34,49 @@ class CardsModel extends AbstractModel {
 
     protected $values = [];
 
-    public function CountCards($search){
+    public function CountCards(){
         try {
+           $count = $this->CountAllEntries();
+            return $count;
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
 
+    public function getCardsByUserId($id) {
 
+        $ids = $this->loadManyToManyRelations(
+            $id,
+            'users_id',
+            'cards_id',
+            'users_has_cards'
+        );
+        $this->cards = [];
+        foreach($ids as $id)
+        {
+            $this->cards[] = $id[0];
+        }
+        // TODO optimize the DB query so that hundreds of queries do not have to be made (with JOIN / lazy loading)
+            return $this->cards;
+    }
+
+    public function getCardById($id) {
+
+        try{
+            $result = $this->getBySingleField('id', $id, 'i');
+            if($result->num_rows == 0){
+                //print "false!";
+                return false; //found nothing
+            }else{
+                //print "fetch!? ";
+                $dbValue = $result->fetch_assoc();
+                foreach ($this->fields as $field){
+                    if (array_key_exists($field, $dbValue))
+                        $this->setFieldValue($field, $dbValue[$field]);
+                }
+                return true;
+            }
         }catch(Exception $exception){
             die('Problem with database');
             //return false;

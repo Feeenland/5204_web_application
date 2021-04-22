@@ -35,6 +35,10 @@ abstract class AbstractView
 
     }
 
+    public function dumpData() {
+        print_r($this->data['decks']);
+    }
+
     public function showTemplate(){
         $tmpl = $this->twig->load($this->tmpl);
 
@@ -55,9 +59,13 @@ abstract class AbstractView
     {
         $this->data['infos'][] = $infos;
     }
-    public function addCards($card)
+    public function addCards($card, $field, $value)
     {
-        $this->data['cards'][] = $card;
+        $this->data['cards'][$card][$field][] = $value;
+    }
+    public function addDecks($deck, $field, $value)
+    {
+        $this->data['decks'][$deck][$field][] = $value;
     }
     public function addErrorMessages($errorMessages)
     {

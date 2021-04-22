@@ -21,17 +21,19 @@ class UserController
 
     public function getUserByNicknameSession()
     {
+        if (isset($_SESSION['userNick'])){
+            $userNick = $_SESSION['userNick'];
+            $usr = new UserModel();
+            $user =$usr->getUsersByNickname($userNick);
 
-        $userNick = $_SESSION['userNick'];
-        $usr = new UserModel();
-        $user =$usr->getUsersByNickname($userNick);
+            $this->userNick = $usr->getFieldValue('nickname');
+            $this->userName = $usr->getFieldValue('name');
+            $this->userId = $usr->getFieldValue('id');
+            $this->userCard = $usr->getFieldValue('favourite_card');
 
-        $this->userNick = $usr->getFieldValue('nickname');
-        $this->userName = $usr->getFieldValue('name');
-        $this->userId = $usr->getFieldValue('id');
-        $this->userCard = $usr->getFieldValue('favourite_card');
+            return $usr;
+        }
 
-        return $usr;
     }
 
 }

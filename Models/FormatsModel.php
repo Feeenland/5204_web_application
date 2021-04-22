@@ -15,6 +15,11 @@ class FormatsModel extends AbstractModel {
 
     public $values = [];
 
+    public function getAllFormats(){
+
+        return $this->GetAllEntries();
+    }
+
     public function getFormatsById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');

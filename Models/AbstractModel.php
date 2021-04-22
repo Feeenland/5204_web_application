@@ -11,23 +11,7 @@ abstract class AbstractModel
     protected $fields = [];
     protected $values = [];
 
-    protected function searchByLetters($field, $value, $type = 's')
-    {
-        try{
-            $conn = DBConnection::getConnection();
-            $sql = "SELECT * FROM " . $this->table . " WHERE " . $field . " = ?";
-            $stmt = $conn->prepare($sql);
-            if ($type === 's') {
-                $d = new Disinfect();
-                $d->disinfect($value);
-            }
-            $stmt->bind_param($type, $value);
-            $stmt->execute();
-            return $stmt->get_result();
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-    }
+
 
     protected function getBySingleField($field, $value, $type = 's')
     {
@@ -57,6 +41,43 @@ abstract class AbstractModel
         );
     }
 
+    public function GetAllEntries() {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT * FROM " . $this->table;
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+    public function CountAllEntries() {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT COUNT(*) FROM " . $this->table;
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function GetAllByFKId($id, $field) {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT * FROM " . $this->table . " WHERE " .$field ."=" . $id; //SELECT * FROM `decks` WHERE user_id = 1
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 
     public function saveValues($fields, $values, $id = 0)
     {

@@ -13,108 +13,65 @@
 
 {% block content %}
     <div class="container filter_deck">
+        <form action="index.php?p=decks&method=search" id="search__form">
         <div class="row justify-content-around">
-            <div class="col-12 col-md-5">
-                <form action="">
+                <div class="col-12 col-md-5">
+
                     <div class="checkbox color__picker">
                         <p class="title_colorless">colors:</p>
-                        <input type="checkbox" id="color1" name="color1" value="green">
-                        <label for="color1"> green</label><br>
-                        <input type="checkbox" id="color2" name="color2" value="blue">
-                        <label for="color2"> blue</label><br>
-                        <input type="checkbox" id="color3" name="color3" value="white">
-                        <label for="color2"> white</label><br>
-                        <input type="checkbox" id="color4" name="color4" value="red">
-                        <label for="color2"> red</label><br>
-                        <input type="checkbox" id="color5" name="color5" value="black">
-                        <label for="color2"> black</label><br>
+                        {% for color in colors[0] %}
+                            <label>
+                            <input type="checkbox" name="color[]" value="{{ color['id'] }}">
+                            {{ color['color'] }}
+                            </label><br>
+                        {% endfor %}
+
                     </div>
 
-                    <label for="deck" class="title_colorless">Deck format:</label>
-                    <select id="deck" name="deck">
-                        <option value="all">all</option>
-                        <option value="standard">standard</option>
-                        <option value="future">future</option>
-                        <option value="historic">historic</option>
-                        <option value="gladiator">gladiator</option>
-                        <option value="pioneer">pioneer</option>
-                        <option value="modern">modern</option>
-                        <option value="legacy">legacy</option>
-                        <option value="pauper">pauper</option>
-                        <option value="vintage">vintage</option>
-                        <option value="penny">penny</option>
-                        <option value="commander">commander</option>
-                        <option value="brawl">brawl</option>
-                        <option value="duel">duel</option>
-                        <option value="oldschool">oldschool</option>
-                        <option value="premodern">premodern</option>
+                    <label for="format" class="title_colorless">Deck format:</label>
+                    <select id="format" name="format">
+                        <option value="0">all</option>
+                        {% for format in formats[0] %}
+                            <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
+                        {% endfor %}
                     </select>
-                </form>
-            </div>
-            <div class="col-12 col-md-5">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="deck name" aria-label="search">
-                    <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search</button>
-                </form>
-            </div>
+
+                </div>
+                <div class="col-12 col-md-5">
+                        <input class="form-control mr-sm-2" name="search_text" type="search" placeholder="deck name" aria-label="search">
+                        <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search</button>
+                </div>
+        </div>
+    </form>
+        <div class="title_colorless">
+            <p>Found <span class="title_warn" id="search__count"> {{ decks_count[0] }} </span> Decks</p>
         </div>
     </div>
 
     <div class="container decks">
-        <div class="row">
-            <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
+        <div class="row" id="search__result">
+            {% for deck in decks %}
 
-                <div class="decks__text">
-                    <h2>deck Name</h2>
-                    <p>deck art (modern)</p>
-                    <img class="color__img" src="img/white.png" alt="">
-                    <img class="color__img" src="img/blue.png" alt="">
-                    <img class="color__img" src="img/blue.png" alt="">
-                    <img class="color__img" src="img/blue.png" alt="">
-                    <img class="color__img" src="img/blue.png" alt="">
-                    <p>created By:<br>
-                        <span class="title_colorless">NAME</span></p>
-                </div>
-            </article>
+                <article class="col-12 col-md-6 col-lg-4 decks__deck">
+                    <img class="decks__img" src="{{ deck['image_uris'][0] }}" alt="magic deck">
 
-            <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
-                <div class="decks__text">
-                    <h2>deck Name</h2>
-                    <p>deck art (modern)</p>
-                    <img class="color__img" src="img/green.png" alt="">
-                    <img class="color__img" src="img/red.png" alt="">
-                    <p>created By:<br>
-                        <span class="title_colorless">NAME</span>
-                    </p>
-                </div>
-            </article>
+                    <div class="decks__text">
+                        <h2>{{ deck['name'][0] }}</h2>
+                        <p>format: {{ deck['format'][0] }}</p>
+                        {% for color in deck['colors'] %}
+                            <img class="color__img" src="img/{{ color }}.png" alt="">
+                        {% endfor %}
+                        <p>created By:<br>
+                            <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                        <button class="btn btn_1 btn-outline-success" id="{{ deck['id'][0] }}">Show</button>
+                    </div>
+                </article>
 
-            <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
-                <div class="decks__text">
-                    <h2>deck Name</h2>
-                    <p>deck art (modern)</p>
-                    <img class="color__img" src="img/black.png" alt="">
-                    <p>created By:<br>
-                        <span class="title_colorless">NAME</span>
-                    </p>
-                </div>
-            </article>
-
-            <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                <img class="decks__img" src="img/tsr-235-tarmogoyf.png" alt="magic deck">
-
-                <div class="decks__text">
-                    <h2>deck Name</h2>
-                    <p>deck art (modern)</p>
-                    <img class="color__img" src="img/black.png" alt="">
-                    <p>created By:<br>
-                        <span class="decks_title">NAME</span>
-                    </p>
-                </div>
-            </article>
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="js/search.js"></script>
 {% endblock %}

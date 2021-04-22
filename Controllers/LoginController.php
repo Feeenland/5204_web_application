@@ -48,7 +48,7 @@ class LoginController
                     $_SESSION = [];
                     session_destroy();
                     session_unset();
-                    print 'destroyed';
+                    //print 'destroyed';
                     $info= 'You have been logged out';
                     $view = $this->view = new LoginView();
                     $this->view->addInfos($info);

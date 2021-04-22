@@ -4,16 +4,64 @@ namespace Models;
 
 class DecksModel extends AbstractModel {
 
-    protected $table = 'cards';
+    protected $table = 'decks';
+    protected $decks = [];
+    protected $colors = [];
 
-    private $fields = [
+    protected $fields = [
         'id',
         'user_id', //FK
         'format_id', //FK
         'name'
     ];
 
-    private $values = [];
+    protected $values = [];
+
+
+    public function getAllDecks(){
+
+        return $this->GetAllEntries();
+    }
+
+    public function getDecksByUserId($id) {
+
+        return $this->GetAllByFKId($id, 'user_id');
+    }
+
+    public function getDeckById($id) {
+
+        try{
+            $result = $this->getBySingleField('id', $id, 'i');
+            if($result->num_rows == 0){
+                print "false! MUser ";
+                return false; //found nothing
+            }else{
+                print "fetch!? ";
+                $dbValue = $result->fetch_assoc();
+                foreach ($this->fields as $field){
+                    if (array_key_exists($field, $dbValue))
+                        $this->setFieldValue($field, $dbValue[$field]);
+                }
+                return true;
+            }
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+
+    public function getDecksBySearch($name = '', $colors = '', $format='') {
+
+        $decks = $this->searchDecks($name, $colors, $format);
+        return $decks;
+    }
+
+    public function countDecksBySearch($name = '', $colors = '', $format='') {
+
+        $decks = $this->searchDecks($name, $colors, $format);
+
+        return $decks;
+    }
 
     public function getDeckByName($name) {
 

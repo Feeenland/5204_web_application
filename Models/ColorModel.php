@@ -15,6 +15,11 @@ class ColorModel extends AbstractModel {
 
     protected $values = [];
 
+    public function getAllColors(){
+
+        return $this->GetAllEntries();
+    }
+
     public function getColorById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');

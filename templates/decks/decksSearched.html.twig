@@ -1,0 +1,24 @@
+
+
+
+{% for deck in decks %}
+
+    <article class="col-12 col-md-6 col-lg-4 decks__deck">
+        <img class="decks__img" src="{{ deck['image_uris'][0] }}" alt="magic deck">
+
+        <div class="decks__text">
+            <h2>{{ deck['name'][0] }}</h2>
+            <p>format: {{ deck['format'][0] }}</p>
+            {% for color in deck['colors'] %}
+                <img class="color__img" src="img/{{ color }}.png" alt="">
+            {% endfor %}
+            <p>created By:<br>
+                <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+            <button class="btn btn_1 btn-outline-success" id="{{ deck['id'][0] }}">Show</button>
+        </div>
+    </article>
+
+{% endfor %}
+
+
+

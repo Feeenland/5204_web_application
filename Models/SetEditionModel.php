@@ -14,6 +14,11 @@ class SetEditionModel extends AbstractModel {
 
     protected $values = [];
 
+    public function getAllSets(){
+
+        return $this->GetAllEntries();
+    }
+
     public function getSetById($id) {
         try{
             $result = $this->getBySingleField('id', $id, 's');

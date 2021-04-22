@@ -35,20 +35,21 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $controller = new ForgotPwController();
     }else if($_GET['p'] == 'home') {
         $view = new HomeController();
-    }else if($_GET['p'] == 'card') {
-        $view = new CardsController($_GET['method']); // TODO understand this?
     }else if($_GET['p'] == 'user'){
         $view= new UserController();
     }else if($_GET['p'] == 'addDecks'){
         $view= new DeckMaskController();
     }else if($_GET['p'] == 'decks'){
-        $view= new DecksController();
+        $view= new DecksController($_GET['method']);
     }else if($_GET['p'] == 'cards'){
-        $view= new CardsController();
+        $view= new CardsController($_GET['method']);
+    }else if($_GET['p'] == 'allCards'){
+        $view= new CardsController($_GET['method']);
     }else if($_GET['p'] == 'cardSingle'){
         $view= new CardSingleController();
     }else{
         $view= new DefaultView();
+        $view->showTemplate();
     }
 }else{
     $view = new HomeView();
