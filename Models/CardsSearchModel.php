@@ -38,36 +38,25 @@ class CardsSearchModel
         return $this->search_count;
     }
 
-    protected function searchCards($id =0)
+    protected function searchCards($id = 0)
     {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT c.id, c.image_uris, c.name FROM cards c
                 INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
-                INNER JOIN users_has_cards uhc ON c.id = uhc.cards_id
+                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
+                LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
                 INNER JOIN set_edition se ON c.set_name = se.id
                 WHERE `name` LIKE ? 
                 AND type_line LIKE ?";
 
-            /*
-             * SELECT c.id, c.image_uris, c.name FROM cards c
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
-                INNER JOIN users_has_cards uhc ON c.id = uhc.cards_id
-                INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE `name` LIKE 'sel%' AND
-              	 type_line LIKE '%cre%'
-                GROUP BY c.name, c.id
-             *
-             * */
             if(count($this->search_color)) {
                 $sql .= " AND chc.colors_id IN(" . implode(',', $this->search_color) . ")";
             }
             if($this->search_format > 0) {
-                $sql .= " AND c.format_id = " . $this->search_format; // = legal ?
+                $sql .= " AND chfhl.formats_id = " . $this->search_format; // = legal ?
             }
-            if($this->search_format > 0) {
+            if($this->search_set > 0) {
                 $sql .= " AND c.set_name = " . $this->search_set; // set_name = set_edition.id
             }
             if($id > 0) {
@@ -84,6 +73,7 @@ class CardsSearchModel
             $stmt->execute();
             $result = $stmt->get_result();
 
+            //print_r($sql);
 
             $this->search_result = [];
             while($row = $result->fetch_assoc()) {
@@ -97,18 +87,34 @@ class CardsSearchModel
     protected function countCards($id =0) {
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT COUNT(*) as cards_count FROM cards 
-                INNER JOIN users_has_cards uhc ON c.id = uhc.cards_id
-                WHERE `name` LIKE ?";
+            $sql = "SELECT COUNT(DISTINCT c.id) as cards_count FROM cards c
+                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
+                LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
+                INNER JOIN set_edition se ON c.set_name = se.id
+                WHERE `name` LIKE ? 
+                AND type_line LIKE ?";
 
+            if(count($this->search_color)) {
+                $sql .= " AND chc.colors_id IN(" . implode(',', $this->search_color) . ")";
+            }
+            if($this->search_format > 0) {
+                $sql .= " AND chfhl.formats_id = " . $this->search_format; // = legal ?
+            }
+            if($this->search_set > 0) {
+                $sql .= " AND c.set_name = " . $this->search_set; // set_name = set_edition.id
+            }
             if($id > 0) {
                 $sql .= " and uhc.users_id = " . $id;
             }
+
             $stmt = $conn->prepare($sql);
             $d = new Disinfect();
             $name = $this->search_name . "%";
+            $type = "%" . $this->search_type . "%"; // = %?%
             $d->disinfect($name);
-            $stmt->bind_param('s', $name);
+            $d->disinfect($type);
+            $stmt->bind_param('ss', $name, $type);
             $stmt->execute();
             $result = $stmt->get_result();
 

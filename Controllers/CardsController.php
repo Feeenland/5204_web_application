@@ -68,9 +68,12 @@ class CardsController extends UserController
             $c->search_color = $_POST['color'];
         }
         if(isset($_POST['format'])) {
-            $c->search_color = $_POST['format'];
+            $c->search_format = $_POST['format'];
         }
-        print_r($c->getSearchResult());
+        if(isset($_POST['set'])) {
+            $c->search_set = $_POST['set'];
+        }
+        //print_r($c->getSearchResult());
         $get_cards = $c->getSearchResult();
 
         $this->showCards($get_cards);
@@ -84,10 +87,13 @@ class CardsController extends UserController
             $c->search_color = $_POST['color'];
         }
         if(isset($_POST['format'])) {
-            $c->search_color = $_POST['format'];
+            $c->search_format = $_POST['format'];
+        }
+        if(isset($_POST['set'])) {
+            $c->search_set = $_POST['set'];
         }
         //print $d;
-        print_r($c->getSearchOwnCount($this->userId));
+        print_r($c->getSearchCount());
     }
     public function searchOwnCards() {
         $c = new CardsSearchModel();
@@ -97,9 +103,12 @@ class CardsController extends UserController
             $c->search_color = $_POST['color'];
         }
         if(isset($_POST['format'])) {
-            $c->search_color = $_POST['format'];
+            $c->search_format = $_POST['format'];
         }
-        print_r($c->getSearchOwnResult($this->userId));
+        if(isset($_POST['set'])) {
+            $c->search_set = $_POST['set'];
+        }
+        //print_r($c->getSearchOwnResult($this->userId));
         $get_cards = $c->getSearchOwnResult($this->userId);
 
         $this->showCards($get_cards);
@@ -113,16 +122,19 @@ class CardsController extends UserController
             $c->search_color = $_POST['color'];
         }
         if(isset($_POST['format'])) {
-            $c->search_color = $_POST['format'];
+            $c->search_format = $_POST['format'];
+        }
+        if(isset($_POST['set'])) {
+            $c->search_set = $_POST['set'];
         }
         //print $d;
-        print_r($c->getSearchCount($this->userId));
+        print_r($c->getSearchOwnCount($this->userId));
     }
 
     public function showCards($cards){
         $this->view = new CardsSearchedView();
         foreach ($cards as $card){
-            print_r($card);
+            //print_r($card);
             $this->view->addCards($card['id'], 'id', $card['id']);
             $this->view->addCards($card['id'], 'image_uris', $card['image_uris']);
             $this->view->addCards($card['id'], 'name', $card['name']);

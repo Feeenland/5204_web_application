@@ -13,10 +13,10 @@ $(document).ready(function() {
         );
 
         $('#card__color input[type="checkbox"]').on('change', this.handleSearchCount.bind(this));
-        $('#card__name input[type="search"]').on('keyup', this.handleSearchCount.bind(this));
-        $('#card__creature input[type="search"]').on('keyup', this.handleSearchCount.bind(this));
-        $('#card__legality select').on('change', this.handleSearchCount.bind(this));
-        $('#card__set select').on('change', this.handleSearchCount.bind(this));
+        //$('#card__name').on('keyup', this.handleSearchCount.bind(this));
+        $('#search__cards_form input[type="search"]').on('keyup', this.handleSearchCount.bind(this));
+        $('#search__cards_form select').on('change', this.handleSearchCount.bind(this));
+        //$('#card__set select').on('change', this.handleSearchCount.bind(this));
     };
 
     $.extend(window.Search.prototype, {

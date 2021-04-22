@@ -87,13 +87,28 @@ class ApiModel
                     ?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt = $conn->prepare($sql);
 
+            $image_uri = "";
+            if(isset($card->image_uris->normal)){
+                $image_uri = $card->image_uris->normal;
+            } else if(isset($card->card_faces[0]->image_uris->normal)) {
+                $image_uri = $card->card_faces[0]->image_uris->normal;
+            }
+
             $stmt->bind_param("sssdsssssssiis",$card->id, $card->lang, $card->scryfall_uri, $card->cmc, $card->oracle_text,
-                $card->mana_cost, $card->name, $card->power, $card->toughness, $card->image_uris->normal, $card->rarity,
+                $card->mana_cost,
+                $card->name,
+                $card->power,
+                $card->toughness,
+                $image_uri,
+                $card->rarity,
                 $setId,$card->collector_number, $card->type_line );
 
 
             $stmt->execute();
             //print_r($stmt);
+            if($stmt->insert_id == 0) {
+                print_r($stmt); die();
+            }
             return $stmt->insert_id;
         }catch(Exception $e){
             die($e->getMessage());
@@ -112,6 +127,20 @@ class ApiModel
                 $stmt->execute();
             }
 
+            return true;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function deleteLegalities($card_id) {
+        try{
+            $conn = DBConnection::getConnection();
+            $sql =("DELETE FROM cards_has_formats_has_legalities WHERE cards_id = ?");
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $card_id);
+
+            $stmt->execute();
             return true;
         }catch(Exception $e){
             die($e->getMessage());
@@ -141,55 +170,55 @@ class ApiModel
             $stmt->execute();
 
             $format = "historic";
-            $legality = $formats->future;
+            $legality = $formats->historic;
             $stmt->execute();
 
             $format = "gladiator";
-            $legality = $formats->future;
+            $legality = $formats->gladiator;
             $stmt->execute();
 
             $format = "pioneer";
-            $legality = $formats->future;
+            $legality = $formats->pioneer;
             $stmt->execute();
 
             $format = "modern";
-            $legality = $formats->future;
+            $legality = $formats->modern;
             $stmt->execute();
 
             $format = "legacy";
-            $legality = $formats->future;
+            $legality = $formats->legacy;
             $stmt->execute();
 
             $format = "pauper";
-            $legality = $formats->future;
+            $legality = $formats->pauper;
             $stmt->execute();
 
             $format = "vintage";
-            $legality = $formats->future;
+            $legality = $formats->vintage;
             $stmt->execute();
 
             $format = "penny";
-            $legality = $formats->future;
+            $legality = $formats->penny;
             $stmt->execute();
 
             $format = "commander";
-            $legality = $formats->future;
+            $legality = $formats->commander;
             $stmt->execute();
 
             $format = "brawl";
-            $legality = $formats->future;
+            $legality = $formats->brawl;
             $stmt->execute();
 
             $format = "duel";
-            $legality = $formats->future;
+            $legality = $formats->duel;
             $stmt->execute();
 
             $format = "oldschool";
-            $legality = $formats->future;
+            $legality = $formats->oldschool;
             $stmt->execute();
 
             $format = "premodern";
-            $legality = $formats->future;
+            $legality = $formats->premodern;
             $stmt->execute();
 
             return true;

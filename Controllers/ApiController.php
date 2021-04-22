@@ -30,8 +30,9 @@ class ApiController
             $availableSets[$row['set_name']] = $row['id'];
         }
 
-
+        $i = 0;
         foreach($cards as $card) {
+            $i++;
             /* add de set if it is not there yet*/
             if (array_key_exists($card->set_name, $availableSets)) {
                 $setId = $availableSets[$card->set_name];
@@ -40,20 +41,30 @@ class ApiController
                 $availableSets[$card->set_name] = $setId;
             }
 
+            print $card->name . '<br>';
+
             /*check id the card already exist, if not add the card*/
             $scry_id = $a->getCardsByScryfallId($card->id);
             if ($scry_id == false){
                 //print_r($scry_id);
-                print ' new ';
                 $card_id = $a->putCardsInDB($card, $setId);
-                $a->putCardColorsInDB($card->colors, $card_id);
+
+                print ' new ' . $card->id . ' : '. $card_id . '<br>';
+                if(isset($card->colors)){
+                    $a->putCardColorsInDB($card->colors, $card_id);
+                }
                 $a->putLegalitiesInDB($card->legalities, $card_id);
             }else{
-                print' Here! ';
+                print' Here! ' . $scry_id['id'] . '<br>';
+                $a->deleteLegalities($scry_id['id']);
+                $a->putLegalitiesInDB($card->legalities, $scry_id['id']);
                 //print_r($scry_id);
             }
 
-           // die();
+            if($i > 100) {
+                die();
+            }
+            //die();
 
            /* print_r($card->id);
             print_r($card->lang);

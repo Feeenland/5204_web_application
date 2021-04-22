@@ -65,7 +65,6 @@ class DecksSearchModel
             $stmt->execute();
             $result = $stmt->get_result();
 
-
             $this->search_result = [];
             while($row = $result->fetch_assoc()) {
                 $this->search_result[] = $row;

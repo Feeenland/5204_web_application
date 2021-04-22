@@ -41,7 +41,7 @@
                             </div>
 
                             <label for="card__legality">legality in deck:</label>
-                            <select id="card__legality" name="legality">
+                            <select id="card__legality" name="format">
                                 <option value="all">all</option>
                                 {% for format in formats[0] %}
                                     <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
