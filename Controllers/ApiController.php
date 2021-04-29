@@ -17,8 +17,8 @@ class ApiController
 
     public function addNewCards()
     {
-        $cardsfile = fopen("scryfallApi/default-cards-20210413210324.json", "r");
-        $cardsjson = fread($cardsfile, filesize("scryfallApi/default-cards-20210413210324.json"));
+        $cardsfile = fopen("scryfallApi/default-cards-20210427210307.json", "r");
+        $cardsjson = fread($cardsfile, filesize("scryfallApi/default-cards-20210427210307.json"));
         $cards = json_decode($cardsjson);
         fclose($cardsfile);
 
@@ -41,7 +41,7 @@ class ApiController
                 $availableSets[$card->set_name] = $setId;
             }
 
-            print $card->name . '<br>';
+            //print $card->name . '<br>';
 
             /*check id the card already exist, if not add the card*/
             $scry_id = $a->getCardsByScryfallId($card->id);
@@ -49,21 +49,21 @@ class ApiController
                 //print_r($scry_id);
                 $card_id = $a->putCardsInDB($card, $setId);
 
-                print ' new ' . $card->id . ' : '. $card_id . '<br>';
+                print '<br> new ' . $card->id . ' : '. $card_id . '<br>';
                 if(isset($card->colors)){
                     $a->putCardColorsInDB($card->colors, $card_id);
                 }
                 $a->putLegalitiesInDB($card->legalities, $card_id);
             }else{
-                print' Here! ' . $scry_id['id'] . '<br>';
-                $a->deleteLegalities($scry_id['id']);
-                $a->putLegalitiesInDB($card->legalities, $scry_id['id']);
+                print' Here! ';
+               // $a->deleteLegalities($scry_id['id']);
+                //$a->putLegalitiesInDB($card->legalities, $scry_id['id']);
                 //print_r($scry_id);
             }
 
-            if($i > 100) {
+           /* if($i > 100) {
                 die();
-            }
+            }*/
             //die();
 
            /* print_r($card->id);

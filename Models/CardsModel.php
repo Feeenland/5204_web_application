@@ -83,10 +83,69 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function getCardByName($name) {
+    public function checkUserHasCard($cardId, $userId) {
 
         try{
-            $result = $this->getBySingleField('name', $name, 's');
+            $result = $this->loadManyToManyRelationsSpecific(
+                $cardId,
+                $userId,
+                'cards_id',
+                'users_id',
+                'users_has_cards');
+
+            //print_r($result);
+            if($result == [] ){
+                //print "card not here";
+                return false;
+
+            }else{
+                //print "true";
+                //print_r($result[0][0]) ;
+                return true; //found
+            }
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+    public function addCardToUser($cardId, $userId) {
+
+        try{
+            $result = $this->addManyToManyRelations(
+                'users_has_cards',
+                'users_id',
+                'cards_id',
+                $userId,
+                $cardId);
+
+            return true;
+
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+    public function addCardToDeck($cardId, $deckId) {
+
+        try{
+            $result = $this->addManyToManyRelations(
+                'decks_has_cards',
+                'deck_id',
+                'cards_id',
+                $deckId,
+                $cardId);
+
+            return true;
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
+
+    public function getSingleCardDetailById($cardId) {
+
+        try{
+            $result = $this->getBySingleField('id', $cardId, 'i');
             if($result->num_rows == 0){
                 //print "false!";
                 return false; //found nothing
@@ -97,6 +156,7 @@ class CardsModel extends AbstractModel {
                     if (array_key_exists($field, $dbValue))
                         $this->setFieldValue($field, $dbValue[$field]);
                 }
+
                 $this->loadSet();
                 $this->loadColors();
                 $this->loadFormatAndLegalities();

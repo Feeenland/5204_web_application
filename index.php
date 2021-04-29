@@ -59,8 +59,7 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
 
 /*
 $c = new \Controllers\CardsController();
-$c->getCardDetailByName();
-$c->getCardDetailByName($name);?*/
+$c->getCardDetailById();*/
 
 
 

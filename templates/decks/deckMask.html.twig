@@ -23,54 +23,43 @@
             </div>
             <div class="col-11">
 
-                <form action="" class="create__deck_form">
-
+                <form id="new__deck_form" action="index.php?p=addDecks" class="create__deck_form" method="POST">
+                    <input type="hidden" name="addDecks" value="1">
                     <div class="form-group row">
-                        <label for="deckname" class="col col-form-label title_colorless">Deck name:</label>
+                        <label for="deck_name" class="col col-form-label title_colorless">Deck name:</label>
                         <input
                                 type="text"
-                                name="deckname"
+                                name="deck_name"
                                 class="form-control"
-                                id="deckname"
+                                id="deck_name"
                                 placeholder="Destroyer"
-                                value="">
+                                value="{{ values['deck_name'][0] }}">
+                        <p class="error_message">{{ errorMessages['deck_name'][0] }}</p>
                     </div>
                     <div class="checkbox color__picker">
                         <p class="title_colorless">decide Deck colors: </p>
-                        <input type="checkbox" id="colorG" name="color1" value="green">
-                        <label for="colorG"> green</label><br>
-                        <input type="checkbox" id="colorU" name="color2" value="blue">
-                        <label for="colorB"> blue</label><br>
-                        <input type="checkbox" id="colorW" name="color3" value="white">
-                        <label for="colorW"> white</label><br>
-                        <input type="checkbox" id="colorR" name="color4" value="red">
-                        <label for="colorR"> red</label><br>
-                        <input type="checkbox" id="colorB" name="color5" value="black">
-                        <label for="colorBlack"> black</label><br>
+                        {% for color in colors[0] %}
+                            <label>
+                                <input type="checkbox" name="color[]" value="{{ color['id'] }}">
+                                {{ color['color'] }}
+                            </label><br>
+                        {% endfor %}
                     </div>
+                    <p class="error_message">{{ errorMessages['color'][0] }}</p>
 
                     <label for="legality" class="title_colorless">decide Deck format:</label>
-                    <select id="legality" name="legality">
-                        <option value="all">all</option>
-                        <option value="standard">standard</option>
-                        <option value="future">future</option>
-                        <option value="historic">historic</option>
-                        <option value="gladiator">gladiator</option>
-                        <option value="pioneer">pioneer</option>
-                        <option value="modern">modern</option>
-                        <option value="legacy">legacy</option>
-                        <option value="pauper">pauper</option>
-                        <option value="vintage">vintage</option>
-                        <option value="penny">penny</option>
-                        <option value="commander">commander</option>
-                        <option value="brawl">brawl</option>
-                        <option value="duel">duel</option>
-                        <option value="oldschool">oldschool</option>
-                        <option value="premodern">premodern</option>
+                    <select id="legality" name="format">
+                        {% for format in formats[0] %}
+                            <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
+                        {% endfor %}
                     </select>
-                    <button class="btn btn_1 btn_send btn-outline-primary">Create</button>
+                    <button type="submit" class="btn btn_1 btn_send btn-outline-primary">Create</button>
                 </form>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="js/deckNewMask.js"></script>
 {% endblock %}

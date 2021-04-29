@@ -9056,7 +9056,11 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px; }
   body .infos {
-    font-size: 2rem; }
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+    margin: 20px;
+    font-weight: bold; }
   body .error_message {
     color: #d73e5c; }
   body .has_error {
@@ -9105,6 +9109,21 @@ body {
       margin-left: 15px; }
     body .color__picker label {
       margin-right: 15px; }
+  body .popup__container {
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    min-height: 300px;
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: none; }
+  body .show {
+    display: block; }
 
 .filter_deck {
   margin-top: 50px; }

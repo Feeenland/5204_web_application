@@ -127,6 +127,7 @@ abstract class AbstractModel
                 $conn = DBConnection::getConnection();
                 //$sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
+                //print $sql;
                 $stmt = $conn->prepare($sql);
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
                 $stmt = $this->bindMyParams($stmt, false);
@@ -153,6 +154,32 @@ abstract class AbstractModel
 
         // SELECT $fk_dest FROM $pivot_table WHERE $fk_source = $source_id
         // SELECT colors_id FROM cards_has_colors WHERE cards_id
+    }
+    protected function loadManyToManyRelationsSpecific($id_source, $id_dest, $fk_source, $fk_dest, $pivot_table)
+    {
+        $conn = DBConnection::getConnection();
+        $sql = "SELECT " . $fk_dest . " From " . $pivot_table . " WHERE " . $fk_source . "=? AND " . $fk_dest . "=? " ;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $id_source,$id_dest);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all();
+        // TODO to secure it by empty result or something
+
+        // SELECT $fk_dest FROM $pivot_table WHERE $fk_source = $source_id  AND $fk_dest = $id_dest
+        // SELECT id FROM users_has_cards WHERE cards_id =4251 AND users_id = 17
+    }
+
+    protected function addManyToManyRelations( $pivot_table, $fk_dest, $fk_source, $fk_dest_value, $fk_source_value)
+    {
+        $conn = DBConnection::getConnection();
+        $sql = "INSERT INTO " . $pivot_table . " (" . $fk_dest . "," . $fk_source . ") VALUES (?,?)" ;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $fk_dest_value,$fk_source_value);
+        $stmt->execute();
+        return $stmt->get_result();
+
+        // INSERT INTO $pivot_table ($fk_dest, $fk_source) VALUES (?, ?)
+        // INSERT INTO decks_has_colors (color_id, deck_id) VALUES (1, 1)
     }
 
     protected function deleteByID($id)

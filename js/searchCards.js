@@ -5,8 +5,11 @@ $(document).ready(function() {
 });
 
 (function(window, $) {
+    let search;
 
     window.Search = function () {
+        search = this;
+        this.addCardListeners();
         $('#search__cards_form').on(
             'submit',//typing?
             this.handleSearch.bind(this)
@@ -29,8 +32,9 @@ $(document).ready(function() {
                 method: 'POST',
                 data: $form.serialize(),
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#search__card_result').html(data);
+                    search.addCardListeners();
                 }
             });
         },
@@ -50,6 +54,49 @@ $(document).ready(function() {
                     }
                 }
             });
+        },
+
+        addCardListeners: function () {
+            $('button[name="cards__add_to_deck"]').on('click', this.handleAddCardToDeck.bind(this));
+        },
+
+        handleAddCardToDeck: function (e) {
+            let $button = $(e.currentTarget);
+            console.log($button.attr('value'));
+            $.ajax({
+                url: 'index.php?p=allCards&method=add_card&addCard=' + $button.attr('value'),
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#popup_container').html(data);
+                    $('#popup_container').addClass('show');
+                    search.addDeckListeners();
+                }
+            });
+        },
+
+        addDeckListeners: function () {
+            $('button[name="deck__select_deck"]').on('click', this.handleSelectDeck.bind(this));
+        },
+
+        handleSelectDeck: function(e) {
+            let $button = $(e.currentTarget);
+            console.log($button.attr('data-card'));
+            console.log($button.attr('data-deck'));
+            $.ajax({
+                url: 'index.php?p=allCards&method=select_deck&data-card=' + $button.attr('data-card') + '&data-deck=' + $button.attr('data-deck'),
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#popup_container').html(data);
+                    const createP = document.createElement("p");
+                    createP.innerText = data;
+                    $('#popup_container').appendChild(createP);
+                    $('#popup_container > p').addClass('title_colorless');
+                    //$('#popup_container').removeClass('show')
+                }
+            });
+
         }
     });
 

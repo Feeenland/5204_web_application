@@ -25,6 +25,10 @@ body{
   }
   .infos{
     font-size: 2rem;
+    text-align: center;
+    display: block;
+    margin: 20px;
+    font-weight: bold;
   }
   .error_message{ // to print the error message
     color: $info;
@@ -85,6 +89,21 @@ body{
     label{
       margin-right: 15px;
     }
+  }
+  .popup__container{
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    min-height: 300px;
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  .show{
+    display: block;
   }
 }
 

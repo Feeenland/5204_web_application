@@ -43,7 +43,7 @@ class CardsSearchModel
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT c.id, c.image_uris, c.name FROM cards c
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
                 INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
                 LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
                 INNER JOIN set_edition se ON c.set_name = se.id
@@ -88,14 +88,22 @@ class CardsSearchModel
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT COUNT(DISTINCT c.id) as cards_count FROM cards c
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
                 INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
                 LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
                 INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE `name` LIKE ? 
-                AND type_line LIKE ?";
+                /*WHERE `name` LIKE ? 
+                AND type_line LIKE ?*/";
+
+           /* if($this->search_color != []) {
+                $sql .= "INNER JOIN cards_has_colors chc ON c.id = chc.cards_id";
+            }*/
+
+            $sql .= "WHERE `name` LIKE ?
+                    AND type_line LIKE ?";
 
             if(count($this->search_color)) {
+               /* $sql .= "INNER JOIN cards_has_colors chc ON c.id = chc.cards_id";*/
                 $sql .= " AND chc.colors_id IN(" . implode(',', $this->search_color) . ")";
             }
             if($this->search_format > 0) {
@@ -120,6 +128,53 @@ class CardsSearchModel
 
             $row = $result->fetch_assoc();
             $this->search_count = $row['cards_count'];
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function getSingleCardDetail($id){
+
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT c.*, se.set_name,col.color, group_concat(col.color), group_concat(f.format), group_concat(l.legality) FROM cards c
+                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                INNER JOIN colors col ON chc.colors_id = col.id
+                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
+                INNER JOIN formats f ON chfhl.formats_id = f.id
+                INNER JOIN legalities l ON chfhl.legalities_id = l.id
+                INNER JOIN set_edition se ON c.set_name = se.id
+                WHERE c.id LIKE ? 
+                GROUP BY col.color";
+            /*
+             *
+            SELECT c.*, se.set_name, group_concat(col.color),f.format, group_concat(f.format),l.legality, group_concat(l.legality) FROM cards c
+                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                INNER JOIN colors col ON chc.colors_id = col.id
+                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
+                INNER JOIN formats f ON chfhl.formats_id = f.id
+                INNER JOIN legalities l ON chfhl.legalities_id = l.id
+                INNER JOIN set_edition se ON c.set_name = se.id
+                WHERE c.id LIKE 37615
+                GROUP BY  c.id
+
+            SELECT c.*, se.set_name, group_concat(col.color) FROM cards c // ! legalities
+                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
+                INNER JOIN colors col ON chc.colors_id = col.id
+                INNER JOIN set_edition se ON c.set_name = se.id
+                WHERE c.id LIKE 37615
+                GROUP BY  c.id
+             * */
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $this->search_result = [];
+            while($row = $result->fetch_assoc()) {
+                $this->search_result[] = $row;
+            }
         }catch(Exception $e){
             die($e->getMessage());
         }

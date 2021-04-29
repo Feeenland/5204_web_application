@@ -8,7 +8,8 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col">
-                        <button class="btn btn_1 btn-outline-success" value="{{ card['id'][0] }}">add to deck</button>
+                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ card['id'][0] }}">add to deck</button>
+                        <button name="cards__show_detail" type="button" class="btn btn_1 btn-outline-success cards__show_detail" value="{{ card['id'][0] }}">&#8599;</button>
                     </div>
                 </div>
                 <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="magic deck">

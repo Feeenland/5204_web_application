@@ -10,6 +10,7 @@ class Validation
 {
     public $errorFeedback = [
         'required' => 'This field must be filled.',
+        'number' => 'This field must be a number.',
         'max15chars' => 'This field can have a maximum of 15 characters',
         'max35chars' => 'This field can have a maximum of 35 characters',
         'min5chars' => 'This field must have at least 5 characters',
@@ -45,6 +46,12 @@ class Validation
                 if($rule == 'required'){
                     if(! isset($value) || trim($value) == '' ){
                         $fieldErrors[] = $this->errorFeedback[$rule]; // 'its required'
+                    }
+                }
+
+                if($rule == 'number'){
+                    if($value != '' && ! preg_match('/^(\d+)$/', $value)){
+                        $fieldErrors[] = $errorFeedback[$rule]; // 'its a number'
                     }
                 }
 

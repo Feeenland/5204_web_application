@@ -85,13 +85,20 @@ class DecksModel extends AbstractModel {
         }
     }
 
-    public function updateSave($values){
+    public function updateSave($values, $colors){
         try{
             foreach ($this->fields as $field){ //put the incoming values in to $this->values
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
+
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
+            print $result;
+            //colors?
+            foreach ( $colors as $color){
+                $this->addManyToManyRelations( 'decks_has_colors', 'color_id', 'deck_id', $color, $result);
+            }
+
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
                 //die('Speichern fehlgeschlagen');
@@ -107,7 +114,17 @@ class DecksModel extends AbstractModel {
 
     protected function bindMyParams($stmt, $update = false)
     {
-        // TODO: Implement bindMyParams() method.
+        $types = $update ? 'siii' : 'iis';
+        $user_id = $this->getFieldValue('user_id');
+        $format_id = $this->getFieldValue('format_id');
+        $name = $this->getFieldValue('name');
+        $id = $this->getFieldValue('id');
+        if($update){
+            $stmt->bind_param($types,$user_id, $format_id, $name, $id);
+        }else{
+            $stmt->bind_param($types, $user_id, $format_id, $name);
+        }
+        return $stmt;
     }
 }
 

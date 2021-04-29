@@ -31,14 +31,18 @@
                         <p class="card__single_title">rarity: {{ rarity }}</p>
                     </div>
                     <div class="col-3">
-                        <button class="btn_1 btn card__single_btn btn-outline-warning">+ cards</button>
-                        <!-- <button class="btn_1 btn card__single_btn btn-outline-warning">+ deck</button>-->
+                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ card['id'][0] }}">add to deck</button>
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <div class="col">
                         <p class="card__single_title">colors:</p>
                     </div>
+                    {% for col in color  %}
+                        <div class="col">
+                            <img class="color__img" src="img/{{ color }}.png" alt="">
+                        </div>
+                    {% endfor %}
                     <div class="col">{{ color  }}
                         <img src="img/blue.png" class="color__img" alt="">
                     </div>

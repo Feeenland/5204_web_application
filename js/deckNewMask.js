@@ -1,18 +1,18 @@
-console.log('register.js');
+console.log('NewDeck.js');
 
 $(document).ready(function() {
-    new Registration();
+    new NewDeck();
 });
 
 (function(window, $) {
-    window.Registration = function () {
-        $('#register__form').on(
+    window.NewDeck = function () {
+        $('#new__deck_form').on(
             'submit',
-            this.handleRegistration.bind(this)
+            this.handleNewDeck.bind(this)
         );
     };
-    $.extend(window.Registration.prototype, {
-        handleRegistration: function (e) {
+    $.extend(window.NewDeck.prototype, {
+        handleNewDeck: function (e) {
             e.preventDefault();
 
             let $form = $(e.currentTarget);
@@ -22,6 +22,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: $form.serialize(),
                 success: function(data) {
+                    console.log(data);
                     let newDoc = document.open("text/html", "replace");
                     newDoc.write(data);
                     newDoc.close();

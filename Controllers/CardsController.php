@@ -6,11 +6,13 @@ use Models\CardsModel;
 use Models\CardsSearchModel;
 use Models\ColorModel;
 use Models\DecksModel;
+use Models\DecksSearchModel;
 use Models\FormatsModel;
 use Models\SetEditionModel;
 use Views\CardSingleView;
 use Views\CardsSearchedView;
 use Views\CardsView;
+use Views\DeckAddCardView;
 
 class CardsController extends UserController
 {
@@ -50,6 +52,12 @@ class CardsController extends UserController
                 break;
             case 'search_own_count':
                 $this->countOwnCards();
+                break;
+            case 'add_card':
+                $this->addCard($_GET['addCard']);
+                break;
+            case 'select_deck':
+                $this->addCardToDeck($_GET['data-card'],$_GET['data-deck']);
                 break;
             default:
                 if (isset($_GET['p']) && $_GET['p'] == 'cards'){
@@ -139,9 +147,78 @@ class CardsController extends UserController
             $this->view->addCards($card['id'], 'image_uris', $card['image_uris']);
             $this->view->addCards($card['id'], 'name', $card['name']);
         }
+
         $this->view->showTemplate();
     }
 
+    public function addCard($cardId){
+
+        print $cardId;
+        $userId =$this->userId;
+
+        //check if card is saved by user?
+        $c = new CardsModel();
+        $cardExist =$c->checkUserHasCard($cardId, $userId);
+        print_r($cardExist);
+        if ($cardExist == false){
+            // save card by user
+            $cardExist =$c->addCardToUser($cardId, $userId);
+            print 'add card to user';
+        }
+
+        // get user decks
+        $d = new DecksSearchModel();
+        $d->searchDecks($userId);
+        $userDecks = $d->search_result;
+
+        // ask to witch deck to add? return deck ID
+        // TODO open view over the searched cards view!
+        $this->view = new DeckAddCardView();
+        foreach ($userDecks as $deck){
+            $this->view->addDecks($deck['id'], 'id', $deck['id']);
+            $this->view->addDecks($deck['id'], 'name', $deck['name']);
+            $this->view->addDecks($deck['id'], 'format', $deck['format']);
+            $this->view->addDecks($deck['id'], 'nickname', $deck['nickname']);
+            $colors = explode(',', $deck['colors']);
+            foreach ($colors as $color){
+                $this->view->addDecks($deck['id'], 'colors', $color);
+            }
+            $this->view->addDecks($deck['id'], 'image_uris', $deck['image_uris']);
+        }
+        $this->view->addToKey('cardId', $cardId);
+        $this->view->showTemplate();
+
+
+    }
+
+    public function addCardToDeck($cardId, $deckId){
+        // ad card to deck
+        $c = new CardsModel();
+            $c->addCardToDeck($cardId, $deckId);
+
+            //TODO check how many of this card already exist in this deck = print
+            //TODO check if this card is allowed in this deck format = print
+            //TODO add oky button tho this infos
+        print 'This card has been added successfully';
+        //check how many times the card is in the Deck now!
+
+    }
+
+
+    public function getCardDetailById(/*$cardId*/) {
+
+        $card = new CardsModel();
+        $card->getSingleCardDetailById(37615);
+        //print $card->toString();
+        $view = $this->view = new CardSingleView();
+
+        foreach ($this->fields as $field){
+            $fieldValue = $card->getFieldValue($field);
+            $this->view->assignData($field, $fieldValue);
+        } // TODO find a way to print the relationships
+
+        $view->showTemplate();
+    }
 
     public function getUserCards(){
 
