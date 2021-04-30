@@ -59,7 +59,7 @@
                         <h2>{{ deck['name'][0] }}</h2>
                         <p>format: {{ deck['format'][0] }}</p>
                         {% for color in deck['colors'] %}
-                            <img class="color__img" src="img/{{ color }}.png" alt="">
+                            <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
                         {% endfor %}
                         <p>created By:<br>
                             <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>

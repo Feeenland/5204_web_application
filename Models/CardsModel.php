@@ -142,7 +142,7 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function getSingleCardDetailById($cardId) {
+    public function getSingleCardById($cardId) {
 
         try{
             $result = $this->getBySingleField('id', $cardId, 'i');
@@ -157,9 +157,9 @@ class CardsModel extends AbstractModel {
                         $this->setFieldValue($field, $dbValue[$field]);
                 }
 
-                $this->loadSet();
-                $this->loadColors();
-                $this->loadFormatAndLegalities();
+                //$this->loadSet();
+                //$this->loadColors();
+                //$this->loadFormatAndLegalities();
                 return true;
             }
         }catch(Exception $exception){

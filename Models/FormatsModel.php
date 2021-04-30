@@ -17,7 +17,7 @@ class FormatsModel extends AbstractModel {
 
     public function getAllFormats(){
 
-        return $this->GetAllEntries();
+        return $this->GetAllEntries('id');
     }
 
     public function getFormatsById($id) {

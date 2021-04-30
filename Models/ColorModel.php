@@ -17,7 +17,7 @@ class ColorModel extends AbstractModel {
 
     public function getAllColors(){
 
-        return $this->GetAllEntries();
+        return $this->GetAllEntries('id');
     }
 
     public function getColorById($id) {

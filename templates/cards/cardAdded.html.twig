@@ -1,0 +1,20 @@
+
+    <div class="row justify-content-between">
+        <div class="col">
+            <span class="infos">Card is saved in your Deck</span>
+        </div>
+        <div class="col">
+            <button name="finished" class="btn btn_1 btn-outline-success">finished</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {% for info in infos %}
+                <span>
+                        {{ info }}
+                </span><br>
+            {% endfor %}
+        </div>
+    </div>
+

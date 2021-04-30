@@ -10,6 +10,7 @@ $(document).ready(function() {
     window.Search = function () {
         search = this;
         this.addCardListeners();
+        this.CardShowSingleListeners();
         $('#search__cards_form').on(
             'submit',//typing?
             this.handleSearch.bind(this)
@@ -35,6 +36,7 @@ $(document).ready(function() {
                     //console.log(data);
                     $('#search__card_result').html(data);
                     search.addCardListeners();
+                    search.CardShowSingleListeners();
                 }
             });
         },
@@ -56,6 +58,26 @@ $(document).ready(function() {
             });
         },
 
+        CardShowSingleListeners: function () {
+            $('button[name="cards__show_detail"]').on('click', this.handleCardShowSingle.bind(this));
+        },
+
+        handleCardShowSingle: function (e) {
+            let $button = $(e.currentTarget);
+            console.log($button.attr('value'));
+            $.ajax({
+                url: 'index.php?p=allCards&method=show_card&showCard=' + $button.attr('value'),
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#popup_container').html(data);
+                    $('#popup_container').addClass('show');
+                    search.addCardListeners();
+                    search.addCloseListeners();
+                }
+            });
+        },
+
         addCardListeners: function () {
             $('button[name="cards__add_to_deck"]').on('click', this.handleAddCardToDeck.bind(this));
         },
@@ -71,6 +93,7 @@ $(document).ready(function() {
                     $('#popup_container').html(data);
                     $('#popup_container').addClass('show');
                     search.addDeckListeners();
+                    search.addCloseListeners();
                 }
             });
         },
@@ -89,15 +112,27 @@ $(document).ready(function() {
                 success: function(data) {
                     console.log(data);
                     $('#popup_container').html(data);
-                    const createP = document.createElement("p");
-                    createP.innerText = data;
-                    $('#popup_container').appendChild(createP);
-                    $('#popup_container > p').addClass('title_colorless');
+                    search.addCloseListeners();
                     //$('#popup_container').removeClass('show')
                 }
             });
 
-        }
+        },
+
+        addCloseListeners: function () {
+            $('button[name="finished"]').on('click', this.handleClose.bind(this));
+        },
+
+        handleClose: function(e) {
+            let $button = $(e.currentTarget);
+            $.ajax({
+                url: 'index.php?p=allCards&' ,
+                method: 'GET',
+                success: function(data) {
+                    $('#popup_container').removeClass('show')
+                }
+            });
+        },
     });
 
 })(window, jQuery);

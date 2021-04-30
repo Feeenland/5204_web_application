@@ -41,10 +41,10 @@ abstract class AbstractModel
         );
     }
 
-    public function GetAllEntries() {
+    public function GetAllEntries($groupBy) {
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT * FROM " . $this->table;
+            $sql = "SELECT * FROM " . $this->table . " GROUP BY " . $groupBy;
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -56,7 +56,7 @@ abstract class AbstractModel
     public function CountAllEntries() {
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT COUNT(*) FROM " . $this->table;
+            $sql = "SELECT COUNT(*) FROM " . $this->table ;
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();

@@ -8,7 +8,7 @@ use Helpers\disinfect;
 use mysqli;
 
 
-class CardsSearchModel
+class CardsSearchModel extends AbstractModel
 {
     public $search_name;
     public $search_color = [];
@@ -137,26 +137,33 @@ class CardsSearchModel
 
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT c.*, se.set_name,col.color, group_concat(col.color), group_concat(f.format), group_concat(l.legality) FROM cards c
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN colors col ON chc.colors_id = col.id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
-                INNER JOIN formats f ON chfhl.formats_id = f.id
-                INNER JOIN legalities l ON chfhl.legalities_id = l.id
+            $sql = "SELECT c.*, se.set_name, group_concat(col.color) as colors FROM cards c
+                LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
+                LEFT JOIN colors col ON chc.colors_id = col.id
                 INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE c.id LIKE ? 
-                GROUP BY col.color";
+                WHERE c.id LIKE ?
+                GROUP BY  c.id";
             /*
              *
-            SELECT c.*, se.set_name, group_concat(col.color),f.format, group_concat(f.format),l.legality, group_concat(l.legality) FROM cards c
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN colors col ON chc.colors_id = col.id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
-                INNER JOIN formats f ON chfhl.formats_id = f.id
-                INNER JOIN legalities l ON chfhl.legalities_id = l.id
+            SELECT c.*, se.set_name, group_concat(f.format ORDER BY f.id), group_concat(l.legality ORDER BY f.id),
+
+   (SELECT group_concat(col.color) FROM cards_has_colors chcol
+                                LEFT JOIN colors col ON chcol.colors_id = col.id
+                                Where chcol.cards_id = c.id
+                                LIMIT 1) as  color
+
+
+             FROM cards c
+
+                LEFT JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
+                LEFT JOIN formats f ON chfhl.formats_id = f.id
+                LEFT JOIN legalities l ON chfhl.legalities_id = l.id
+
                 INNER JOIN set_edition se ON c.set_name = se.id
                 WHERE c.id LIKE 37615
                 GROUP BY  c.id
+
+
 
             SELECT c.*, se.set_name, group_concat(col.color) FROM cards c // ! legalities
                 INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
@@ -171,13 +178,23 @@ class CardsSearchModel
             $stmt->execute();
             $result = $stmt->get_result();
 
+           /* $dbValue = $result->fetch_assoc();
+            foreach ($this->fields as $field){
+                if (array_key_exists($field, $dbValue))
+                    $this->setFieldValue($field, $dbValue[$field]);
+            }*/
             $this->search_result = [];
             while($row = $result->fetch_assoc()) {
                 $this->search_result[] = $row;
             }
+            return $this->search_result;
         }catch(Exception $e){
             die($e->getMessage());
         }
     }
 
+    protected function bindMyParams($stmt, $update = false)
+    {
+        // TODO: Implement bindMyParams() method.
+    }
 }

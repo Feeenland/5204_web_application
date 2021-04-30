@@ -92,15 +92,19 @@ body{
   }
   .popup__container{
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
     min-height: 300px;
     padding: 50px;
-    position: absolute;
+    margin-top: 20px;
+    position: fixed;
+    overflow-y: scroll;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
+    border: 1px solid $success;
+    border-radius: 25px;
   }
   .show{
     display: block;

@@ -16,7 +16,7 @@ class SetEditionModel extends AbstractModel {
 
     public function getAllSets(){
 
-        return $this->GetAllEntries();
+        return $this->GetAllEntries('set_name');
     }
 
     public function getSetById($id) {

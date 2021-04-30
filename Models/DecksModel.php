@@ -20,7 +20,7 @@ class DecksModel extends AbstractModel {
 
     public function getAllDecks(){
 
-        return $this->GetAllEntries();
+        return $this->GetAllEntries('name');
     }
 
     public function getDecksByUserId($id) {

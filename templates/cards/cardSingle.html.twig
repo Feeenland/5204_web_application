@@ -1,62 +1,28 @@
 
-{% extends 'layout.html.twig' %}
+{% for  card in cards %}
+     <h1> {{ name }}</h1>
 
-{% block title %}{{ name }}{% endblock %}
-
-{% block info %}
-    {% for info in infos %}
-        {{ info }}
-    {% endfor %}
-{% endblock %}
-
-{% block h1 %}
-    {% block cardName %}
-        {{ name }}
-    {% endblock %}
-{% endblock %}
-
-
-{% block content%}
-
-<div class="container card__single">
-    <div class="row">
+    <div class="row card__single">
         <div class="col-12 col-sm-12 col-md-4 col-lg-3">
-            {#<img src="img/cards/c16-143-burgeoning.jpg" class="card__single_img" alt="magic card">#}
             <img src="{{ image_uris }}" class="card__single_img" alt="magic card">
         </div>
         <div class="col">
             <div class="col">
                 <div class="row justify-content-between">
                     <div class="col-4">
-                        <p class="card__single_title">rarity: {{ rarity }}</p>
+                        <p class="card__single_title">rarity: {{ rarity }}{{ card['name'][0][0] }}</p>
                     </div>
                     <div class="col-3">
-                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ card['id'][0] }}">add to deck</button>
+                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ id }}">add card</button>
+                        <button name="finished" class="btn btn_1 btn-outline-success">finished</button>
                     </div>
                 </div>
-                <div class="row justify-content-between">
+                <div class="row">
                     <div class="col">
                         <p class="card__single_title">colors:</p>
-                    </div>
-                    {% for col in color  %}
-                        <div class="col">
-                            <img class="color__img" src="img/{{ color }}.png" alt="">
-                        </div>
-                    {% endfor %}
-                    <div class="col">{{ color  }}
-                        <img src="img/blue.png" class="color__img" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="img/green.png" class="color__img" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="img/red.png" class="color__img" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="img/white.png" class="color__img" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="img/black.png" class="color__img" alt="">
+                        {% for color in card['colors'] %}
+                            <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="row justify-content-between">
@@ -89,7 +55,7 @@
                     </div>
                     <div class="col">
                         <p class="card__single_title">set name:</p>
-                        <p>{{ set_name  }}</p>
+                        <p>{{ card['set_name'][0] }}</p>
                     </div>
                     <div class="col">
                         <button class="btn_1 btn btn-outline-warning">
@@ -157,6 +123,6 @@
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+{% endfor %}
+
 

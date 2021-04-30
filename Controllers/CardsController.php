@@ -9,6 +9,7 @@ use Models\DecksModel;
 use Models\DecksSearchModel;
 use Models\FormatsModel;
 use Models\SetEditionModel;
+use Views\CardAddedView;
 use Views\CardSingleView;
 use Views\CardsSearchedView;
 use Views\CardsView;
@@ -58,6 +59,9 @@ class CardsController extends UserController
                 break;
             case 'select_deck':
                 $this->addCardToDeck($_GET['data-card'],$_GET['data-deck']);
+                break;
+            case 'show_card':
+                $this->showSingleCard($_GET['showCard']);
                 break;
             default:
                 if (isset($_GET['p']) && $_GET['p'] == 'cards'){
@@ -198,9 +202,51 @@ class CardsController extends UserController
 
             //TODO check how many of this card already exist in this deck = print
             //TODO check if this card is allowed in this deck format = print
-            //TODO add oky button tho this infos
-        print 'This card has been added successfully';
+
+        $this->view = new CardAddedView();
+
+        $this->view->addToKey('cardId', $cardId);
+        $this->view->addInfos('notice: this card is saved in your card and your deck of choice');
+        $this->view->addInfos('notice: this card is now "4" times in this deck ?!');
+        $this->view->showTemplate();
+
+        //print 'This card has been added successfully';
         //check how many times the card is in the Deck now!
+
+    }
+
+    public function showSingleCard($cardId){
+
+
+
+        $card = new CardsModel();
+        $card->getSingleCardById($cardId);
+        $this->view = new CardSingleView();
+
+        foreach ($this->fields as $field){
+            $fieldValue = $card->getFieldValue($field);
+            $this->view->assignData($field, $fieldValue);
+        }
+
+        $card = new CardsSearchModel();
+        $cardDetail = $card->getSingleCardDetail($cardId);
+        //print_r($cardDetail[0]['name']);
+        //print_r($cardDetail);
+
+        foreach ($cardDetail as $card){
+            //print_r($card);
+            $this->view->addCards($card['id'], 'set_name', $card['set_name']);
+            $colors = explode(',', $card['colors']);
+            /*foreach ($colors as $color){
+                $this->view->addDecks($card['id'], 'colors', $color);
+            }*/
+            $colors = explode(',', $card['colors']);
+            foreach ($colors as $color){
+                $this->view->addCards($card['id'], 'colors', $color);
+            }
+        }
+
+        $this->view->showTemplate();
 
     }
 

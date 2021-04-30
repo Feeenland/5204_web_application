@@ -1,5 +1,9 @@
 
     <div class="row">
+        <span class="infos">Card is saved in {{ deck['nickname'][0] }} cards, add this card to a Deck</span>
+
+        <button name="finished" class="btn btn_1 btn-outline-success">finished</button>
+
             {% for deck in decks %}
 
                 <article class="col-12 col-md-6 col-lg-4 decks__deck">
@@ -9,7 +13,7 @@
                         <h2>{{ deck['name'][0] }}</h2>
                         <p>format: {{ deck['format'][0] }}</p>
                         {% for color in deck['colors'] %}
-                            <img class="color__img" src="img/{{ color }}.png" alt="">
+                            <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
                         {% endfor %}
                         <p>created By:<br>
                             <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>

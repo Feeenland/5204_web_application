@@ -172,8 +172,11 @@ class LoginController
                     $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
                     $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
                     $this->view->showTemplate();
-                    $p = 'user';
-                    return $p = 'user';
+
+
+
+
+                    return true;
 
                 } else { //pw not correct
 
