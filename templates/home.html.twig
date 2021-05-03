@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="container filter_deck">
-        <form action="index.php?p=decks&method=search" id="search__form">
+        <form action="index.php?p=home&method=search" id="search__form">
         <div class="row justify-content-around">
                 <div class="col-12 col-md-5">
 
@@ -63,7 +63,7 @@
                         {% endfor %}
                         <p>created By:<br>
                             <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
-                        <button class="btn btn_1 btn-outline-success" id="{{ deck['id'][0] }}">Show</button>
+                        <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">Open</button>
                     </div>
                 </article>
 
@@ -73,5 +73,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="js/search.js"></script>
+    <script src="js/showHomeDecks.js"></script>
 {% endblock %}

@@ -181,6 +181,18 @@ abstract class AbstractModel
         // INSERT INTO $pivot_table ($fk_dest, $fk_source) VALUES (?, ?)
         // INSERT INTO decks_has_colors (color_id, deck_id) VALUES (1, 1)
     }
+    protected function deleteManyToManyRelations( $pivot_table, $fk_dest, $fk_source, $fk_dest_value, $fk_source_value)
+    {
+        $conn = DBConnection::getConnection();
+        $sql = "DELETE FROM " . $pivot_table . " WHERE " . $fk_dest . " = ? AND ". $fk_source ." = ?  LIMIT 1" ;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $fk_dest_value, $fk_source_value);
+        $stmt->execute();
+        return $stmt->get_result();
+
+        // DELETE FROM $pivot_table WHERE $fk_dest = $fk_dest_value AND $fk_source = $fk_source_value LIMIT 1
+        // DELETE FROM `decks_has_cards` WHERE cards_id = 35391 AND deck_id = 15 LIMIT 1
+    }
 
     protected function deleteByID($id)
     {

@@ -14,7 +14,7 @@
             {% endfor %}
             <p>created By:<br>
                 <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
-            <button class="btn btn_1 btn-outline-success" id="{{ deck['id'][0] }}">Show</button>
+            <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">Open</button>
         </div>
     </article>
 

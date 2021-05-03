@@ -34,7 +34,7 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
     }else if($_GET['p'] == 'forgotPw'){
         $controller = new ForgotPwController();
     }else if($_GET['p'] == 'home') {
-        $view = new HomeController();
+        $view = new HomeController($_GET['method']);
     }else if($_GET['p'] == 'user'){
         $view= new UserController();
     }else if($_GET['p'] == 'addDecks'){

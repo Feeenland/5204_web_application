@@ -5,8 +5,14 @@
             {% for deck in decks %}
 
                 <div class="col">
-
-                    <h2>{{ deck['name'][0] }}</h2>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <h2>{{ deck['name'][0] }}</h2>
+                        </div>
+                        <div class="col">
+                            <button name="close" class="btn btn_1 btn-outline-success">close</button>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col">
@@ -22,13 +28,11 @@
                             <p>created By: <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
                         </div>
                         <div class="col">
-                            <button name="close" class="btn btn_1 btn-outline-success">close</button>
+                            <p>__ cards</p>
                         </div>
-
                     </div>
                         <p class="title_colorless">Description:</p>
                         <p>{{ deck['description'][0] }}</p>
-
                 </div>
 
             {% endfor %}
@@ -44,7 +48,14 @@
                     <article>
                         <div class="row">
                             <p class="cards__many_cards_title">{{ card['name'][0] }}</p>
-                            <button name="delete" type="button" class="btn btn_1 btn-outline-info" data-card="{{ cardId[0] }}" data-deck="{{ deck['id'][0] }}">X</button>
+                            {% if deckId[0] %}
+                                <button name="delete" type="button"
+                                        class="btn btn_1 btn-outline-info"
+                                        data-card="{{ card['id'][0] }}"
+                                        data-deck="{{ deckId[0] }}">X
+                                </button>
+                            {% endif %}
+
                         </div>
                         <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="magic deck">
                     </article>

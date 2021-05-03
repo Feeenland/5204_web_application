@@ -1,4 +1,4 @@
-console.log('Search.js');
+console.log('showHomeDecks.js');
 
 $(document).ready(function() {
     new Search();
@@ -60,34 +60,12 @@ $(document).ready(function() {
             let $button = $(e.currentTarget);
             console.log($button.attr('value'));
             $.ajax({
-                url: 'index.php?p=decks&method=show_deck&showDeck=' + $button.attr('value'),
+                url: 'index.php?p=home&method=show_deck&showDeck=' + $button.attr('value'),
                 method: 'GET',
                 success: function(data) {
                     console.log(data);
                     $('#popup_container').html(data);
                     $('#popup_container').addClass('show');
-                    search.DeckDeleteCardListeners();
-                    search.addCloseListeners();
-                }
-            });
-        },
-
-        DeckDeleteCardListeners: function () {
-            $('button[name="delete"]').on('click', this.handleDeckDeleteCard.bind(this));
-        },
-
-        handleDeckDeleteCard: function (e) {
-            let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
-            console.log($button.attr('data-card'));
-            console.log($button.attr('data-deck'));
-            $.ajax({
-                url: 'index.php?p=decks&method=delete_card&data-card=' + $button.attr('data-card') + '&data-deck=' + $button.attr('data-deck'),
-                method: 'GET',
-                success: function(data) {
-                    console.log(data);
-                    //delete!
-                    $button.html('deleted!');
                     search.addCloseListeners();
                 }
             });
@@ -100,7 +78,7 @@ $(document).ready(function() {
         handleClose: function(e) {
             let $button = $(e.currentTarget);
             $.ajax({
-                url: 'index.php?p=decks&' ,
+                url: 'index.php?p=home&' ,
                 method: 'GET',
                 success: function(data) {
                     $('#popup_container').removeClass('show')

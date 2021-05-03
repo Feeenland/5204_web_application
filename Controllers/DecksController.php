@@ -24,13 +24,13 @@ class DecksController extends UserController
     {
         $user = $this->getUserByNicknameSession();
 
-        switch($method) {
+        switch($method) {/*
             case 'search':
                 $this->searchDecks();
                 break;
             case 'search_count':
                 $this->countDecks();
-                break;
+                break;*/
             case 'search_own':
                 $this->searchOwnDecks();
                 break;
@@ -41,14 +41,14 @@ class DecksController extends UserController
                 $this->showDeckSingle($_GET['showDeck']);
                 break;
             case 'delete_card':
-                $this->delteCardInDeck($_GET['data-card'],$_GET['data-deck']);
+                $this->deleteCardInDeck($_GET['data-card'],$_GET['data-deck']);
                 break;
             default:
                 $this->getUserDecks();
         }
     }
 
-    public function searchDecks() {
+/*    public function searchDecks() {
         $d = new DecksSearchModel();
         $d->search_name = $_POST['search_text'];
         if(isset($_POST['color'])) {
@@ -73,7 +73,7 @@ class DecksController extends UserController
         }
         //print $d;
         print_r($d->getSearchCount());
-    }
+    }*/
 
     public function searchOwnDecks() {
         $d = new DecksSearchModel();
@@ -120,6 +120,13 @@ class DecksController extends UserController
         $this->view->showTemplate();
     }
 
+    public function deleteCardInDeck($cardId, $deckId){
+
+        $d = new DecksModel();
+        $delete =$d->deleteCardFromDeck($cardId, $deckId);
+        print $delete;
+    }
+
     public function getUserDecks(){
 
         $userDecks = new DecksSearchModel();
@@ -163,17 +170,18 @@ class DecksController extends UserController
         $cards = $c->getAllCardsByDeckId($deckId);
 
         $this->view = new DeckSingleView();
-
+        //print_r($cards);
+        $count = 1;
         foreach ($cards as $card){
             $cardValue = $c->getCardById($card);
-
             $cardId = $c->getFieldValue('id');
             $cardImg = $c->getFieldValue('image_uris');
             $cardName = $c->getFieldValue('name');
 
-            $this->view->addCards($cardId, 'id', $cardId);
-            $this->view->addCards($cardId, 'image_uris', $cardImg);
-            $this->view->addCards($cardId, 'name', $cardName);
+            $this->view->addCards($count, 'id', $cardId);
+            $this->view->addCards($count, 'image_uris', $cardImg);
+            $this->view->addCards($count, 'name', $cardName);
+            $count++;
         }
         foreach ($singleDeck as $deck){
             //print_r($deck);
@@ -187,6 +195,7 @@ class DecksController extends UserController
                 $this->view->addDecks($deck[2], 'colors', $color);
             }
         }
+        $this->view->addToKey('deckId', $deckId);
         $this->view->showTemplate();
 
 

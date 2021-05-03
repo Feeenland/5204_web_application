@@ -163,7 +163,7 @@ class CardsController extends UserController
         //check if card is saved by user?
         $c = new CardsModel();
         $cardExist =$c->checkUserHasCard($cardId, $userId);
-        print_r($cardExist);
+        //print_r($cardExist);
         if ($cardExist == false){
             // save card by user
             $cardExist =$c->addCardToUser($cardId, $userId);
@@ -200,18 +200,26 @@ class CardsController extends UserController
         $c = new CardsModel();
             $c->addCardToDeck($cardId, $deckId);
 
-            //TODO check how many of this card already exist in this deck = print
+        $countCards = $c->countSpecificCardByDeckId($deckId, $cardId);
             //TODO check if this card is allowed in this deck format = print
+        $cardSearch = new CardsSearchModel();
+        $formats = $cardSearch->getCardLegalityByDeckFormat($cardId, $deckId);
+       // print_r($formats);
 
         $this->view = new CardAddedView();
-
         $this->view->addToKey('cardId', $cardId);
-        $this->view->addInfos('notice: this card is saved in your card and your deck of choice');
-        $this->view->addInfos('notice: this card is now "4" times in this deck ?!');
-        $this->view->showTemplate();
+        $this->view->addToKey('cardName', $formats[0]['card']);
+        $this->view->addToKey('deckName', $formats[0]['deck']);
+        $this->view->addInfos('Notice: The Deck '.$formats[0]['deck'] .' has the Format '
+            .$formats[0]['format'] .' and the card '.$formats[0]['card'] .' is  '.$formats[0]['legality'] .' in this Deck!');
+        $this->view->addInfos('Notice: this card is now ' .(count($countCards)).' times in this deck,
+                    if the same card from another edition is in this deck, it was not counted.');
+        if ((count($countCards)) >= 5){
+            $this->view->addInfos('Notice: a non-land card should not be more than 4x in one deck !');
+        }
 
-        //print 'This card has been added successfully';
-        //check how many times the card is in the Deck now!
+        $this->view->addInfos('Notice: this card is now saved in your cards and in your deck of choice :)');
+        $this->view->showTemplate();
 
     }
 
@@ -223,7 +231,7 @@ class CardsController extends UserController
         $card->getSingleCardById($cardId);
         $this->view = new CardSingleView();
 
-        foreach ($this->fields as $field){
+        foreach ($this->fields as $field){ //cards specific values
             $fieldValue = $card->getFieldValue($field);
             $this->view->assignData($field, $fieldValue);
         }
@@ -233,16 +241,19 @@ class CardsController extends UserController
         //print_r($cardDetail[0]['name']);
         //print_r($cardDetail);
 
-        foreach ($cardDetail as $card){
+        foreach ($cardDetail as $card){ // relationships
             //print_r($card);
             $this->view->addCards($card['id'], 'set_name', $card['set_name']);
             $colors = explode(',', $card['colors']);
-            /*foreach ($colors as $color){
-                $this->view->addDecks($card['id'], 'colors', $color);
-            }*/
-            $colors = explode(',', $card['colors']);
             foreach ($colors as $color){
                 $this->view->addCards($card['id'], 'colors', $color);
+            }
+
+            $formats = explode(',', $card['formats']);
+            $legalities = explode(',', $card['legalities']);
+            $formatsLegalities = array_combine($formats, $legalities);
+            foreach (array_keys($formatsLegalities) as $fKey){
+                $this->view->addCards($card['id'], $fKey, $formatsLegalities[$fKey]);
             }
         }
 

@@ -137,22 +137,12 @@ class CardsSearchModel extends AbstractModel
 
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT c.*, se.set_name, group_concat(col.color) as colors FROM cards c
-                LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
-                LEFT JOIN colors col ON chc.colors_id = col.id
-                INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE c.id LIKE ?
-                GROUP BY  c.id";
-            /*
-             *
-            SELECT c.*, se.set_name, group_concat(f.format ORDER BY f.id), group_concat(l.legality ORDER BY f.id),
+            $sql = "SELECT c.*, se.set_name, group_concat(f.format ORDER BY f.id) as formats, group_concat(l.legality ORDER BY f.id) as legalities,
 
-   (SELECT group_concat(col.color) FROM cards_has_colors chcol
+            (SELECT group_concat(col.color) FROM cards_has_colors chcol
                                 LEFT JOIN colors col ON chcol.colors_id = col.id
                                 Where chcol.cards_id = c.id
-                                LIMIT 1) as  color
-
-
+                                LIMIT 1) as  colors
              FROM cards c
 
                 LEFT JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id
@@ -160,16 +150,15 @@ class CardsSearchModel extends AbstractModel
                 LEFT JOIN legalities l ON chfhl.legalities_id = l.id
 
                 INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE c.id LIKE 37615
-                GROUP BY  c.id
-
-
-
-            SELECT c.*, se.set_name, group_concat(col.color) FROM cards c // ! legalities
-                INNER JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN colors col ON chc.colors_id = col.id
+                WHERE c.id LIKE ?
+                GROUP BY  c.id";
+            /*
+            // all data but without the legalities!
+            SELECT c.*, se.set_name, group_concat(col.color) as colors FROM cards c
+                LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
+                LEFT JOIN colors col ON chc.colors_id = col.id
                 INNER JOIN set_edition se ON c.set_name = se.id
-                WHERE c.id LIKE 37615
+                WHERE c.id LIKE ?
                 GROUP BY  c.id
              * */
 
@@ -178,11 +167,46 @@ class CardsSearchModel extends AbstractModel
             $stmt->execute();
             $result = $stmt->get_result();
 
-           /* $dbValue = $result->fetch_assoc();
-            foreach ($this->fields as $field){
-                if (array_key_exists($field, $dbValue))
-                    $this->setFieldValue($field, $dbValue[$field]);
-            }*/
+            $this->search_result = [];
+            while($row = $result->fetch_assoc()) {
+                $this->search_result[] = $row;
+            }
+            return $this->search_result;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+    public function getCardLegalityByDeckFormat($cardId, $deckId){
+
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT  c.name as card, d.name as deck, f.format, l.legality
+            FROM cards c
+            	INNER JOIN decks d ON d.id = ?
+                INNER JOIN cards_has_formats_has_legalities chfhl ON chfhl.cards_id = c.id
+                LEFT JOIN legalities l ON chfhl.legalities_id = l.id
+                
+                LEFT JOIN formats f ON f.id = d.format_id
+
+                WHERE c.id = ?
+                AND chfhl.formats_id = d.format_id";
+/*
+ * SELECT  c.name, d.name, f.format, l.legality
+            FROM cards c
+            	INNER JOIN decks d ON d.id = 15
+                INNER JOIN cards_has_formats_has_legalities chfhl ON chfhl.cards_id = c.id
+                LEFT JOIN legalities l ON chfhl.legalities_id = l.id
+
+                LEFT JOIN formats f ON f.id = d.format_id
+
+                WHERE c.id = 9056
+                AND chfhl.formats_id = d.format_id
+*/
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ii', $deckId, $cardId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
             $this->search_result = [];
             while($row = $result->fetch_assoc()) {
                 $this->search_result[] = $row;

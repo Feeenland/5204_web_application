@@ -112,7 +112,23 @@ class DecksModel extends AbstractModel {
         }
     }
 
+    public function deleteCardFromDeck($cardId, $deckId){
 
+        try{
+            $result = $this->deleteManyToManyRelations(
+                'decks_has_cards',
+                'cards_id',
+                'deck_id',
+                $cardId,
+                $deckId);
+
+            return true;
+
+        }catch(Exception $exception){
+            die('Problem with database');
+            //return false;
+        }
+    }
 
     protected function bindMyParams($stmt, $update = false)
     {
