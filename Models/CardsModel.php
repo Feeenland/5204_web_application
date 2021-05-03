@@ -61,6 +61,21 @@ class CardsModel extends AbstractModel {
             return $this->cards;
     }
 
+    public function getAllCardsByDeckId($deckId){
+        $ids = $this->loadManyToManyRelations(
+            $deckId,
+            'deck_id',
+            'cards_id',
+            'decks_has_cards'
+        );
+        $this->cards = [];
+        foreach($ids as $id)
+        {
+            $this->cards[] = $id[0];
+        }
+        return $this->cards;
+    }
+
     public function getCardById($id) {
 
         try{

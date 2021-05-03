@@ -112,6 +112,8 @@ class DecksModel extends AbstractModel {
         }
     }
 
+
+
     protected function bindMyParams($stmt, $update = false)
     {
         $types = $update ? 'siii' : 'iis';

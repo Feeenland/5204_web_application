@@ -9050,7 +9050,10 @@ a.text-dark:hover, a.text-dark:focus {
 /*main css*/
 body {
   background-color: #000004;
-  font-size: 1.2rem; }
+  font-size: 1.2rem;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */ }
   body h1, body h2 {
     text-shadow: 1px 1px 0 #a34c24, 1px -1px 0 #a34c24, -1px 1px 0 #a34c24, -1px -1px 0 #a34c24, 1px 0px 0 #a34c24, 0px 1px 0 #a34c24, -1px 0px 0 #a34c24, 0px -1px 0 #a34c24, 2px 2px 0 #4d020a, 2px -2px 0 #4d020a, -2px 2px 0 #4d020a, -2px -2px 0 #4d020a, 2px 0px 0 #4d020a, 0px 2px 0 #4d020a, -2px 0px 0 #4d020a, 0px -2px 0 #4d020a;
     text-transform: uppercase;
@@ -9114,20 +9117,50 @@ body {
     background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
     min-height: 300px;
+    max-height: 90vh;
     padding: 50px;
     margin-top: 20px;
     position: fixed;
     overflow-y: scroll;
-    top: 50%;
+    top: 20px;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
     display: none;
-    border: 1px solid #3d70da;
-    border-radius: 25px; }
+    border: 2px solid #3d70da;
+    border-radius: 25px;
+    /* width */
+    /* Track */
+    /* Handle */
+    /* Handle on hover */ }
+    body .popup__container::-webkit-scrollbar {
+      width: 10px; }
+    body .popup__container::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(61, 112, 218, 0.36);
+              box-shadow: inset 0 0 5px rgba(61, 112, 218, 0.36);
+      border-radius: 10px; }
+    body .popup__container::-webkit-scrollbar-thumb {
+      background: #000004;
+      border-radius: 10px; }
+    body .popup__container::-webkit-scrollbar-thumb:hover {
+      background: rgba(61, 112, 218, 0.36); }
   body .show {
     display: block; }
+  body::-webkit-scrollbar {
+    width: 15px; }
+  body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px #3d70da;
+            box-shadow: inset 0 0 5px #3d70da; }
+  body::-webkit-scrollbar-thumb {
+    background: #000004;
+    -webkit-box-shadow: inset 1px 1px 10px #3d70da;
+            box-shadow: inset 1px 1px 10px #3d70da;
+    border-radius: 10px; }
+  body::-webkit-scrollbar-thumb:hover {
+    background: #3d70da;
+    -webkit-box-shadow: inset  1px 1px 10px #000004;
+            box-shadow: inset  1px 1px 10px #000004; }
 
 .filter_deck {
   margin-top: 50px; }

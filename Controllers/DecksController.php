@@ -4,12 +4,15 @@
 namespace Controllers;
 
 
+use Models\CardsModel;
 use Models\ColorModel;
 use Models\DecksModel;
 use Models\DecksSearchModel;
 use Models\FormatsModel;
 use Models\UserModel;
+use Views\DeckSingleView;
 use Views\DecksSearchedView;
+use Views\DecksSingleView;
 use Views\DecksView;
 
 class DecksController extends UserController
@@ -33,6 +36,12 @@ class DecksController extends UserController
                 break;
             case 'search_own_count':
                 $this->countOwnDecks();
+                break;
+            case 'show_deck':
+                $this->showDeckSingle($_GET['showDeck']);
+                break;
+            case 'delete_card':
+                $this->delteCardInDeck($_GET['data-card'],$_GET['data-deck']);
                 break;
             default:
                 $this->getUserDecks();
@@ -146,5 +155,41 @@ class DecksController extends UserController
         $this->view->showTemplate();
     }
 
+    public function showDeckSingle($deckId){
+
+        $d = new DecksSearchModel();
+        $singleDeck = $d->getSingleDeck($deckId);
+        $c = new CardsModel();
+        $cards = $c->getAllCardsByDeckId($deckId);
+
+        $this->view = new DeckSingleView();
+
+        foreach ($cards as $card){
+            $cardValue = $c->getCardById($card);
+
+            $cardId = $c->getFieldValue('id');
+            $cardImg = $c->getFieldValue('image_uris');
+            $cardName = $c->getFieldValue('name');
+
+            $this->view->addCards($cardId, 'id', $cardId);
+            $this->view->addCards($cardId, 'image_uris', $cardImg);
+            $this->view->addCards($cardId, 'name', $cardName);
+        }
+        foreach ($singleDeck as $deck){
+            //print_r($deck);
+            $this->view->addDecks($deck[2], 'id', $deck[2]);
+            $this->view->addDecks($deck[2], 'name', $deck[0]);
+            $this->view->addDecks($deck[2], 'description', $deck[1]);
+            $this->view->addDecks($deck[2], 'format', $deck[3]);
+            $this->view->addDecks($deck[2], 'nickname', $deck[4]);
+            $colors = explode(',', $deck[5]);
+            foreach ($colors as $color){
+                $this->view->addDecks($deck[2], 'colors', $color);
+            }
+        }
+        $this->view->showTemplate();
+
+
+    }
 
 }

@@ -1,35 +1,37 @@
 
 
-{% extends 'layout.html.twig' %}
-
-{% block title %}Deck{{ deckname }}{% endblock %}
-
-{% block info %}
-    {% for info in infos %}
-        {{ info }}
-    {% endfor %}
-{% endblock %}
-
-{% block h1 %}
-    Deckname {{ deckname }}
-{% endblock %}
-
-{% block content %}
     <div class="container deck__single">
         <div class="row">
-            <div class="col">
-                <p class="deck__single_title">Format:</p>
-                <p>Standard</p>
-            </div>
-            <div class="col">
-                <p class="deck__single_title">colors:</p>
-                <img src="img/green.png" class="color__img" alt="green ">
-                <img src="img/blue.png" class="color__img" alt="green ">
-                <img src="img/white.png" class="color__img" alt="green ">
-            </div>
-            <div class="col">
-                <button class="btn btn_1 btn-outline-info">Delete</button>
-            </div>
+            {% for deck in decks %}
+
+                <div class="col">
+
+                    <h2>{{ deck['name'][0] }}</h2>
+
+                    <div class="row">
+                        <div class="col">
+                            <p> <span class="title_colorless">format:</span> {{ deck['format'][0] }}</p>
+                        </div>
+                        <div class="col">
+                            <p class="title_colorless">colors:</p>
+                            {% for color in deck['colors'] %}
+                                <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            <p>created By: <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                        </div>
+                        <div class="col">
+                            <button name="close" class="btn btn_1 btn-outline-success">close</button>
+                        </div>
+
+                    </div>
+                        <p class="title_colorless">Description:</p>
+                        <p>{{ deck['description'][0] }}</p>
+
+                </div>
+
+            {% endfor %}
         </div>
         <div class="row">
             <div class="col">
@@ -37,31 +39,18 @@
             </div>
         </div>
         <div class="row deck__single_cards">
-            <div class="col">
-                <article>
-                    <p class="deck__single_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-success">-</button>
-                    </p>
-                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
-            <div class="col">
-                <article>
-                    <p class="deck__single_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-success">-</button>
-                    </p>
-                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
-            <div class="col">
-                <article>
-                    <p class="deck__single_cards_title">card Name
-                        <button class="btn btn_1 btn-outline-warning">-</button>
-                    </p>
-                    <img class="deck__single_cards_img" src="img/cards/c16-143-burgeoning.jpg" alt="magic deck">
-                </article>
-            </div>
+            {% for  card in cards %}
+                <div class="col">
+                    <article>
+                        <div class="row">
+                            <p class="cards__many_cards_title">{{ card['name'][0] }}</p>
+                            <button name="delete" type="button" class="btn btn_1 btn-outline-info" data-card="{{ cardId[0] }}" data-deck="{{ deck['id'][0] }}">X</button>
+                        </div>
+                        <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="magic deck">
+                    </article>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
-{% endblock %}
+

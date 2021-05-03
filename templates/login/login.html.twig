@@ -41,7 +41,7 @@
                                 id="nickname"
                                 placeholder="kitty =^.^="
                                 value="{{ values['nickname'][0] }}">
-                        <p class="error_message">{{ errorMessages['nickname'][0] }}</p>
+                        <p class="error_message error_nickname">{{ errorMessages['nickname'][0] }}</p>
                     </div>
                     <div class="form-group row">
                         <label for="inputPassword" class="col col-form-label title_colorless">Passwort:</label>
@@ -51,7 +51,7 @@
                                 class="form-control {% if errorMessages['password'][0] %} has_error {% endif %}"
                                 id="inputPassword"
                                 placeholder="Password">
-                        <p class="error_message">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
+                        <p class="error_message error_password">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Senden</button>

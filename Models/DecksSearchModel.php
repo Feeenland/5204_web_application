@@ -29,7 +29,6 @@ class DecksSearchModel
         $this->searchDecks($id);
         return $this->search_result;
     }
-
     public function getSearchOwnCount($id) {
         $this->countDecks($id);
         return $this->search_count;
@@ -140,6 +139,26 @@ class DecksSearchModel
             $result = $stmt->get_result();
 
 
+            return $result->fetch_all();
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function getSingleDeck($id){
+        try{
+            $conn = DBConnection::getConnection();
+            $sql = "SELECT  d.name, d.description, d.id, f.format, u.nickname, group_concat(col.color) as colors             
+                            FROM decks d
+                           LEFT JOIN decks_has_colors dhcol ON d.id = dhcol.deck_id
+                            LEFT JOIN colors col ON dhcol.color_id = col.id
+                            INNER JOIN formats f ON d.format_id = f.id
+                            INNER JOIN users u ON d.user_id = u.id
+                            WHERE d.id = " .$id .
+                            " GROUP BY d.name, d.id, f.format, u.nickname";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
             return $result->fetch_all();
         }catch(Exception $e){
             die($e->getMessage());

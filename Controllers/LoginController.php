@@ -139,7 +139,12 @@ class LoginController
                     $this->view->addInfos($this->infos);
                     $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
                     $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
-                    $this->view->showTemplate();
+                    //$this->view->showTemplate();
+
+                    echo json_encode(array(
+                        'status' => true
+                    ));
+
                     $p = 'user';
                     return true;
                 }
@@ -171,7 +176,11 @@ class LoginController
                     $this->view->addInfos($this->infos);
                     $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
                     $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
-                    $this->view->showTemplate();
+                    //$this->view->showTemplate();
+
+                    echo json_encode(array(
+                        'status' => true
+                    ));
 
 
 
@@ -254,7 +263,14 @@ class LoginController
             }
         }
 
-        $view->showTemplate();
+        //$view->showTemplate();
+        echo json_encode(array(
+            'status' => 'error',
+            'errors' => $errors,
+            'generalerr' => $generalerr,
+            'info' => $info,
+            'values' => $values
+        ));
 
         return [
             'errors' => $errors,
