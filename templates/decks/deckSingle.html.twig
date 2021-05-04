@@ -21,14 +21,14 @@
                         <div class="col">
                             <p class="title_colorless">colors:</p>
                             {% for color in deck['colors'] %}
-                                <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
+                                <img class="color__img" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                             {% endfor %}
                         </div>
                         <div class="col">
                             <p>created By: <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
                         </div>
                         <div class="col">
-                            <p>__ cards</p>
+                            <p>{{ deckCountCards[0] }} cards</p>
                         </div>
                     </div>
                         <p class="title_colorless">Description:</p>
@@ -57,7 +57,7 @@
                             {% endif %}
 
                         </div>
-                        <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="magic deck">
+                        <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="card of this magic deck">
                     </article>
                 </div>
             {% endfor %}

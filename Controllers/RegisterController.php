@@ -69,19 +69,22 @@ class RegisterController
                         'password' => $_REQUEST['password']
                     ]);
         }else{
-            print 'no errors';
+            //print 'no errors';
             $u = new UserModel();
 
                 //print 'create usr';
                 $values['name'] = $name;
                 $values['nickname'] = $nick;
                 $values['favourite_card'] = $card;
-                $values['password'] = $pwd; // TODO hash PW
+                $values['password'] = password_hash($pwd, PASSWORD_DEFAULT); // TODO hash PW
                 $u->updateSave($values);
                 $view = $this->view = new LoginView();
                 $this->infos = 'you are registered, log in :)';
                 $this->view->addInfos($this->infos);
-                $view->showTemplate();
+                //$view->showTemplate();
+                echo json_encode(array(
+                    'status' => true
+                ));
                 return true;
         }
 
@@ -105,7 +108,12 @@ class RegisterController
             }
         }
 
-        $view->showTemplate();
+        //$view->showTemplate();
+        echo json_encode(array(
+            'status' => 'error',
+            'errors' => $errors,
+            'values' => $values
+        ));
 
         return [
             'errors' => $errors,

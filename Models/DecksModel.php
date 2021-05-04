@@ -12,7 +12,8 @@ class DecksModel extends AbstractModel {
         'id',
         'user_id', //FK
         'format_id', //FK
-        'name'
+        'name',
+        'description'
     ];
 
     protected $values = [];
@@ -93,7 +94,7 @@ class DecksModel extends AbstractModel {
             }
 
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
-            print $result;
+            //print $result;
             //colors?
             foreach ( $colors as $color){
                 $this->addManyToManyRelations( 'decks_has_colors', 'color_id', 'deck_id', $color, $result);
@@ -103,7 +104,7 @@ class DecksModel extends AbstractModel {
                 print 'Speichern fehlgeschlagen ';
                 //die('Speichern fehlgeschlagen');
             } else {
-                print " worked! ";
+                //print " worked! ";
                 return true;
             }
         }catch(Exception $exception){
@@ -132,15 +133,16 @@ class DecksModel extends AbstractModel {
 
     protected function bindMyParams($stmt, $update = false)
     {
-        $types = $update ? 'siii' : 'iis';
+        $types = $update ? 'iissi' : 'iiss';
         $user_id = $this->getFieldValue('user_id');
         $format_id = $this->getFieldValue('format_id');
         $name = $this->getFieldValue('name');
+        $description = $this->getFieldValue('name');
         $id = $this->getFieldValue('id');
         if($update){
-            $stmt->bind_param($types,$user_id, $format_id, $name, $id);
+            $stmt->bind_param($types,$user_id, $format_id, $name, $description, $id);
         }else{
-            $stmt->bind_param($types, $user_id, $format_id, $name);
+            $stmt->bind_param($types, $user_id, $format_id, $name, $description);
         }
         return $stmt;
     }

@@ -20,7 +20,7 @@ session_start();
 
 //print_r($_SESSION);
 
-//error_reporting(E_WARNING); // don't show the warnings
+error_reporting(E_WARNING); // don't show the warnings
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $pageElement= null;
 $loggedInUser = '';

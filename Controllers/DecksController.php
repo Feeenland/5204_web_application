@@ -196,6 +196,7 @@ class DecksController extends UserController
             }
         }
         $this->view->addToKey('deckId', $deckId);
+        $this->view->addToKey('deckCountCards', (count($cards)));
         $this->view->showTemplate();
 
 

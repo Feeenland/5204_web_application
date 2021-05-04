@@ -1,8 +1,7 @@
 
 <nav class="navbar bg-dark justify-content-between nav">
     <a class="nav-link nav__link" href="index?p=home">Magic decks</a>
-
-
+    <a class="nav-link nav__link" href="index?p=allCards">cards</a>
 
         {% if session %}
             <h1>{{ nickname[0] }}</h1>
@@ -14,7 +13,5 @@
                 <a class="nav-link" href="index?p=login">Login</a>
             </button>
         {% endif %}
-
-
 </nav>
 

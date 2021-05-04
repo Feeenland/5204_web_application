@@ -38,6 +38,7 @@ $(document).ready(function() {
         },
 
         handleSearchCount: function(e) {
+            e.preventDefault();
             let $form = $('#search__form');
             $.ajax({
                 url: $form.attr('action') + '_count',
@@ -57,6 +58,7 @@ $(document).ready(function() {
         },
 
         handleDeckShowSingle: function (e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             console.log($button.attr('value'));
             $.ajax({
@@ -76,6 +78,7 @@ $(document).ready(function() {
         },
 
         handleClose: function(e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             $.ajax({
                 url: 'index.php?p=home&' ,

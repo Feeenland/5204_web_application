@@ -14,6 +14,7 @@ use Views\CardSingleView;
 use Views\CardsSearchedView;
 use Views\CardsView;
 use Views\DeckAddCardView;
+use Views\HomeAddCardView;
 
 class CardsController extends UserController
 {
@@ -62,6 +63,9 @@ class CardsController extends UserController
                 break;
             case 'show_card':
                 $this->showSingleCard($_GET['showCard']);
+                break;
+            case 'delete_user_card':
+                $this->deleteUserCard($_GET['cardId']);
                 break;
             default:
                 if (isset($_GET['p']) && $_GET['p'] == 'cards'){
@@ -157,40 +161,47 @@ class CardsController extends UserController
 
     public function addCard($cardId){
 
-        print $cardId;
+        //print $cardId;
         $userId =$this->userId;
-
-        //check if card is saved by user?
-        $c = new CardsModel();
-        $cardExist =$c->checkUserHasCard($cardId, $userId);
-        //print_r($cardExist);
-        if ($cardExist == false){
-            // save card by user
-            $cardExist =$c->addCardToUser($cardId, $userId);
-            print 'add card to user';
-        }
-
-        // get user decks
-        $d = new DecksSearchModel();
-        $d->searchDecks($userId);
-        $userDecks = $d->search_result;
-
-        // ask to witch deck to add? return deck ID
-        // TODO open view over the searched cards view!
-        $this->view = new DeckAddCardView();
-        foreach ($userDecks as $deck){
-            $this->view->addDecks($deck['id'], 'id', $deck['id']);
-            $this->view->addDecks($deck['id'], 'name', $deck['name']);
-            $this->view->addDecks($deck['id'], 'format', $deck['format']);
-            $this->view->addDecks($deck['id'], 'nickname', $deck['nickname']);
-            $colors = explode(',', $deck['colors']);
-            foreach ($colors as $color){
-                $this->view->addDecks($deck['id'], 'colors', $color);
+        if ($userId == null){
+            //print 'user id not set!!';
+            $this->view = new HomeAddCardView();
+            $this->view->addToKey('cardId', $cardId);
+            $this->view->showTemplate();
+        } else{
+            //check if card is saved by user?
+            $c = new CardsModel();
+            $cardExist =$c->checkUserHasCard($cardId, $userId);
+            //print_r($cardExist);
+            if ($cardExist == false){
+                // save card by user
+                $cardExist =$c->addCardToUser($cardId, $userId);
+                print 'add card to user';
             }
-            $this->view->addDecks($deck['id'], 'image_uris', $deck['image_uris']);
+
+            // get user decks
+            $d = new DecksSearchModel();
+            $d->searchDecks($userId);
+            $userDecks = $d->search_result;
+
+            // ask to witch deck to add? return deck ID
+            // TODO open view over the searched cards view!
+            $this->view = new DeckAddCardView();
+            foreach ($userDecks as $deck){
+                $this->view->addDecks($deck['id'], 'id', $deck['id']);
+                $this->view->addDecks($deck['id'], 'name', $deck['name']);
+                $this->view->addDecks($deck['id'], 'format', $deck['format']);
+                $this->view->addDecks($deck['id'], 'nickname', $deck['nickname']);
+                $colors = explode(',', $deck['colors']);
+                foreach ($colors as $color){
+                    $this->view->addDecks($deck['id'], 'colors', $color);
+                }
+                $this->view->addDecks($deck['id'], 'image_uris', $deck['image_uris']);
+            }
+            $this->view->addToKey('cardId', $cardId);
+            $this->view->showTemplate();
         }
-        $this->view->addToKey('cardId', $cardId);
-        $this->view->showTemplate();
+
 
 
     }
@@ -225,8 +236,6 @@ class CardsController extends UserController
 
     public function showSingleCard($cardId){
 
-
-
         $card = new CardsModel();
         $card->getSingleCardById($cardId);
         $this->view = new CardSingleView();
@@ -256,8 +265,19 @@ class CardsController extends UserController
                 $this->view->addCards($card['id'], $fKey, $formatsLegalities[$fKey]);
             }
         }
+        if (isset($this->userId)){
+            $this->view->addToKey('userId', $this->userId);
+        }
 
         $this->view->showTemplate();
+
+    }
+
+    public function deleteUserCard($cardId){
+
+        $c = new CardsModel();
+        $c->DeleteCardByUserId($cardId, $this->userId);
+        //print 'delete card';
 
     }
 

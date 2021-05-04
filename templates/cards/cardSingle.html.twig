@@ -13,15 +13,21 @@
                         <p class="card__single_title">rarity: {{ rarity }}{{ card['name'][0][0] }}</p>
                     </div>
                     <div class="col-3">
-                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ id }}">add card</button>
-                        <button name="finished" class="btn btn_1 btn-outline-success">finished</button>
+                        <button name="cards__add_to_deck" type="button"
+                                class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ id }}">
+                            add card to Deck
+                        </button>
+                        {% if userId %}
+                            <button name="delete_user_card" class="btn btn_1 btn-outline-info" value="{{ id }}">X</button>
+                        {% endif %}
+                        <button name="finished" class="btn btn_1 btn-outline-success">close</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <p class="card__single_title">colors:</p>
                         {% for color in card['colors'] %}
-                            <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
+                            <img class="color__img" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image of this color">
                         {% endfor %}
                     </div>
                 </div>

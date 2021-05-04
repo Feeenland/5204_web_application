@@ -132,7 +132,7 @@ abstract class AbstractModel
                 //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
                 $stmt = $this->bindMyParams($stmt, false);
                 $stmt->execute();
-                print 'saved? ';
+                //print 'saved? ';
                 return $stmt->insert_id;
             }catch(Exception $e){
                 die($e->getMessage());
@@ -145,7 +145,7 @@ abstract class AbstractModel
     protected function loadManyToManyRelations($id_source, $fk_source, $fk_dest, $pivot_table)
     {
         $conn = DBConnection::getConnection();
-        $sql = "SELECT " . $fk_dest . " From " . $pivot_table . " WHERE " . $fk_source . "=?" ;
+        $sql = "SELECT " . $fk_dest . " From " . $pivot_table . " WHERE " . $fk_source . "=? ORDER By ". $fk_dest  ;
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $id_source);
         $stmt->execute();

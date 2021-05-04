@@ -20,11 +20,13 @@ class DeckMaskController extends UserController
     protected $fields = [
         'user_id',
         'format_id',
-        'name'
+        'name',
+        'description'
     ];
 
     public $rules = [
-        'deck_name' => ['required', 'max35chars'],
+        'name' => ['required', 'max35chars'],
+        'description' => ['required', 'min5chars'],
         'format' => ['required', 'number']
     ];
 
@@ -32,44 +34,49 @@ class DeckMaskController extends UserController
     {
         $user = $this->getUserByNicknameSession();
 
-        if (isset($_POST['addDecks'])) {
-            $deck_name = $_REQUEST['deck_name'];
-            $colors = $_REQUEST['color'];
-            $format = $_REQUEST['format'];
 
+        if (isset($_POST['addDecks'])) {
+            $deck_name = $_REQUEST['name'];
+            $deck_description = $_REQUEST['description'];
+            if (isset($_REQUEST['color'])){
+                $colors = $_REQUEST['color'];
+            }else{
+                $colors = null;
+            }
+            $format = $_REQUEST['format'];
             $d = new Disinfect();
             $deck_name = $d->disinfect($deck_name);
-            //$color = $d->disinfect($color);
-            //$format = $d->disinfect($format);
-
-            $this->createNewDeck($deck_name, $colors, $format);
+            $deck_description = $d->disinfect($deck_description);
+            $this->createNewDeck($deck_name, $deck_description, $colors, $format);
         } else {
             print 'else';
             $this->showDeckMaskView();
         }
     }
 
-    public  function createNewDeck($deck_name, $colors, $format){
-        print_r($colors) ;
+
+    public  function createNewDeck($deck_name, $deck_description, $colors, $format){
+        //print_r($colors) ;
         //print $_REQUEST['color'][0];
         $valid = new Validation();
         $errors = $valid->validateFields($this->rules);
 
         if (count($errors) != 0) {
-            print 'errors';
+            //print 'errors';
 
             return $this->showErrorsValues(
                 $errors,
                 [
-                    'deck_name' => $_REQUEST['deck_name'],
+                    'name' => $_REQUEST['name'],
+                    'description' => $_REQUEST['description'],
                     'format' => $_REQUEST['format']
                 ]);
         } else{
-            print 'no errors';
+            //print 'no errors';
             $d = new DecksModel();
-
                 //print $deck_name;
             $values['name'] = $deck_name;
+            $values['description'] = $deck_description;
             //$values['color'] = $color;
             $values['format_id'] = $format;
             $values['user_id'] = $this->userId;
@@ -79,7 +86,11 @@ class DeckMaskController extends UserController
             // TODO add my card controller after creating deck!
             $this->infos = 'your Deck is Created, add Cards :)';
             $this->view->addInfos($this->infos);
-            $view->showTemplate();
+            //$view->showTemplate();
+
+            echo json_encode(array(
+                'status' => 'true'
+            ));
             return true;
         }
     }
@@ -109,8 +120,14 @@ class DeckMaskController extends UserController
                 //print $values[$field];
             }
         }
+        //print_r($errors);
+        //$view->showTemplate();
 
-        $view->showTemplate();
+        echo json_encode(array(
+            'status' => 'error',
+            'errors' => $errors,
+            'values' => $values
+        ));
 
         return [
             'errors' => $errors,

@@ -86,8 +86,10 @@ class LoginController
             //print 'false usr';
             if ($userfound == false){
                 $generalerr ='this user does not exist!';
+            }else{
+                $generalerr ='something was entered incorrectly!';
             }
-            $info ='Please enter Your login data!';
+            $info ='Please enter Your correct login data!';
 
             return $this->showErrorsValues(
                 $info, $generalerr, $errors,
@@ -107,7 +109,7 @@ class LoginController
 
                 if ($interval <= $this->ban_time) { //still banned
                     $info = 'You were banned due to incorrect login attempts,
-                                 try again later!  time of banishment:' . date('Y-m-d H:i:s');
+                                 try again later!';
                     $generalerr = 'still banned !';
 
                     return $this->showErrorsValues(
@@ -118,41 +120,51 @@ class LoginController
                         ]);
 
                 } else { // waited long enough = reset the field banned_at an login_try in the DB.
+
                     $values['login_try'] = null;
                     $values['banned_at'] = null;
                     $values['id'] = $usr->getFieldValue('id');
                     $usr->updateSave($values);
 
-                    $userId =$usr->getFieldValue('id');
-                    $userNick =$usr->getFieldValue('nickname');
-                    $_SESSION['userId'] =$userId;
-                    $_SESSION['userNick'] =$userNick;
-                    //echo session_id();
+                    //pw check!
+                    if (password_verify($pwd, $usr->getFieldValue('password'))) {
 
-                    //$c = new DecksController();
-                    //$c->loggedIn($nick);
+                        $userId =$usr->getFieldValue('id');
+                        $userNick =$usr->getFieldValue('nickname');
+                        $_SESSION['userId'] =$userId;
+                        $_SESSION['userNick'] =$userNick;
+                        //echo session_id();
+                        $this->view = new DecksView();
+                        $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
+                            . ' you are logged in';
 
-                    $this->view = new DecksView();
-                    $this->infos = 'Hello ' . $usr->getFieldValue('name') . ' '
-                        . ' you are logged in';
+                        $this->view->addInfos($this->infos);
+                        $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
+                        $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
+                        //$this->view->showTemplate();
 
-                    $this->view->addInfos($this->infos);
-                    $this->view->addToKey('nickname', $usr->getFieldValue('nickname'));
-                    $this->view->addToKey('nickname', $usr->getFieldValue('favorite_card'));
-                    //$this->view->showTemplate();
+                        echo json_encode(array(
+                            'status' => true
+                        ));
 
-                    echo json_encode(array(
-                        'status' => true
-                    ));
+                        return true;
+                    } else{
+                        $generalerr ='Something was entered incorrectly!';
+                        $info = 'Something was entered incorrectly!';
 
-                    $p = 'user';
-                    return true;
+                        return $this->showErrorsValues(
+                            $info, $generalerr, $errors,
+                            [
+                                'nickname' => $_REQUEST['nickname'],
+                                'password' => $_REQUEST['password'],
+                            ]);
+                    }
                 }
 
             }else if($usr->getFieldValue('banned_at') == null || $usr->getFieldValue('login_try') <= 1) { // user is not banned
                 // check password
                 // TODO add the pw hash
-                if ($pwd == $usr->getFieldValue('password')) { //match the pw with pw in DB
+                if (password_verify($pwd, $usr->getFieldValue('password'))) { //match the pw with pw in DB
                     // reset login_try, if there are any
                     if ($usr->getFieldValue('login_try') != 0) { // set login try to 0
                         //print 'set login try to 0' . '<br>';

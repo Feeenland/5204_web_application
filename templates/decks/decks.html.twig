@@ -56,13 +56,13 @@
             {% for deck in decks %}
 
                 <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                    <img class="decks__img" src="{{ deck['image_uris'][0] }}" alt="magic deck">
+                    <img class="decks__img" src="{{ deck['image_uris'][0] }}" alt="image from this magic deck">
 
                     <div class="decks__text">
                         <h2>{{ deck['name'][0] }}</h2>
                         <p>format: {{ deck['format'][0] }}</p>
                         {% for color in deck['colors'] %}
-                            <img class="color__img" src="img/{% if color %}{{ color }}.png{% else %}nocolor.jpg{% endif %}" alt="">
+                            <img class="color__img" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                         {% endfor %}
                         <p>created By:<br>
                             <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>

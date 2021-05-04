@@ -11,6 +11,7 @@ $(document).ready(function() {
         search = this;
         this.addCardListeners();
         this.CardShowSingleListeners();
+        this.UserDeleteCardListeners();
         $('#search__cards_form').on(
             'submit',//typing?
             this.handleSearch.bind(this)
@@ -42,6 +43,7 @@ $(document).ready(function() {
         },
 
         handleSearchCount: function(e) {
+            e.preventDefault();
             let $form = $('#search__cards_form');
 
             $.ajax({
@@ -63,6 +65,7 @@ $(document).ready(function() {
         },
 
         handleCardShowSingle: function (e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             console.log($button.attr('value'));
             $.ajax({
@@ -74,6 +77,7 @@ $(document).ready(function() {
                     $('#popup_container').addClass('show');
                     search.addCardListeners();
                     search.addCloseListeners();
+                    search.UserDeleteCardListeners();
                 }
             });
         },
@@ -83,6 +87,7 @@ $(document).ready(function() {
         },
 
         handleAddCardToDeck: function (e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             console.log($button.attr('value'));
             $.ajax({
@@ -103,6 +108,7 @@ $(document).ready(function() {
         },
 
         handleSelectDeck: function(e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             console.log($button.attr('data-card'));
             console.log($button.attr('data-deck'));
@@ -119,11 +125,32 @@ $(document).ready(function() {
 
         },
 
+        UserDeleteCardListeners: function () {
+            $('button[name="delete_user_card"]').on('click', this.handleUserDeleteCard.bind(this));
+        },
+
+        handleUserDeleteCard: function (e) {
+            e.preventDefault();
+            let $button = $(e.currentTarget);
+            console.log($button.attr('value'));
+            $.ajax({
+                url: 'index.php?p=allCards&method=delete_user_card&cardId=' + $button.attr('value'),
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    //delete!
+                    $button.html('Deleted! Notice: card was only deleted from user cards, not from any decks!' +
+                        ' If the Delete was a mistake, you can add the card again as long as the page has not been reloaded');
+                    search.addCloseListeners();
+                }
+            });
+        },
         addCloseListeners: function () {
             $('button[name="finished"]').on('click', this.handleClose.bind(this));
         },
 
         handleClose: function(e) {
+            e.preventDefault();
             let $button = $(e.currentTarget);
             $.ajax({
                 url: 'index.php?p=allCards&' ,

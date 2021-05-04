@@ -23,9 +23,37 @@ $(document).ready(function() {
                 data: $form.serialize(),
                 success: function(data) {
                     console.log(data);
-                    let newDoc = document.open("text/html", "replace");
-                    newDoc.write(data);
-                    newDoc.close();
+
+                    console.log('success');
+                    console.log(data);
+                    data = JSON.parse(data);
+                    if (data.status == 'error'){
+                        console.log(data);
+                        $('.name_has_error').empty();
+                        $('.error_name').removeClass('has_error');
+                        $('.description_has_error').empty();
+                        $('.error_description').removeClass('has_error');
+
+                        console.log('errors!');
+                        if (typeof(data.errors.name) != "undefined" && data.errors.name.length > 0) {
+                            $('.name_has_error').html(data.errors.name[0]);
+                            $('.error_name').addClass('has_error');
+                        }
+                        if (typeof(data.errors.description) != "undefined" && data.errors.description.length > 0) {
+                            $('.description_has_error').html(data.errors.description[0]);
+                            $('.error_description').addClass('has_error');
+                        }
+
+
+                    }else {
+                        console.log('else = register');
+                        window.location.href = "./index?p=cards&info=newDeck";
+                    }
+
+
+                    /* let newDoc = document.open("text/html", "replace");
+                     newDoc.write(data);
+                     newDoc.close();*/
                 }
             });
         }

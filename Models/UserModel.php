@@ -80,7 +80,7 @@ class UserModel extends AbstractModel {
                     $this->setFieldValue($field, $values[$field]);
             }
             //print $this->toString();
-            $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
+            $result = $this->saveValues($this->fields, $this->values, isset($this->values['id']));
             if ($result == false) {
                 print ' Speichern fehlgeschlagen ';
                 //die('Speichern fehlgeschlagen');

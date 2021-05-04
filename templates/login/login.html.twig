@@ -27,7 +27,7 @@
                             <h2>Login</h2>
                         </div>
                         <div class="col-2">
-                            <img src="img/blue.png" class="login__img" alt="">
+                            <img src="img/blue.png" class="login__img" alt="image drop blue">
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control {% if errorMessages['nickname'][0] %} has_error {% endif %}"
+                                class="form-control nickname_has_error {% if errorMessages['nickname'][0] %} has_error {% endif %}"
                                 id="nickname"
                                 placeholder="kitty =^.^="
                                 value="{{ values['nickname'][0] }}">
@@ -48,7 +48,7 @@
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control {% if errorMessages['password'][0] %} has_error {% endif %}"
+                                class="form-control password_has_error {% if errorMessages['password'][0] %} has_error {% endif %}"
                                 id="inputPassword"
                                 placeholder="Password">
                         <p class="error_message error_password">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
