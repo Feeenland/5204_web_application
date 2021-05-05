@@ -10,7 +10,7 @@
                             <h2>{{ deck['name'][0] }}</h2>
                         </div>
                         <div class="col">
-                            <button name="close" class="btn btn_1 btn-outline-success">close</button>
+                            <button name="close" class="btn btn_1 btn-outline-secondary">close</button>
                         </div>
                     </div>
 
@@ -21,7 +21,7 @@
                         <div class="col">
                             <p class="title_colorless">colors:</p>
                             {% for color in deck['colors'] %}
-                                <img class="color__img" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
+                                <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                             {% endfor %}
                         </div>
                         <div class="col">
@@ -57,7 +57,7 @@
                             {% endif %}
 
                         </div>
-                        <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="card of this magic deck">
+                        <img class="cards__many_cards_img img-fluid" src="{{ card['image_uris'][0] }}" alt="card of this magic deck">
                     </article>
                 </div>
             {% endfor %}

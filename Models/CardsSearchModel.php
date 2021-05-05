@@ -44,7 +44,7 @@ class CardsSearchModel extends AbstractModel
             $conn = DBConnection::getConnection();
             $sql = "SELECT c.id, c.image_uris, c.name FROM cards c
                 LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
+                LEFT JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
                 LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
                 INNER JOIN set_edition se ON c.set_name = se.id
                 WHERE `name` LIKE ? 
@@ -89,7 +89,7 @@ class CardsSearchModel extends AbstractModel
             $conn = DBConnection::getConnection();
             $sql = "SELECT COUNT(DISTINCT c.id) as cards_count FROM cards c
                 LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
-                INNER JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
+                LEFT JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
                 LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
                 INNER JOIN set_edition se ON c.set_name = se.id
                 /*WHERE `name` LIKE ? 

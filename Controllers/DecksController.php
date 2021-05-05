@@ -159,6 +159,9 @@ class DecksController extends UserController
             }
             $this->view->addDecks($deck[1], 'image_uris', $deck[5]);
         }
+        if (isset($_GET['info']) || $_GET['info'] == 'Welcome'){
+            $this->view->addInfos('Welcome ' .$this->userName .' ' . $this->userNick);
+        }
         $this->view->showTemplate();
     }
 

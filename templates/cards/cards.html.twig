@@ -29,13 +29,20 @@
             </div>
             <div class="col">
                         <div class="cards__many_filter">
-                            <div id="card__color" class="checkbox color__picker">
+                            <div id="card__color" class="checkbox form-check color__picker">
                                 <p class="title_colorless">colors:</p>
                                 {% for color in colors[0] %}
                                     <label>
                                         <input type="checkbox" name="color[]" value="{{ color['id'] }}">
                                         {{ color['color'] }}
                                     </label><br>
+
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
+                                        {{ color['color'] }}
+                                    </label><br>
+
+
                                 {% endfor %}
                             </div>
 
@@ -48,7 +55,7 @@
                             </select>
 
                             <label for="card__set">Edition:</label>
-                            <select id="card__set" name="set">
+                            <select class="form-select" id="card__set" name="set">
                                 <option value="0">all</option>
                                 {% for set in sets[0] %}
                                     <option value="{{ set['id'] }}" name="format[]">{{ set['set_name'] }}</option>
@@ -76,7 +83,7 @@
                                 <button name="cards__show_detail" type="button" class="btn btn_1 btn-outline-success cards__show_detail" value="{{ card['id'][0] }}">&#8599;</button>
                             </div>
                         </div>
-                        <img class="cards__many_cards_img" src="{{ card['image_uris'][0] }}" alt="image from this magic deck">
+                        <img class="cards__many_cards_img img-fluid" src="{{ card['image_uris'][0] }}" alt="image from this magic deck">
                     </article>
                 </div>
             {% endfor %}

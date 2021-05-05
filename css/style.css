@@ -1982,7 +1982,7 @@ pre {
   .form-control:focus {
     color: #96939b;
     background-color: #000004;
-    border-color: #d6d5d8;
+    border-color: #335f24;
     outline: 0;
     -webkit-box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35);
             box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35); }
@@ -3410,7 +3410,7 @@ input[type="button"].btn-block {
     -webkit-box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35);
             box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35); }
   .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-    border-color: #d6d5d8; }
+    border-color: #335f24; }
   .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
     color: #335f24;
     background-color: #f0f0f1;
@@ -3523,7 +3523,7 @@ input[type="button"].btn-block {
      -moz-appearance: none;
           appearance: none; }
   .custom-select:focus {
-    border-color: #d6d5d8;
+    border-color: #335f24;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(150, 147, 155, 0.35);
             box-shadow: 0 0 0 0.2rem rgba(150, 147, 155, 0.35); }
@@ -3573,7 +3573,7 @@ input[type="button"].btn-block {
   overflow: hidden;
   opacity: 0; }
   .custom-file-input:focus ~ .custom-file-label {
-    border-color: #d6d5d8;
+    border-color: #335f24;
     -webkit-box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35);
             box-shadow: 1px 1px 0.2rem rgba(150, 147, 155, 0.35); }
   .custom-file-input[disabled] ~ .custom-file-label,
@@ -9141,10 +9141,12 @@ body {
               box-shadow: inset 0 0 5px rgba(61, 112, 218, 0.36);
       border-radius: 10px; }
     body .popup__container::-webkit-scrollbar-thumb {
-      background: #000004;
+      background: rgba(61, 112, 218, 0.36);
+      -webkit-box-shadow: inset 0px 4px 5px 2px #000004,0px 4px 5px 2px #000004,4px 0px 5px 2px #000004,4px 0px 5px 2px #000004;
+              box-shadow: inset 0px 4px 5px 2px #000004,0px 4px 5px 2px #000004,4px 0px 5px 2px #000004,4px 0px 5px 2px #000004;
       border-radius: 10px; }
     body .popup__container::-webkit-scrollbar-thumb:hover {
-      background: rgba(61, 112, 218, 0.36); }
+      background: #3d70da; }
   body .show {
     display: block; }
   body::-webkit-scrollbar {

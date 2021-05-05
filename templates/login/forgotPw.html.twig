@@ -25,7 +25,7 @@
                             <h2>Forgot Password</h2>
                         </div>
                         <div class="col-2">
-                            <img src="img/red.png" class="login__img" alt="image fire red">
+                            <img src="img/red.png" class="login__img img-fluid" alt="image fire red">
                         </div>
                     </div>
                     <input type="hidden" name="forgotPw" value="1">
@@ -34,11 +34,11 @@
                         <input
                                 type="text"
                                 name="name"
-                                class="form-control {% if errorMessages['name'][0] %} has_error {% endif %}"
+                                class="form-control name_has_error {% if errorMessages['name'][0] %} has_error {% endif %}"
                                 id="name"
                                 placeholder="kate"
                                 value="{{ values['name'][0] }}">
-                        <p class="error_message">{{ errorMessages['name'][0] }}</p>
+                        <p class="error_message error_name">{{ errorMessages['name'][0] }}</p>
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
@@ -46,11 +46,11 @@
                         <input
                                 type="text"
                                 name="favourite_card"
-                                class="form-control {% if errorMessages['favourite_card'][0] %} has_error {% endif %}"
+                                class="form-control favourite_card_has_error {% if errorMessages['favourite_card'][0] %} has_error {% endif %}"
                                 id="favourite_card"
                                 placeholder="card name"
                                 value="{{ values['favourite_card'][0] }}">
-                        <p class="error_message">{{ errorMessages['favourite_card'][0] }}
+                        <p class="error_message error_favourite_card">{{ errorMessages['favourite_card'][0] }}
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
@@ -58,21 +58,21 @@
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control {% if errorMessages['nickname'][0] %} has_error {% endif %}"
+                                class="form-control nickname_has_error {% if errorMessages['nickname'][0] %} has_error {% endif %}"
                                 id="nickname"
                                 placeholder="kitty =^.^="
                                 value="{{ values['nickname'][0] }}">
-                        <p class="error_message">{{ errorMessages['nickname'][0] }}</p>
+                        <p class="error_message error_nicknam">{{ errorMessages['nickname'][0] }}</p>
                     </div>
                     <div class="form-group row">
                         <label for="newPassword" class="col col-form-label title_colorless">Enter New Password:</label>
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control {% if errorMessages['password'][0] %} has_error {% endif %}"
+                                class="form-control password_has_error {% if errorMessages['password'][0] %} has_error {% endif %}"
                                 id="newPassword"
                                 placeholder="New Password">
-                        <p class="error_message">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
+                        <p class="error_message error_password">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Send</button>

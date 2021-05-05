@@ -119,13 +119,14 @@ body{
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: rgb(0, 0, 4);
+      background: rgba(61, 112, 218, 0.36);
+      box-shadow: inset 0px 4px 5px 2px #000004,0px 4px 5px 2px #000004,4px 0px 5px 2px #000004,4px 0px 5px 2px #000004;
       border-radius: 10px;
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: rgba(61, 112, 218, 0.36);
+      background: $success;
     }
   }
   .show{

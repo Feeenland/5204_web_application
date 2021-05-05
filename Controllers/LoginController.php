@@ -66,6 +66,14 @@ class LoginController
             }
         }else{
             $view = $this->view = new LoginView();
+            if (isset($_GET['info'])){
+                if ($_GET['info'] == 'forgotPw'){
+                    $view->addInfos('Your password has changed, log in !');
+                }
+                if ($_GET['info'] == 'Register'){
+                    $view->addInfos('Your are Registered, log in !');
+                }
+            }
             $view->showTemplate();
         }
     }

@@ -56,8 +56,8 @@ class ApiController
                 $a->putLegalitiesInDB($card->legalities, $card_id);
             }else{
                 print' Here! ';
-               // $a->deleteLegalities($scry_id['id']);
-                //$a->putLegalitiesInDB($card->legalities, $scry_id['id']);
+                $a->deleteLegalities($scry_id['id']);
+                $a->putLegalitiesInDB($card->legalities, $scry_id['id']);
                 //print_r($scry_id);
             }
 

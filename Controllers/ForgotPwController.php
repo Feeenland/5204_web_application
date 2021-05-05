@@ -4,6 +4,7 @@
 namespace Controllers;
 
 
+use Helpers\disinfect;
 use Helpers\Validation;
 use Models\UserModel;
 use Views\ForgotPwView;
@@ -39,6 +40,12 @@ class ForgotPwController
             $nick = $_REQUEST['nickname'];
             $pwd = $_REQUEST['password'];
 
+            $d = new Disinfect();
+            $name = $d->disinfect($name);
+            $card = $d->disinfect($card);
+            $nick = $d->disinfect($nick);
+            $pwd = $d->disinfect($pwd);
+
             $this->checkUser($name, $card, $nick, $pwd);
         }else{
             $view = $this->view = new ForgotPwView();
@@ -57,12 +64,12 @@ class ForgotPwController
         $errors = $valid->validateFields($this->rules);
 
         if ($nickexist == false || count($errors) != 0) { //errors !nickname
-            print 'nickname not found';
+            //print 'nickname not found';
 
             if ($nickexist == false){
                 $generalerr ='This nickname does not exist!';
             }
-            $info ='Please enter Your user data!';
+            $info ='Please enter Your correct user data!';
 
             // errors in fields! Show Field
             return $this->showErrorsValues(
@@ -77,24 +84,27 @@ class ForgotPwController
 
             if ($u->getFieldValue('name') == $name){ // name true
                 //print 'name true ';
-                print $u->getFieldValue('favourite_card');
+                //print $u->getFieldValue('favourite_card');
 
                 if ($u->getFieldValue('favourite_card') == $card){ //card true , create user
                     //print 'create usr ';
                     $values['id'] = $u->getFieldValue('id');
                     $values['name'] = $u->getFieldValue('name');
-                    $values['password'] = $pwd; // TODO hash PW
+                    $values['password'] = password_hash($pwd, PASSWORD_DEFAULT);
                     $u->updateSave($values);
                     $view = $this->view = new LoginView();
                     $this->infos = 'you are registered, log in :)';
                     $this->view->addInfos($this->infos);
-                    $view->showTemplate();
+                    //$view->showTemplate();
+                    echo json_encode(array(
+                        'status' => true
+                    ));
                     return true;
 
                 }else{ // card not true
                     //print 'card not true ';
                     $generalerr ='something does not match!';
-                    $info ='Please enter Your user data!';
+                    $info ='Please enter Your correct user data!';
                     return $this->showErrorsValues(
                         $info, $generalerr, $errors,
                         [
@@ -108,7 +118,7 @@ class ForgotPwController
             }else{ // name is not correct
                 //print 'name not true!';
                $generalerr ='something does not match!';
-                $info ='Please enter Your user data!';
+                $info ='Please enter Your correct user data!';
                 return $this->showErrorsValues(
                     $info, $generalerr, $errors,
                     [
@@ -145,7 +155,14 @@ class ForgotPwController
             }
         }
 
-        $view->showTemplate();
+        //$view->showTemplate();
+        echo json_encode(array(
+            'status' => 'error',
+            'errors' => $errors,
+            'generalerr' => $generalerr,
+            'info' => $info,
+            'values' => $values
+        ));
 
         return [
             'errors' => $errors,

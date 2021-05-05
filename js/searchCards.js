@@ -53,7 +53,7 @@ $(document).ready(function() {
                 success: function(data) {
                     console.log('success ?');
                     $('#search__card_count').html(data);
-                    if(data < 15) {
+                    if(data < 25) {
                         $form.submit();
                     }
                 }
