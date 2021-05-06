@@ -45,6 +45,9 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $view= new CardsController($_GET['method']);
     }else if($_GET['p'] == 'cardSingle'){
         $view= new CardSingleController();
+    }else if($_GET['p'] == 'imprint'){
+        $view= new \Views\ImprintView();
+        $view->showTemplate();
     }/*else if($_GET['p'] == 'importCards'){ // comment this in to import new cards
         $importCards = new ApiController();
         $importCards->addNewCards();
