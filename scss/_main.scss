@@ -169,6 +169,17 @@ body{
     margin-bottom: 10px;
     margin-right: 20px;
     margin-left: 5px;
+    background: #000004;
+    border: 1px solid #3D70DA;
+    padding: 3px;
+    border-radius: 5px;
+    color: #96939B;
+    appearance: none;
+    max-width: 250px;
+    option{
+      background-color: #000004;
+      padding: 3px;
+    }
   }
   .popup__container{
     z-index: 100;
