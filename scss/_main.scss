@@ -2,6 +2,9 @@
 body{
   background-color: #000004;
   font-size: 1.2rem;
+  @include media-breakpoint-down(md) {
+  font-size: 1rem;
+}
 
   h1, h2{
     text-shadow: 1px 1px 0 #a34c24,
@@ -22,6 +25,9 @@ body{
     0px -2px 0 #4d020a;
     text-transform: uppercase;
     letter-spacing:1px;
+    @include media-breakpoint-down(md) {
+      font-size: 1.5rem;
+    }
   }
   .infos{
     font-size: 2rem;
@@ -29,6 +35,9 @@ body{
     display: block;
     margin: 20px;
     font-weight: bold;
+    @include media-breakpoint-down(md) {
+      font-size: 1.5rem;
+    }
   }
   .error_message{ // to print the error message
     color: $info;
@@ -37,13 +46,29 @@ body{
     border: 2px solid $danger;
   }
   .btn_1{
-    margin: 15px;
+    margin:5px;
+    font-size: 1.3rem;
+    @include media-breakpoint-down(md) {
+      padding: 2px 8px 2px;
+      margin:2px;
+    }
+    a{
+      @include media-breakpoint-down(md) {
+        padding: 5px;
+      }
+    }
+    @include media-breakpoint-down(md) {
+      font-size: 1rem;
+    }
     &:hover{
       color: $dark;
       outline: $primary;
       a{
         color: $dark;
         outline: $primary;
+        @include media-breakpoint-down(md) {
+          padding: 5px;
+        }
       }
     }
   }
@@ -51,6 +76,22 @@ body{
     width: 100%;
     margin: 25px 0 0 0;
     font-size: 1.3rem;
+    @include media-breakpoint-down(md) {
+      font-size: 1rem;
+    }
+  }
+  .btn_delete{
+    position: absolute;
+    z-index: 20;
+    right: 0;
+    top: 30px;
+    background: black;
+    font-size: .8rem;
+    padding: 3px 8px;
+    @include media-breakpoint-down(md) {
+      top: 20px;
+      padding: 0 5px;
+    }
   }
   .nav{
     padding: 20px;
@@ -58,12 +99,22 @@ body{
       font-size: 1.5rem;
       color: $warning;
       font-family: "Trade Winds", sans-serif;
+      @include media-breakpoint-down(md) {
+        font-size: 1.2rem;
+      }
     }
     border-bottom: 1px solid $warning;
-    margin-bottom: 50px;
-    @include media-breakpoint-up(md) {
-      margin-bottom: 100px;
+    margin-bottom: 100px;
+    @include media-breakpoint-down(md) {
+      margin-bottom: 20px;
     }
+  }
+  .footer{
+    border-top: 1px solid $warning;
+    margin-top: 50px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    text-align: center;
   }
   .color__img{
     width: 35px;
@@ -73,29 +124,55 @@ body{
  .title_colorless{
    font-size: 1.3rem;
    font-weight: bold;
+   @include media-breakpoint-down(md) {
+     font-size: 1rem;
+   }
  }
  .title_warn{
    font-size: 1.3rem;
    font-family: "Trade Winds", monospace;
    color: $warning;
+   @include media-breakpoint-down(md) {
+     font-size: 1rem;
+   }
  }
   .color__picker{
     display: flex;
+    flex-wrap: wrap;
     input{
-      margin-right: 5px;
-      margin-top: 8px;
-      margin-left: 15px;
     }
+
     label{
       margin-right: 15px;
     }
+    .checked{
+      background-color: $primary;
+      color: $dark;
+    }
+    .btn-check{
+      position: absolute;
+      clip: rect(0,0,0,0);
+      pointer-events: none;
+      &:hover{
+      }
+      &:active{
+      }
+      &:checked{
+      }
+    }
   }
+/*  .btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active,
+  .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }*/
   .popup__container{
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
     min-height: 300px;
-    max-height: 90vh;
+    max-height: 95vh;
     padding: 50px;
     margin-top: 20px;
     position: fixed;
@@ -106,6 +183,12 @@ body{
     display: none;
     border: 2px solid $success;
     border-radius: 25px;
+    @include media-breakpoint-down(md) {
+      padding: 5px;
+      padding-top: 20px;
+      border-radius: 10px;
+      margin-top: 0;
+    }
     /* width */
     &::-webkit-scrollbar {
       width: 10px;
@@ -163,8 +246,14 @@ body{
   font-size: 1.3rem;
   font-family: "Trade Winds", monospace;
   color: $warning;
+  @include media-breakpoint-down(md) {
+    font-size: 1rem;
+  }
 }
 @mixin title-colorless {
   font-size: 1.3rem;
   font-weight: bold;
+  @include media-breakpoint-down(md) {
+    font-size: 1rem;
+  }
 }

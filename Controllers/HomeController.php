@@ -100,6 +100,7 @@ class HomeController extends UserController
                 $this->view->addDecks($deck[2], 'colors', $color);
             }
         }
+        $this->view->addToKey('deckCountCards', (count($cards)));
         $this->view->showTemplate();
     }
 

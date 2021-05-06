@@ -8,38 +8,16 @@ SAE Institute Zurich, Submission date Apr, 29. 2021
 * [Database structure](#database)
 * [Installation and system ](#installation)
 * [Folder structure](#folder-structure)
+* [Conclusion](#conclusion)
 * [source directory](#source-directory)
-
-vorgeben für das projekt:  
-●Erstelle ein responsives Layout mit Hilfe von HTML/CSS/Bootstrap. Berücksichtige
-alle Design-Prinzipien, die du in den bisherigen Modulen gelernt hast.  
-● Erstelle eine Datenbank, in der alle relevanten Daten gespeichert werden (z.B.
-Nutzer, Artikel, Inhalt etc.)  
-● Erstelle zwei Layouts:  
-○ ein Layout für unregistrierte Nutzer (Besucher)    
-○ ein Layout für registrierte & eingeloggte Nutzer (Autoren)  
-● Es sollte ein Login-Formular für registrierte Nutzer existieren.  
-● Sobald ein Nutzer eingeloggt ist sollte er Daten asynchron bearbeiten können.  
-● Erstelle ein Formular, über das sich unregistrierte Nutzer anmelden können. Dieses
-sollte mindestens vier Felder enthalten, die entsprechend asynchron validiert
-werden (z.B. Nutzername, Emailadresse, Passwort, Vor- und Nachname).  
-● Implementiere grundlegende Datenverschlüsselung beim asynchron Datentransfer
-von und zur Datenbank.  
-● Erstelle ein PDF und README.md oder README.txt, in dem du deine
-Datenarchitektur und die genutzten PHP-OOP-Techniken beschreibst.  
-Optional:  
-● Erstelle eine “Passwort vergessen”-Seite, über die ein zufallsgeneriertes Passwort
-angefordert werden kann.  
-● Binde eine Funktion zur Email-Validierung ein.  
-● Füge eine Suchfunktion ein.  
-● Erstelle deine App entsprechend des MVC-Modells.  
+  
 ## <a name="teacher-info"></a>Infos for the Teacher
 **Database**
 
 _The file to create the Database is in this folder:_
 
     Database:
-    5204_php / database / config / 5204_web_application.sql
+    5204_php / database / config / 5204_oop_magic.sql
 
 **Login**
 
@@ -47,6 +25,8 @@ _These are the data to log into my website in the backend as a user:_
 
     Login:
     nickname: teacher PW: oop5204
+
+The website can also be found online at [magic.webtatze.ch](https://magic.webtatze.ch/index?p=home).    
 
 **Files & Folders**
 
@@ -60,14 +40,21 @@ and the [Folder structure](#folder-structure) in the README.md._
 **Project Magic Decks**
 
 For this school project i had to program a web application by myself.
-I have decided to do a page for magic the Gettering Players.
-The Players can log in create Decks and save them.
+I have decided to do a page for Magic the Gathering Players.  
+The Players can log in create Decks and save them. 
+The Players can log in create Decks and save them. 
+Registered players as well as unregistered persons are able to view decks of other players.  
+Here is an explanation of the game [Magic the Gathering ](https://media.wizards.com/images/magic/resources/rules/EN_MTGM14_Rulebook_LR.pdf).
 ***
 
 ## <a name="project"></a>Project structure
-**MVC**  
-The Project is build by the MVC model.
- [a simple MVC explanation ](https://www.educative.io/blog/mvc-tutorial)
+**MVC & twig**  
+The Project is build by the MVC model. Here is a simple[ MVC explanation ](https://www.educative.io/blog/mvc-tutorial).  
+ In Regarding of the MVC model there is also an AbstractModel.php and an AbstractView.php in which there are functions that all Models/ Views use. 
+ For the complex search and filter functions,
+ I have also created a Model that does not use the AbstractModel.php (SearchCardsModel.php/ SearchDecksModel.php/ ApiModel.php).  
+ In addition, this project was created with the template system [twig](https://twig.symfony.com/doc/3.x/).  
+ The Magic API is checked manually and supplemented by the bulk data of the Scyfallapi.
 
 ***
 
@@ -103,7 +90,7 @@ Run `composer install` this command will run the composer.json file and thus ins
 It will create a folder named vendor.
 
 Because scss is used here, a watcher must be activated if you want to change scss/css. Run `gulp watch`  
- this will now automatically open a browser with a live server of the project.
+ this will now automatically open a browser with a live server of the project template.
 this command will run the gulpfile.js file and inside it the watch function.
 
 What the watcher actually does is:
@@ -115,14 +102,16 @@ What the watcher actually does is:
 The composer i need for namespaces and the template system twig.  
  [namespaces use explained](https://jtreminio.com/blog/composer-namespaces-in-5-minutes/)  
  [namespaces detailed explained](https://code.tutsplus.com/tutorials/how-to-autoload-classes-with-composer-in-php--cms-35649)  
- [twig for Developers](https://jtreminio.com/blog/composer-namespaces-in-5-minutes/)  
+ [twig for Developers](https://twig.symfony.com/doc/3.x/api.html)  
  [twig for template Designers](https://twig.symfony.com/doc/3.x/templates.html)  
 
 
 Now you can work on this project.
 The watcher (gulp) is actually just for templating.
 With PHP the whole thing gets a bit more complicated, That's why I did the whole templating with style before I started with PHP. 
-and then only added minor changes.
+and then only added minor changes.  
+I tried to use git after fitflow, it worked more or less well. I left out the release branch.  
+![gitflow](img/readme/gitflow.png)
 ***
 
 ## <a name="folder-structure"></a>Folder structure 
@@ -139,6 +128,7 @@ and then only added minor changes.
    + `min_css` = contains the min css file.
    + `Models` = contains files which does something in the Database.
    + `node_modules` = contains files and folders from the node.
+   + `scyfallApi` = contains the Json file for the cards.
    + `scss` = contains all .scss files.
    + `templates` = contains every file that outputs some HTML.
    + `vendor` = contains files and folders from composer.
@@ -159,12 +149,30 @@ and then only added minor changes.
  
 ***
 
+## <a name="conclusion"></a>Conclusion 
+**Generally**  
+Looking back, I would have chosen something for this project that is not that complex.  
+For example, I would load the legalities via the api and not in the relational database with a triple key. this alone would have saved me a lot of time and effort. 
+But now I'm also happy because I've learned a lot. 
+  
+**Additions which I would have liked to have added**
+ + comment function for decks of other users
+ + a folder system to sort the stored cards
+ + a direct display when adding a card in which decks it is legal
+ + a direct display when adding a card in which decks it is allowed in terms of color
+ + a direct display when adding a card in which decks it is already present and how often
+ + the possibility to add a card to the sideboard of the deck  
+  
+   
+***
+
 ## <a name="source-directory"></a>source directory 
 **Pictures**  
 Nearly all of the pictures come from the [scryfall API](https://scryfall.com/docs/api).
 
-only 1 are not, i got the form:
+only 2 are not, i got them form:
 * [blog.gate-to-the-games.de](https://blog.gate-to-the-games.de/magic-booster-battle-limited-in-ganz-einfach/) 
+* [icon-library.com](https://icon-library.com/icon/mana-icon-22.html) 
 
 ![magic](img/magic.png)
 

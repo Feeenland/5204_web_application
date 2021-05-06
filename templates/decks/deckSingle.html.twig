@@ -9,7 +9,7 @@
                         <div class="col">
                             <h2>{{ deck['name'][0] }}</h2>
                         </div>
-                        <div class="col">
+                        <div class="col col-md-2">
                             <button name="close" class="btn btn_1 btn-outline-secondary">close</button>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                         <div class="col">
                             <p> <span class="title_colorless">format:</span> {{ deck['format'][0] }}</p>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-md-12 col-lg-4">
                             <p class="title_colorless">colors:</p>
                             {% for color in deck['colors'] %}
                                 <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
@@ -44,20 +44,21 @@
         </div>
         <div class="row deck__single_cards">
             {% for  card in cards %}
-                <div class="col">
+                <div class="col-6 col-lg-4">
                     <article>
                         <div class="row">
-                            <p class="cards__many_cards_title">{{ card['name'][0] }}</p>
-                            {% if deckId[0] %}
-                                <button name="delete" type="button"
-                                        class="btn btn_1 btn-outline-info"
-                                        data-card="{{ card['id'][0] }}"
-                                        data-deck="{{ deckId[0] }}">X
-                                </button>
-                            {% endif %}
-
+                            <div class="col">
+                                <p class="cards__many_cards_title">{{ card['name'][0] }}</p>
+                            </div>
                         </div>
                         <img class="cards__many_cards_img img-fluid" src="{{ card['image_uris'][0] }}" alt="card of this magic deck">
+                        {% if deckId[0] %}
+                            <button name="delete" type="button"
+                                    class="btn btn_1 btn_delete btn-outline-info"
+                                    data-card="{{ card['id'][0] }}"
+                                    data-deck="{{ deckId[0] }}">x
+                            </button>
+                        {% endif %}
                     </article>
                 </div>
             {% endfor %}

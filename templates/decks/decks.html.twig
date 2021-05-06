@@ -18,13 +18,13 @@
     <div class="container filter_deck">
         <form action="index.php?p=decks&method=search_own" id="search__form">
             <div class="row justify-content-around">
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-6">
 
+                    <p class="title_colorless">colors:</p>
                     <div class="checkbox color__picker">
-                        <p class="title_colorless">colors:</p>
                         {% for color in colors[0] %}
-                            <label>
-                                <input type="checkbox" name="color[]" value="{{ color['id'] }}">
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
                                 {{ color['color'] }}
                             </label><br>
                         {% endfor %}
@@ -40,9 +40,9 @@
                     </select>
 
                 </div>
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-6">
                     <input class="form-control mr-sm-2" name="search_text" type="search" placeholder="deck name" aria-label="search">
-                    <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search</button>
+                    <button class="btn btn_1 btn-outline-success" type="submit">search Decks</button>
                 </div>
             </div>
         </form>
@@ -54,27 +54,38 @@
     <div class="container decks">
         <div class="row" id="search__result">
             {% for deck in decks %}
-
-                <article class="col-12 col-md-6 col-lg-4 decks__deck">
-                    <img class="decks__img img-fluid" src="{{ deck['image_uris'][0] }}" alt="image from this magic deck">
-
-                    <div class="decks__text">
-                        <h2>{{ deck['name'][0] }}</h2>
-                        <p>format: {{ deck['format'][0] }}</p>
-                        {% for color in deck['colors'] %}
-                            <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
-                        {% endfor %}
-                        <p>created By:<br>
-                            <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
-                        <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">Open</button>
-                    </div>
-                </article>
-
+                <div class="col-12 col-md-6 col-lg-4">
+                    <article class=" decks__deck">
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <h2>{{ deck['name'][0] }}</h2>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">&#8599;</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <img class="decks__img img-fluid" src="{{ deck['image_uris'][0] }}" alt="image from this magic deck">
+                            </div>
+                            <div class="col">
+                                <div class="decks__text">
+                                    <p>format:  {{ deck['format'][0] }}</p>
+                                    {% for color in deck['colors'] %}
+                                        <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
+                                    {% endfor %}
+                                    <p>created By:<br>
+                                        <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             {% endfor %}
-
         </div>
     </div>
 {% endblock %}
+
 
 {% block javascripts %}
     <script src="js/searchDecks.js"></script>

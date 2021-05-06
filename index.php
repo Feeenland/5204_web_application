@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\ApiController;
 use Controllers\CardsController;
 use Controllers\CardSingleController;
 use Controllers\DeckMaskController;
@@ -18,10 +19,9 @@ include('bootstrap.php');
 session_name('user');*/
 session_start();
 
-//print_r($_SESSION);
 
 error_reporting(E_WARNING); // don't show the warnings
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+//mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); //shows the whole mysqli errors
 $pageElement= null;
 $loggedInUser = '';
 
@@ -47,19 +47,18 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $view= new CardsController($_GET['method']);
     }else if($_GET['p'] == 'cardSingle'){
         $view= new CardSingleController();
-    }else{
+    }/*else if($_GET['p'] == 'importCards'){ // comment this in to import new cards
+        $importCards = new ApiController();
+        $importCards->addNewCards();
+    }*/else{
         $view= new DefaultView();
         $view->showTemplate();
     }
 }else{
-    $view = new HomeView();
-    $view->showTemplate();
+    $view = new HomeController($_GET['method']);
 }
 
 
-/*
-$c = new \Controllers\CardsController();
-$c->getCardDetailById();*/
 
 
 

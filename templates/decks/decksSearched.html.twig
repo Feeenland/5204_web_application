@@ -1,23 +1,32 @@
 
-
-
 {% for deck in decks %}
-
-    <article class="col-12 col-md-6 col-lg-4 decks__deck">
-        <img class="decks__img img-fluid" src="{{ deck['image_uris'][0] }}" alt="magic deck">
-
-        <div class="decks__text">
-            <h2>{{ deck['name'][0] }}</h2>
-            <p>format: {{ deck['format'][0] }}</p>
-            {% for color in deck['colors'] %}
-                <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
-            {% endfor %}
-            <p>created By:<br>
-                <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
-            <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">Open</button>
-        </div>
-    </article>
-
+    <div class="col-12 col-md-6 col-lg-4">
+        <article class=" decks__deck">
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h2>{{ deck['name'][0] }}</h2>
+                </div>
+                <div class="col">
+                    <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">&#8599;</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img class="decks__img img-fluid" src="{{ deck['image_uris'][0] }}" alt="image from this magic deck">
+                </div>
+                <div class="col">
+                    <div class="decks__text">
+                        <p>format:  {{ deck['format'][0] }}</p>
+                        {% for color in deck['colors'] %}
+                            <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
+                        {% endfor %}
+                        <p>created By:<br>
+                            <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
 {% endfor %}
 
 

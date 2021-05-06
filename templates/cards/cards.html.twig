@@ -19,7 +19,7 @@
     <div class="container cards__many">
         <form action="index.php?p=cards&method={{ cards_user_all[0] }}" id="search__cards_form">
         <div class="row justify-content-between">
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <p class="title_colorless">search card by name:</p>
                     <input id="card__name" name="search_text_card" class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
 
@@ -27,22 +27,15 @@
                     <input id="card__creature" name="search_text_creature" class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
 
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6">
                         <div class="cards__many_filter">
+                            <p class="title_colorless">colors: </p>
                             <div id="card__color" class="checkbox form-check color__picker">
-                                <p class="title_colorless">colors:</p>
                                 {% for color in colors[0] %}
-                                    <label>
-                                        <input type="checkbox" name="color[]" value="{{ color['id'] }}">
-                                        {{ color['color'] }}
-                                    </label><br>
-
-                                    <label class="btn btn-outline-primary">
-                                        <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
-                                        {{ color['color'] }}
-                                    </label><br>
-
-
+                                        <label class="btn btn-outline-primary">
+                                            <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
+                                            {{ color['color'] }}
+                                        </label><br>
                                 {% endfor %}
                             </div>
 

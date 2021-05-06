@@ -29,7 +29,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: $form.serialize(),
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#search__result').html(data);
                     search.DeckShowSingleListeners();
                     search.addCloseListeners();
@@ -39,6 +39,12 @@ $(document).ready(function() {
 
         handleSearchCount: function(e) {
             e.preventDefault();
+            if (e.currentTarget['checked'] === true){
+                //console.log('color-button!');
+                $(e.currentTarget).parent().toggleClass('checked');
+            }else if (e.currentTarget['checked'] === false){
+                $(e.currentTarget).parent().toggleClass('checked');
+            }
             let $form = $('#search__form');
             $.ajax({
                 url: $form.attr('action') + '_count',
@@ -65,7 +71,7 @@ $(document).ready(function() {
                 url: 'index.php?p=home&method=show_deck&showDeck=' + $button.attr('value'),
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#popup_container').html(data);
                     $('#popup_container').addClass('show');
                     search.addCloseListeners();

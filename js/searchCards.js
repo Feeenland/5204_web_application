@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 (function(window, $) {
     let search;
-
+    let timer;
     window.Search = function () {
         search = this;
         this.addCardListeners();
@@ -44,20 +44,38 @@ $(document).ready(function() {
 
         handleSearchCount: function(e) {
             e.preventDefault();
+            //console.log(e.currentTarget['checked']);
+            if (e.currentTarget['checked'] === true){
+                //console.log('color-button!');
+                $(e.currentTarget).parent().toggleClass('checked');
+            }else if (e.currentTarget['checked'] === false){
+                $(e.currentTarget).parent().toggleClass('checked');
+            }
+            console.log(e);
             let $form = $('#search__cards_form');
 
-            $.ajax({
-                url: $form.attr('action') + '_count',
-                method: 'POST',
-                data: $form.serialize(),
-                success: function(data) {
-                    console.log('success ?');
-                    $('#search__card_count').html(data);
-                    if(data < 25) {
-                        $form.submit();
+            if (timer > 0 ){
+                clearTimeout(timer);
+                console.log('timer clear');
+            }
+
+            timer = setTimeout( function () {
+                console.log('2sek past! = ajax');
+
+                $.ajax({
+                    url: $form.attr('action') + '_count',
+                    method: 'POST',
+                    data: $form.serialize(),
+                    success: function(data) {
+                        console.log('success !');
+                        $('#search__card_count').html(data);
+                        if(data < 25) {
+                            $form.submit();
+                        }
                     }
-                }
-            });
+                });
+            }, 2000)
+
         },
 
         CardShowSingleListeners: function () {
