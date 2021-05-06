@@ -66,7 +66,7 @@ $(document).ready(function() {
         handleDeckShowSingle: function (e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
+            //console.log($button.attr('value'));
             $.ajax({
                 url: 'index.php?p=home&method=show_deck&showDeck=' + $button.attr('value'),
                 method: 'GET',

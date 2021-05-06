@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * DeckMaskController.php is responsible for creating a new deck.
+ */
 
 namespace Controllers;
 
@@ -14,16 +16,12 @@ use Views\DeckMaskView;
 class DeckMaskController extends UserController
 {
     public $view;
-    protected $infos;
-    protected $errorMessages;
-
     protected $fields = [
         'user_id',
         'format_id',
         'name',
         'description'
     ];
-
     public $rules = [
         'name' => ['required', 'max35chars'],
         'description' => ['required', 'min5chars'],
@@ -33,7 +31,6 @@ class DeckMaskController extends UserController
     public function __construct()
     {
         $user = $this->getUserByNicknameSession();
-
 
         if (isset($_POST['addDecks'])) {
             $deck_name = $_REQUEST['name'];
@@ -49,21 +46,18 @@ class DeckMaskController extends UserController
             $deck_description = $d->disinfect($deck_description);
             $this->createNewDeck($deck_name, $deck_description, $colors, $format);
         } else {
-            print 'else';
+            //print 'else';
             $this->showDeckMaskView();
         }
     }
 
-
-    public  function createNewDeck($deck_name, $deck_description, $colors, $format){
-        //print_r($colors) ;
-        //print $_REQUEST['color'][0];
+    /** create a new deck */
+    public  function createNewDeck($deck_name, $deck_description, $colors, $format)
+    {
         $valid = new Validation();
         $errors = $valid->validateFields($this->rules);
 
         if (count($errors) != 0) {
-            //print 'errors';
-
             return $this->showErrorsValues(
                 $errors,
                 [
@@ -74,19 +68,11 @@ class DeckMaskController extends UserController
         } else{
             //print 'no errors';
             $d = new DecksModel();
-                //print $deck_name;
             $values['name'] = $deck_name;
             $values['description'] = $deck_description;
-            //$values['color'] = $color;
             $values['format_id'] = $format;
             $values['user_id'] = $this->userId;
             $d->updateSave($values,$colors);
-            $view = $this->view = new DeckMaskView();
-            // p == cards ? => get cards controller!
-            // TODO add my card controller after creating deck!
-            $this->infos = 'your Deck is Created, add Cards :)';
-            $this->view->addInfos($this->infos);
-            //$view->showTemplate();
 
             echo json_encode(array(
                 'status' => 'true'
@@ -95,34 +81,9 @@ class DeckMaskController extends UserController
         }
     }
 
+    /** show the errors */
     public function showErrorsValues($errors = [], $values = [])
     {
-        $view = $this->view = new DeckMaskView();
-        //print_r($errors);
-        //print_r($values);
-        $c = new ColorModel();
-        $colors = $c->getAllColors();
-        $f = new FormatsModel();
-        $formats = $f->getAllFormats();
-
-        $this->view->addToKey('colors', $colors);
-        $this->view->addToKey('formats', $formats);
-        $this->view->addToKey('nickname', $this->userNick);
-        $this->view->addToKey('name', $this->userName);
-
-        foreach ($this->fields as $field){
-            //print $field . '<br>';
-            if (isset($errors[$field])){
-                $this->view->addErrorMessagesMany($field, $errors[$field][0]);
-            }
-            if (isset($values[$field])){
-                $this->view->addValuesMany($field, $values[$field]);
-                //print $values[$field];
-            }
-        }
-        //print_r($errors);
-        //$view->showTemplate();
-
         echo json_encode(array(
             'status' => 'error',
             'errors' => $errors,
@@ -135,15 +96,14 @@ class DeckMaskController extends UserController
         ];
     }
 
-    public function showDeckMaskView(){
+    /** show the create deck template */
+    public function showDeckMaskView()
+    {
         $c = new ColorModel();
         $colors = $c->getAllColors();
-
         $f = new FormatsModel();
         $formats = $f->getAllFormats();
-
         $this->view = new DeckMaskView();
-
         $this->view->addToKey('colors', $colors);
         $this->view->addToKey('formats', $formats);
         $this->view->addToKey('nickname', $this->userNick);

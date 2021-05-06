@@ -1,26 +1,29 @@
 <?php
-
+/**
+ * FormatsModel.php Does the queries for the colors in the DB
+ */
 namespace Models;
 
 class FormatsModel extends AbstractModel {
 
     protected $table = 'formats';
-
     public $fields = [
         'id',
         'format',
         'cards',
         'sideboard'
     ];
-
     public $values = [];
 
-    public function getAllFormats(){
-
+    /** get all Formats */
+    public function getAllFormats()
+    {
         return $this->GetAllEntries('id');
     }
 
-    public function getFormatsById($id) {
+    /** get Format by id */
+    public function getFormatsById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -41,6 +44,7 @@ class FormatsModel extends AbstractModel {
         }
     }
 
+    /** bind params not in use because i dont want to change or add  Formats */
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.

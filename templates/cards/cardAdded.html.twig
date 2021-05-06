@@ -1,22 +1,21 @@
 
-    <div class="row">
-        <div class="col">
-            <span class="infos">The Card {{ cardName[0] }} is saved in your Deck {{ deckName[0] }}</span>
-        </div>
+<div class="row">
+    <div class="col">
+        <span class="infos">The Card {{ cardName[0] }} is saved in your Deck {{ deckName[0] }}</span>
     </div>
-
-    <div class="row">
-        <div class="col">
-            {% for info in infos %}
-                <span class="text-warning">
-                        {{ info }}
-                </span><br>
-            {% endfor %}
-        </div>
+</div>
+<div class="row">
+    <div class="col">
+        {% for info in infos %}
+            <span class="text-warning">
+                    {{ info }}
+            </span><br>
+        {% endfor %}
     </div>
-    <div class="row justify-content-end">
-        <div class="col">
-            <button name="finished" class="btn btn_1 btn-outline-secondary">close</button>
-        </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col">
+        <button name="finished" class="btn btn_1 btn-outline-secondary">close</button>
     </div>
+</div>
 

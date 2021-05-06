@@ -1,11 +1,12 @@
 <?php
-
+/**
+ * DecksModel.php Do the queries for the decks in the DB
+ */
 namespace Models;
 
 class CardsModel extends AbstractModel {
 
     protected $table = 'cards';
-
     protected $fields = [
         'id',
         'lang',
@@ -22,19 +23,16 @@ class CardsModel extends AbstractModel {
         'collector_number',
         'type_line',
     ];
-
     protected $colors = [];
     protected $cards = [];
     protected $set = [];
     protected $formats = [];
     protected $legalities = [];
-
-    // TODO  lists, cards_has_color & cads_has_formats_has_legalities ??
-
-
     protected $values = [];
 
-    public function CountCards(){
+    /** count all cards */
+    public function CountCards()
+    {
         try {
            $count = $this->CountAllEntries();
             return $count;
@@ -44,8 +42,9 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function getCardsByUserId($id) {
-
+    /** get all cards by user */
+    public function getCardsByUserId($id)
+    {
         $ids = $this->loadManyToManyRelations(
             $id,
             'users_id',
@@ -61,7 +60,9 @@ class CardsModel extends AbstractModel {
             return $this->cards;
     }
 
-    public function getAllCardsByDeckId($deckId){
+    /** get all cards by deck */
+    public function getAllCardsByDeckId($deckId)
+    {
         $ids = $this->loadManyToManyRelations(
             $deckId,
             'deck_id',
@@ -76,7 +77,9 @@ class CardsModel extends AbstractModel {
         return $this->cards;
     }
 
-    public function countSpecificCardByDeckId($deckId, $cardId){
+    /** get specific card by deck */
+    public function countSpecificCardByDeckId($deckId, $cardId)
+    {
         $ids = $this->loadManyToManyRelationsSpecific(
             $deckId,
             $cardId,
@@ -91,8 +94,9 @@ class CardsModel extends AbstractModel {
         return $this->cards;
     }
 
-    public function getCardById($id) {
-
+    /** get card by id */
+    public function getCardById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 'i');
             if($result->num_rows == 0){
@@ -113,8 +117,9 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function checkUserHasCard($cardId, $userId) {
-
+    /** check if user has this card */
+    public function checkUserHasCard($cardId, $userId)
+    {
         try{
             $result = $this->loadManyToManyRelationsSpecific(
                 $cardId,
@@ -122,12 +127,10 @@ class CardsModel extends AbstractModel {
                 'cards_id',
                 'users_id',
                 'users_has_cards');
-
             //print_r($result);
             if($result == [] ){
                 //print "card not here";
                 return false;
-
             }else{
                 //print "true";
                 //print_r($result[0][0]) ;
@@ -139,8 +142,9 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function addCardToUser($cardId, $userId) {
-
+    /** add card to user cards */
+    public function addCardToUser($cardId, $userId)
+    {
         try{
             $result = $this->addManyToManyRelations(
                 'users_has_cards',
@@ -148,17 +152,16 @@ class CardsModel extends AbstractModel {
                 'cards_id',
                 $userId,
                 $cardId);
-
             return true;
-
         }catch(Exception $exception){
             die('Problem with database');
             //return false;
         }
     }
 
-    public function DeleteCardByUserId($cardId, $userId) {
-
+    /** delete card from user */
+    public function DeleteCardByUserId($cardId, $userId)
+    {
         try{
             $result = $this->deleteManyToManyRelations(
                 'users_has_cards',
@@ -166,16 +169,16 @@ class CardsModel extends AbstractModel {
                 'cards_id',
                 $userId,
                 $cardId);
-
             return true;
-
         }catch(Exception $exception){
             die('Problem with database');
             //return false;
         }
     }
-    public function addCardToDeck($cardId, $deckId) {
 
+    /** add card to deck */
+    public function addCardToDeck($cardId, $deckId)
+    {
         try{
             $result = $this->addManyToManyRelations(
                 'decks_has_cards',
@@ -183,7 +186,6 @@ class CardsModel extends AbstractModel {
                 'cards_id',
                 $deckId,
                 $cardId);
-
             return true;
         }catch(Exception $exception){
             die('Problem with database');
@@ -191,8 +193,9 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function getSingleCardById($cardId) {
-
+    /** get single card by id */
+    public function getSingleCardById($cardId)
+    {
         try{
             $result = $this->getBySingleField('id', $cardId, 'i');
             if($result->num_rows == 0){
@@ -205,10 +208,6 @@ class CardsModel extends AbstractModel {
                     if (array_key_exists($field, $dbValue))
                         $this->setFieldValue($field, $dbValue[$field]);
                 }
-
-                //$this->loadSet();
-                //$this->loadColors();
-                //$this->loadFormatAndLegalities();
                 return true;
             }
         }catch(Exception $exception){
@@ -217,116 +216,10 @@ class CardsModel extends AbstractModel {
         }
     }
 
-    public function loadSet() // FK set_name
-    {
-        $this->set = [];
-        $setId =$this->getFieldValue('set_name');
-        $s = new SetEditionModel();
-        $s->getSetById($setId);
-        $this->set[] = $s;
-    }
-
-    public function loadColors()
-    {
-        $ids = $this->loadManyToManyRelations(
-            $this->getFieldValue('id'),
-            'cards_id',
-            'colors_id',
-            'cards_has_colors'
-        );
-
-        $this->colors = [];
-        foreach($ids as $id)
-        {
-            $c = new ColorModel();
-            $c->getColorById($id[0]);
-            $this->colors[] = $c;
-        }
-        // TODO optimize the DB query so that hundreds of queries do not have to be made (with JOIN / lazy loading)
-    }
-
-
-    public function loadFormatAndLegalities()
-    {
-        $IdsFormats = $this->loadManyToManyRelations(
-            $this->getFieldValue('id'),
-            'cards_id',
-            'formats_id',
-            'cards_has_formats_has_legalities'
-        );
-        $this->formats = [];
-        foreach($IdsFormats as $id)
-        {
-            $f = new FormatsModel();
-            $f->getFormatsById($id[0]);
-            $this->formats[] = $f;
-        }
-
-        $IdsLegalities = $this->loadManyToManyRelations(
-            $this->getFieldValue('id'),
-            'cards_id',
-            'legalities_id',
-            'cards_has_formats_has_legalities'
-        );
-        $this->legalities = [];
-        foreach($IdsLegalities as $id)
-        {
-            $l = new LegalitiesModel();
-            $l->getLegalityById($id[0]);
-            $this->legalities[] = $l;
-        }
-    }
-
-    // only to use if there are new cards released
-    public function updateSave($values){
-        try{
-            foreach ($this->fields as $field){ //put the incoming values in to $this->values
-                if (array_key_exists($field, $values))
-                    $this->setFieldValue($field, $values[$field]);
-            }
-            $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
-            if ($result == false) {
-                print 'Speichern fehlgeschlagen ';
-            } else {
-                print " worked! ";
-                return true;
-            }
-        }catch(Exception $exception){
-            die('Problem with database');
-            //return false;
-        }
-    }
-
+    /** bind params, not in use because i dont want to change cards and the add is only by the ApiModel.php */
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.
-    }
-
-    public function toString()
-    {
-        $standard = parent::toString();
-        if ($this->colors != []){
-            $standard .= 'COLORS:';
-            foreach($this->colors as $c){
-                $standard .= '<p>' . $c->toString() .'</p>';
-            }
-        }
-        if ($this->set != []){
-            $standard .= 'SET/EDITION:';
-            foreach($this->set as $s){
-                $standard .= '<p>' . $s->toString() .'</p>';
-            }
-        }
-        if ($this->formats != []){
-            $standard .= 'FORMATS/LEGALITIES:';
-            foreach($this->formats as $f){
-                $standard .= '<p>' . $f->toString() .'</p>';
-            }
-            foreach($this->legalities as $l){
-                $standard .= '<p>' . $l->toString() .'</p>';
-            } //TODO bring formats an legalities together ?!
-        }
-        return $standard;
     }
 }
 

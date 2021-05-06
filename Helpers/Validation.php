@@ -1,8 +1,9 @@
 <?php
-
+/**
+ * Validation.php checked input on errors.
+ */
 
 namespace Helpers;
-
 
 use Models\UserModel;
 
@@ -30,7 +31,9 @@ class Validation
         }
     }
 
-    public function validateFields($fieldRules){
+    /** checked input on errors.*/
+    public function validateFields($fieldRules)
+    {
         global $errorFeedback;
         $errors = [];
         foreach($fieldRules as $field => $rules){
@@ -41,7 +44,6 @@ class Validation
             $d->disinfect($value);
 
             foreach($rules as $rule){
-
 
                 if($rule == 'required'){
                     if(! isset($value) || trim($value) == '' ){
@@ -97,5 +99,4 @@ class Validation
         }
         return $errors;
     }
-
 }

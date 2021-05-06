@@ -1,8 +1,9 @@
 <?php
-
+/**
+ * The DecksController.php includes functions related to the user decks.
+ */
 
 namespace Controllers;
-
 
 use Models\CardsModel;
 use Models\ColorModel;
@@ -19,18 +20,11 @@ class DecksController extends UserController
 {
     public $view;
 
-
     public function __construct(string $method = null)
     {
         $user = $this->getUserByNicknameSession();
 
-        switch($method) {/*
-            case 'search':
-                $this->searchDecks();
-                break;
-            case 'search_count':
-                $this->countDecks();
-                break;*/
+        switch($method) {
             case 'search_own':
                 $this->searchOwnDecks();
                 break;
@@ -48,7 +42,9 @@ class DecksController extends UserController
         }
     }
 
-/*    public function searchDecks() {
+    /** search user Decks by filter */
+    public function searchOwnDecks()
+    {
         $d = new DecksSearchModel();
         $d->search_name = $_POST['search_text'];
         if(isset($_POST['color'])) {
@@ -57,40 +53,13 @@ class DecksController extends UserController
         if(isset($_POST['format'])) {
             $d->search_format = $_POST['format'];
         }
-        $get_decks = $d->getSearchResult();
-
-        $this->showDecks($get_decks);
-    }
-
-    public function countDecks() {
-        $d = new DecksSearchModel();
-        $d->search_name = $_POST['search_text'];
-        if(isset($_POST['color'])) {
-            $d->search_color = $_POST['color'];
-        }
-        if(isset($_POST['format'])) {
-            $d->search_format = $_POST['format'];
-        }
-        //print $d;
-        print_r($d->getSearchCount());
-    }*/
-
-    public function searchOwnDecks() {
-        $d = new DecksSearchModel();
-        $d->search_name = $_POST['search_text'];
-        if(isset($_POST['color'])) {
-            $d->search_color = $_POST['color'];
-        }
-        if(isset($_POST['format'])) {
-            $d->search_format = $_POST['format'];
-        }
-        //print $usrId;
         $get_decks = $d->getSearchOwnResult($this->userId);
-
         $this->showDecks($get_decks);
     }
 
-    public function countOwnDecks() {
+    /** count user Decks by filter */
+    public function countOwnDecks()
+    {
         $d = new DecksSearchModel();
         $d->search_name = $_POST['search_text'];
         if(isset($_POST['color'])) {
@@ -99,13 +68,13 @@ class DecksController extends UserController
         if(isset($_POST['format'])) {
             $d->search_format = $_POST['format'];
         }
-        //print $d;
         print_r($d->getSearchOwnCount($this->userId));
     }
 
-    public function showDecks($decks){
+    /** show searched decks */
+    public function showDecks($decks)
+    {
         $this->view = new DecksSearchedView();
-        //print_r($get_decks);
         foreach ($decks as $deck){
             $this->view->addDecks($deck['id'], 'id', $deck['id']);
             $this->view->addDecks($deck['id'], 'name', $deck['name']);
@@ -120,28 +89,26 @@ class DecksController extends UserController
         $this->view->showTemplate();
     }
 
-    public function deleteCardInDeck($cardId, $deckId){
-
+    /** delete a card in deck */
+    public function deleteCardInDeck($cardId, $deckId)
+    {
         $d = new DecksModel();
         $delete =$d->deleteCardFromDeck($cardId, $deckId);
         print $delete;
     }
 
-    public function getUserDecks(){
-
+    /** get all user decks */
+    public function getUserDecks()
+    {
         $userDecks = new DecksSearchModel();
         $decks = $userDecks->getDecks($this->userId);
 
         $c = new ColorModel();
         $colors = $c->getAllColors();
-        //print_r($colors);
         $f = new FormatsModel();
         $formats = $f->getAllFormats();
-        //print_r($formats);
-        //count($decks);
-        //print_r($decks);
+
         $this->view = new DecksView();
-        //print_r($get_decks);
         $this->view->addToKey('nickname', $this->userNick);
         $this->view->addToKey('name', $this->userName);
         $this->view->addToKey('colors', $colors);
@@ -165,16 +132,16 @@ class DecksController extends UserController
         $this->view->showTemplate();
     }
 
-    public function showDeckSingle($deckId){
-
+    /** show single deck */
+    public function showDeckSingle($deckId)
+    {
         $d = new DecksSearchModel();
         $singleDeck = $d->getSingleDeck($deckId);
         $c = new CardsModel();
         $cards = $c->getAllCardsByDeckId($deckId);
 
         $this->view = new DeckSingleView();
-        //print_r($cards);
-        $count = 1;
+        $count = 1; /* the count is used because the same card can be in a deck several times*/
         foreach ($cards as $card){
             $cardValue = $c->getCardById($card);
             $cardId = $c->getFieldValue('id');
@@ -187,7 +154,6 @@ class DecksController extends UserController
             $count++;
         }
         foreach ($singleDeck as $deck){
-            //print_r($deck);
             $this->view->addDecks($deck[2], 'id', $deck[2]);
             $this->view->addDecks($deck[2], 'name', $deck[0]);
             $this->view->addDecks($deck[2], 'description', $deck[1]);
@@ -201,8 +167,5 @@ class DecksController extends UserController
         $this->view->addToKey('deckId', $deckId);
         $this->view->addToKey('deckCountCards', (count($cards)));
         $this->view->showTemplate();
-
-
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * The CardsController.php includes functions related to the cards.
+ */
 namespace Controllers;
 
 use Models\CardsModel;
@@ -37,10 +39,9 @@ class CardsController extends UserController
         'color  ',
     ];
 
-    public function __construct(string $method = null) {
-
+    public function __construct(string $method = null)
+    {
         $user = $this->getUserByNicknameSession();
-
 
         switch($method) {
             case 'search':
@@ -76,7 +77,9 @@ class CardsController extends UserController
         }
     }
 
-    public function searchCards() {
+    /** search in all cards by filter */
+    public function searchCards()
+    {
         $c = new CardsSearchModel();
         $c->search_name = $_POST['search_text_card'];
         $c->search_type = $_POST['search_text_creature'];
@@ -91,11 +94,12 @@ class CardsController extends UserController
         }
         //print_r($c->getSearchResult());
         $get_cards = $c->getSearchResult();
-
         $this->showCards($get_cards);
     }
 
-    public function countCards() {
+    /** count all cards by filter */
+    public function countCards()
+    {
         $c = new CardsSearchModel();
         $c->search_name = $_POST['search_text_card'];
         $c->search_type = $_POST['search_text_creature'];
@@ -111,7 +115,10 @@ class CardsController extends UserController
         //print $d;
         print_r($c->getSearchCount());
     }
-    public function searchOwnCards() {
+
+    /** search all user cards by filter */
+    public function searchOwnCards()
+    {
         $c = new CardsSearchModel();
         $c->search_name = $_POST['search_text_card'];
         $c->search_type = $_POST['search_text_creature'];
@@ -130,7 +137,9 @@ class CardsController extends UserController
         $this->showCards($get_cards);
     }
 
-    public function countOwnCards() {
+    /** count all user cards cards by filter */
+    public function countOwnCards()
+    {
         $c = new CardsSearchModel();
         $c->search_name = $_POST['search_text_card'];
         $c->search_type = $_POST['search_text_creature'];
@@ -143,11 +152,12 @@ class CardsController extends UserController
         if(isset($_POST['set'])) {
             $c->search_set = $_POST['set'];
         }
-        //print $d;
         print_r($c->getSearchOwnCount($this->userId));
     }
 
-    public function showCards($cards){
+    /** show the searched cards */
+    public function showCards($cards)
+    {
         $this->view = new CardsSearchedView();
         foreach ($cards as $card){
             //print_r($card);
@@ -155,12 +165,12 @@ class CardsController extends UserController
             $this->view->addCards($card['id'], 'image_uris', $card['image_uris']);
             $this->view->addCards($card['id'], 'name', $card['name']);
         }
-
         $this->view->showTemplate();
     }
 
-    public function addCard($cardId){
-
+    /** add a card to this user cards and get the user decks*/
+    public function addCard($cardId)
+    {
         //print $cardId;
         $userId =$this->userId;
         if ($userId == null){
@@ -176,16 +186,13 @@ class CardsController extends UserController
             if ($cardExist == false){
                 // save card by user
                 $cardExist =$c->addCardToUser($cardId, $userId);
-                print 'add card to user';
             }
-
             // get user decks
             $d = new DecksSearchModel();
             $d->searchDecks($userId);
             $userDecks = $d->search_result;
 
             // ask to witch deck to add? return deck ID
-            // TODO open view over the searched cards view!
             $this->view = new DeckAddCardView();
             foreach ($userDecks as $deck){
                 $this->view->addDecks($deck['id'], 'id', $deck['id']);
@@ -201,21 +208,18 @@ class CardsController extends UserController
             $this->view->addToKey('cardId', $cardId);
             $this->view->showTemplate();
         }
-
-
-
     }
 
-    public function addCardToDeck($cardId, $deckId){
+    /** add this card to the selected user deck */
+    public function addCardToDeck($cardId, $deckId)
+    {
         // ad card to deck
         $c = new CardsModel();
-            $c->addCardToDeck($cardId, $deckId);
+        $c->addCardToDeck($cardId, $deckId);
 
         $countCards = $c->countSpecificCardByDeckId($deckId, $cardId);
-            //TODO check if this card is allowed in this deck format = print
         $cardSearch = new CardsSearchModel();
         $formats = $cardSearch->getCardLegalityByDeckFormat($cardId, $deckId);
-       // print_r($formats);
 
         $this->view = new CardAddedView();
         $this->view->addToKey('cardId', $cardId);
@@ -228,14 +232,13 @@ class CardsController extends UserController
         if ((count($countCards)) >= 5){
             $this->view->addInfos('Notice: a non-land card should not be more than 4x in one deck !');
         }
-
         $this->view->addInfos('Notice: this card is now saved in your cards and in your deck of choice :)');
         $this->view->showTemplate();
-
     }
 
-    public function showSingleCard($cardId){
-
+    /** shows a single card */
+    public function showSingleCard($cardId)
+    {
         $card = new CardsModel();
         $card->getSingleCardById($cardId);
         $this->view = new CardSingleView();
@@ -247,17 +250,13 @@ class CardsController extends UserController
 
         $card = new CardsSearchModel();
         $cardDetail = $card->getSingleCardDetail($cardId);
-        //print_r($cardDetail[0]['name']);
-        //print_r($cardDetail);
 
         foreach ($cardDetail as $card){ // relationships
-            //print_r($card);
             $this->view->addCards($card['id'], 'set_name', $card['set_name']);
             $colors = explode(',', $card['colors']);
             foreach ($colors as $color){
                 $this->view->addCards($card['id'], 'colors', $color);
             }
-
             $formats = explode(',', $card['formats']);
             $legalities = explode(',', $card['legalities']);
             $formatsLegalities = array_combine($formats, $legalities);
@@ -268,50 +267,33 @@ class CardsController extends UserController
         if (isset($this->userId)){
             $this->view->addToKey('userId', $this->userId);
         }
-
         $this->view->showTemplate();
-
     }
 
-    public function deleteUserCard($cardId){
-
+    /** delete a card in user cards */
+    public function deleteUserCard($cardId)
+    {
         $c = new CardsModel();
         $c->DeleteCardByUserId($cardId, $this->userId);
-        //print 'delete card';
-
     }
 
-
-    public function getCardDetailById(/*$cardId*/) {
-
-        $card = new CardsModel();
-        $card->getSingleCardDetailById(37615);
-        //print $card->toString();
-        $view = $this->view = new CardSingleView();
-
-        foreach ($this->fields as $field){
-            $fieldValue = $card->getFieldValue($field);
-            $this->view->assignData($field, $fieldValue);
-        } // TODO find a way to print the relationships
-
-        $view->showTemplate();
-    }
-
-    public function getUserCards(){
-
+    /** get all cards by user */
+    public function getUserCards()
+    {
         $userCards = new CardsModel();
         $cards = $userCards->getCardsByUserId($this->userId);
 
         $c = new ColorModel();
         $colors = $c->getAllColors();
-        //print_r($colors);
         $f = new FormatsModel();
         $formats = $f->getAllFormats();
-        //print_r($formats);
         $s = new SetEditionModel();
         $sets = $s->getAllSets();
 
         $this->view = new CardsView();
+        if (isset($_GET['info']) && $_GET['info'] == 'newDeck'){
+            $this->view->addInfos('Your Deck is created, add cards !');
+        }
         $this->view->addToKey('nickname', $this->userNick);
         $this->view->addToKey('name', $this->userName);
         $this->view->addToKey('colors', $colors);
@@ -334,18 +316,15 @@ class CardsController extends UserController
         $this->view->showTemplate();
     }
 
-    public function getAllCards(){
-
+    /** get all cards, count cards */
+    public function getAllCards()
+    {
         $c = new CardsModel();
         $count = $c->CountCards();
-        //print_r($count[0]['COUNT(*)']);
-
         $c = new ColorModel();
         $colors = $c->getAllColors();
-        //print_r($colors);
         $f = new FormatsModel();
         $formats = $f->getAllFormats();
-        //print_r($formats);
         $s = new SetEditionModel();
         $sets = $s->getAllSets();
 
@@ -362,5 +341,4 @@ class CardsController extends UserController
 
         $this->view->showTemplate();
     }
-
 }

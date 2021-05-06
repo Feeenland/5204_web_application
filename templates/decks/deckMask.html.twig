@@ -1,5 +1,4 @@
 
-
 {% extends 'layout.html.twig' %}
 
 {% block title %}Build Deck{% endblock %}
@@ -14,15 +13,11 @@
     Build Deck
 {% endblock %}
 
-
 {% block content %}
     <div class="container create__deck">
         <div class="row">
-            <div class="col-1 col-md-1 login__space">
-
-            </div>
+            <div class="col-1 col-md-1 login__space"> </div>
             <div class="col-11">
-
                 <form id="new__deck_form" action="index.php?p=addDecks" class="create__deck_form" method="POST">
                     <p class="title_warn">Once the deck has been created, nothing can be changed except the cards !</p>
                     <input type="hidden" name="addDecks" value="1">
@@ -34,8 +29,8 @@
                                 class="form-control error_name"
                                 id="name"
                                 placeholder="Destroyer"
-                                value="{{ values['name'][0] }}">
-                        <p class="error_message name_has_error">{{ errorMessages['name'][0] }}</p>
+                                value="">
+                        <p class="error_message name_has_error"></p>
                     </div>
                     <div class="form-group row">
                         <label for="description" class="col col-form-label title_colorless">Deck description:</label>
@@ -43,8 +38,8 @@
                                 type="text"
                                 name="description"
                                 class="form-control error_description"
-                                id="description">{{ values['description'][0] }}</textarea>
-                        <p class="error_message description_has_error">{{ errorMessages['description'][0] }}</p>
+                                id="description"></textarea>
+                        <p class="error_message description_has_error"></p>
                     </div>
                     <div class="checkbox color__picker">
                         <p class="title_colorless">decide Deck colors: </p>
@@ -56,7 +51,6 @@
                         {% endfor %}
                     </div>
                     <p class="error_message">{{ errorMessages['color'][0] }}</p>
-
                     <label for="legality" class="title_colorless">decide Deck format:</label>
                     <select id="legality" name="format">
                         {% for format in formats[0] %}

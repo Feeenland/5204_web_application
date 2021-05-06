@@ -16,17 +16,15 @@ $(document).ready(function() {
             e.preventDefault();
 
             let $form = $(e.currentTarget);
-            console.log($form.attr('action'));
+            //console.log($form.attr('action'));
             $.ajax({
                 url: $form.attr('action'),
                 method: 'POST',
                 data: $form.serialize(),
                 success: function(data) {
-                    console.log('success');
-                    console.log(data);
+                    //console.log('success');
                     data = JSON.parse(data);
                     if (data.status == 'error'){
-                        console.log(data);
                         $('.error_name').empty();
                         $('.name_has_error').removeClass('has_error');
                         $('.error_favourite_card').empty();
@@ -37,8 +35,7 @@ $(document).ready(function() {
                         $('.password_has_error').removeClass('has_error');
                         $('.infos').empty();
 
-
-                        console.log('errors!');
+                        //console.log('errors!');
                         if ( data.info.length > 0){
                             $('.infos').html(data.info);
                         }
@@ -66,16 +63,10 @@ $(document).ready(function() {
                             $('.password_has_error').addClass('has_error');
                         }
 
-
                     }else {
-                        console.log('else = register');
+                        //console.log('else = register');
                         window.location.href = "./index?p=login&info=forgotPw";
                     }
-
-
-                    /* let newDoc = document.open("text/html", "replace");
-                     newDoc.write(data);
-                     newDoc.close();*/
                 }
             });
         }

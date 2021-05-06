@@ -1,8 +1,9 @@
 <?php
-
+/**
+ * HomeController.php  includes functions related all decks.
+ */
 
 namespace Controllers;
-
 
 use Models\CardsModel;
 use Models\ColorModel;
@@ -36,11 +37,11 @@ class HomeController extends UserController
             default:
                 $this->getAllDecks();
         }
-
-
     }
 
-    public function searchDecks() {
+    /** search all decks by filter */
+    public function searchDecks()
+    {
         $d = new DecksSearchModel();
         $d->search_name = $_POST['search_text'];
         if(isset($_POST['color'])) {
@@ -50,11 +51,12 @@ class HomeController extends UserController
             $d->search_format = $_POST['format'];
         }
         $get_decks = $d->getSearchResult();
-
         $this->showDecks($get_decks);
     }
 
-    public function countDecks() {
+    /** count all decks by filter */
+    public function countDecks()
+    {
         $d = new DecksSearchModel();
         $d->search_name = $_POST['search_text'];
         if(isset($_POST['color'])) {
@@ -63,19 +65,18 @@ class HomeController extends UserController
         if(isset($_POST['format'])) {
             $d->search_format = $_POST['format'];
         }
-        //print $d;
         print_r($d->getSearchCount());
     }
 
-    public function showDeckSingle($deckId){
-
+    /** show single deck */
+    public function showDeckSingle($deckId)
+    {
         $d = new DecksSearchModel();
         $singleDeck = $d->getSingleDeck($deckId);
         $c = new CardsModel();
         $cards = $c->getAllCardsByDeckId($deckId);
 
         $this->view = new DeckSingleView();
-        //print_r($cards);
         $count = 1;
         foreach ($cards as $card){
             $cardValue = $c->getCardById($card);
@@ -89,7 +90,6 @@ class HomeController extends UserController
             $count++;
         }
         foreach ($singleDeck as $deck){
-            //print_r($deck);
             $this->view->addDecks($deck[2], 'id', $deck[2]);
             $this->view->addDecks($deck[2], 'name', $deck[0]);
             $this->view->addDecks($deck[2], 'description', $deck[1]);
@@ -104,9 +104,10 @@ class HomeController extends UserController
         $this->view->showTemplate();
     }
 
-    public function showDecks($decks){
+    /** show searched decks */
+    public function showDecks($decks)
+    {
         $this->view = new DecksSearchedView();
-        //print_r($get_decks);
         foreach ($decks as $deck){
             $this->view->addDecks($deck['id'], 'id', $deck['id']);
             $this->view->addDecks($deck['id'], 'name', $deck['name']);
@@ -121,7 +122,9 @@ class HomeController extends UserController
         $this->view->showTemplate();
     }
 
-    public function getAllDecks(){
+    /** show all decks */
+    public function getAllDecks()
+    {
         $c = new ColorModel();
         $colors = $c->getAllColors();
         $f = new FormatsModel();

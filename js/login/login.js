@@ -16,18 +16,16 @@ $(document).ready(function() {
             e.preventDefault();
 
             let $form = $(e.currentTarget);
-            console.log($form.attr('action'));
+            //console.log($form.attr('action'));
             $.ajax({
                 url: $form.attr('action'),
                 method: 'POST',
                 data: $form.serialize(),
                 success: function(data) {
 
-                    console.log('success');
-                    console.log(data);
+                    //console.log('success');
                     data = JSON.parse(data);
                     if (data.status == 'error'){
-                        console.log(data);
                         $('.error_password').empty();
                         $('.password_has_error').removeClass('has_error');
                         $('.error_nickname').empty();
@@ -42,7 +40,7 @@ $(document).ready(function() {
                             $('.password_has_error').addClass('has_error');
                             $('.nickname_has_error').addClass('has_error');
                         }
-                        console.log('errors!');
+                        //console.log('errors!');
                         if (typeof(data.errors.password) != "undefined" && data.errors.password.length > 0){
                             $('.error_password').html(data.errors.password[0]);
                             $('.password_has_error').addClass('has_error');
@@ -52,14 +50,9 @@ $(document).ready(function() {
                             $('.nickname_has_error').addClass('has_error');
                         }
 
-
                     }else {
-                        console.log('else = login');
+                        //console.log('else = login');
                         window.location.href = "./index?p=decks&info=Welcome";
-                       // console.log(data)
-                     /*   var newDoc = document.open("text/html", "replace");
-                        newDoc.write(data);
-                        newDoc.close();*/
                     }
                 }
             });

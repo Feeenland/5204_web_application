@@ -1,6 +1,7 @@
 <?php
-
-
+/**
+ * DecksSearchModel.php Handles the filter and search function for decks.
+ */
 namespace Models;
 
 use Database\DBConnection;
@@ -13,38 +14,40 @@ class DecksSearchModel
     public $search_name;
     public $search_color = [];
     public $search_format;
-
     public $search_count;
     public $search_result = [];
 
-    public function getSearchResult() {
+    public function getSearchResult()
+    {
         $this->searchDecks();
         return $this->search_result;
     }
-    public function getSearchCount() {
+    public function getSearchCount()
+    {
         $this->countDecks();
         return $this->search_count;
     }
-    public function getSearchOwnResult($id) {
+    public function getSearchOwnResult($id)
+    {
         $this->searchDecks($id);
         return $this->search_result;
     }
-    public function getSearchOwnCount($id) {
+    public function getSearchOwnCount($id)
+    {
         $this->countDecks($id);
         return $this->search_count;
     }
 
+    /** search decks by filter / search user decks by filter*/
     public function searchDecks($id =0)
     {
         try{
             $conn = DBConnection::getConnection();
-            $sql = "SELECT  d.name, d.id, f.format, u.nickname, group_concat(col.color) as colors, 
-
+            $sql = "SELECT  d.name, d.id, f.format, u.nickname, group_concat(col.color) as colors,
             (SELECT c.image_uris FROM decks_has_cards dhcard
                                 LEFT JOIN cards c ON dhcard.cards_id = c.id
                                 Where dhcard.deck_id = d.id
                                 LIMIT 1) as image_uris
-            
             FROM decks d
                            LEFT JOIN decks_has_colors dhcol ON d.id = dhcol.deck_id
                             LEFT JOIN colors col ON dhcol.color_id = col.id
@@ -68,7 +71,6 @@ class DecksSearchModel
             $stmt->bind_param('s', $name);
             $stmt->execute();
             $result = $stmt->get_result();
-
             $this->search_result = [];
             while($row = $result->fetch_assoc()) {
                 $this->search_result[] = $row;
@@ -78,7 +80,9 @@ class DecksSearchModel
         }
     }
 
-    protected function countDecks($id =0) {
+    /** count decks by filter / count user decks by filter*/
+    protected function countDecks($id =0)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT COUNT(DISTINCT d.id) as decks_count FROM decks d 
@@ -100,7 +104,6 @@ class DecksSearchModel
             $stmt->bind_param('s', $name);
             $stmt->execute();
             $result = $stmt->get_result();
-
             $row = $result->fetch_assoc();
             $this->search_count = $row['decks_count'];
         }catch(Exception $e){
@@ -108,20 +111,18 @@ class DecksSearchModel
         }
     }
 
-
-
-    public function getDecks($id =0){
+    /** get decks / get decks by user */
+    public function getDecks($id =0)
+    {
         try{
             //get Deck name, deck format, deck user, deck color, deck first card
             // d.name, f.format, u.nickname, col.color, card.image_uris
             $conn = DBConnection::getConnection();
             $sql = "SELECT  d.name, d.id, f.format, u.nickname, group_concat(col.color) as colors, 
-
             (SELECT c.image_uris FROM decks_has_cards dhcard
                                 LEFT JOIN cards c ON dhcard.cards_id = c.id
                                 Where dhcard.deck_id = d.id
                                 LIMIT 1) as image_uris
-            
             FROM decks d
                            LEFT JOIN decks_has_colors dhcol ON d.id = dhcol.deck_id
                             LEFT JOIN colors col ON dhcol.color_id = col.id
@@ -137,25 +138,25 @@ class DecksSearchModel
             }*/
             $stmt->execute();
             $result = $stmt->get_result();
-
-
             return $result->fetch_all();
         }catch(Exception $e){
             die($e->getMessage());
         }
     }
 
-    public function getSingleDeck($id){
+    /** get a single deck */
+    public function getSingleDeck($id)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT  d.name, d.description, d.id, f.format, u.nickname, group_concat(col.color) as colors             
                             FROM decks d
-                           LEFT JOIN decks_has_colors dhcol ON d.id = dhcol.deck_id
+                            LEFT JOIN decks_has_colors dhcol ON d.id = dhcol.deck_id
                             LEFT JOIN colors col ON dhcol.color_id = col.id
                             INNER JOIN formats f ON d.format_id = f.id
                             INNER JOIN users u ON d.user_id = u.id
                             WHERE d.id = " .$id .
-                            " GROUP BY d.name, d.id, f.format, u.nickname";
+                " GROUP BY d.name, d.id, f.format, u.nickname";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();

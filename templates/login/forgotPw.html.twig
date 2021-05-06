@@ -1,6 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-
 {% block title %}ForgotPw{% endblock %}
 
 {% block info %}
@@ -9,15 +8,10 @@
     {% endfor %}
 {% endblock %}
 
-
 {% block content %}
-
     <div class="container login">
         <div class="row justify-content-between">
-
-            <div class="col-0 col-md-1 login__space_pw">
-
-            </div>
+            <div class="col-0 col-md-1 login__space_pw"></div>
             <div class="col-11 col-lg-11 login__register">
                 <form id="forgotpw__form" action="index.php?p=forgotPw" method="POST">
                     <div class="row justify-content-between">
@@ -25,7 +19,7 @@
                             <h2>Forgot Password</h2>
                         </div>
                         <div class="col-2">
-                            <img src="img/red.png" class="login__img img-fluid" alt="image fire red">
+                            <img src="img/Red.png" class="login__img img-fluid" alt="image fire red">
                         </div>
                     </div>
                     <input type="hidden" name="forgotPw" value="1">
@@ -34,11 +28,11 @@
                         <input
                                 type="text"
                                 name="name"
-                                class="form-control name_has_error {% if errorMessages['name'][0] %} has_error {% endif %}"
+                                class="form-control name_has_error"
                                 id="name"
                                 placeholder="kate"
-                                value="{{ values['name'][0] }}">
-                        <p class="error_message error_name">{{ errorMessages['name'][0] }}</p>
+                                value="">
+                        <p class="error_message error_name"></p>
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
@@ -46,11 +40,11 @@
                         <input
                                 type="text"
                                 name="favourite_card"
-                                class="form-control favourite_card_has_error {% if errorMessages['favourite_card'][0] %} has_error {% endif %}"
+                                class="form-control favourite_card_has_error"
                                 id="favourite_card"
                                 placeholder="card name"
-                                value="{{ values['favourite_card'][0] }}">
-                        <p class="error_message error_favourite_card">{{ errorMessages['favourite_card'][0] }}
+                                value="">
+                        <p class="error_message error_favourite_card"></p>
                     </div>
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
@@ -58,21 +52,21 @@
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control nickname_has_error {% if errorMessages['nickname'][0] %} has_error {% endif %}"
+                                class="form-control nickname_has_error"
                                 id="nickname"
                                 placeholder="kitty =^.^="
-                                value="{{ values['nickname'][0] }}">
-                        <p class="error_message error_nicknam">{{ errorMessages['nickname'][0] }}</p>
+                                value="">
+                        <p class="error_message error_nicknam"></p>
                     </div>
                     <div class="form-group row">
                         <label for="newPassword" class="col col-form-label title_colorless">Enter New Password:</label>
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control password_has_error {% if errorMessages['password'][0] %} has_error {% endif %}"
+                                class="form-control password_has_error"
                                 id="newPassword"
                                 placeholder="New Password">
-                        <p class="error_message error_password">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
+                        <p class="error_message error_password"></p>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Send</button>
@@ -90,8 +84,6 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block javascripts %}

@@ -1,12 +1,13 @@
 <?php
-
+/**
+ * UserModel.php Does the queries for the colors in the DB
+ */
 namespace Models;
 use mysqli;
 
 class UserModel extends AbstractModel {
 
     protected $table = 'users';
-
     protected $fields = [
         'id',
         'name',
@@ -16,16 +17,13 @@ class UserModel extends AbstractModel {
         'banned_at',
         'login_try'
     ];
-
     protected $values = [];
 
-    //protected $id = $values['id'];
-
-    public function getUsersByNickname($nickname) {
-
+    /** get user by nickname */
+    public function getUsersByNickname($nickname)
+    {
         try{
             $result = $this->getBySingleField('nickname', $nickname, 's');
-
             if($result->num_rows == 0){
                 //print "false! MUser ";
                 return false; //found nothing
@@ -44,15 +42,11 @@ class UserModel extends AbstractModel {
         }
     }
 
+    /** bind params */
     protected function bindMyParams($stmt, $update = false)
     {
-
         // SQL statement: UPDATE users SET
-        // name = ? ,
-        //nickname = ? ,
-        //favourite_card = ? ,
-        //password = ? ,
-        //login_try = ? WHERE id = ?
+        // name = ? , nickname = ? , favourite_card = ? , password = ? , login_try = ? WHERE id = ?
         // with or without ID
         $types = $update ? 'sssssii' : 'sssssi';
         $name = $this->getFieldValue('name');
@@ -64,16 +58,15 @@ class UserModel extends AbstractModel {
         $id = $this->getFieldValue('id');
         if($update){
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try, $id);
-            //print $types.'<br>'. $name.'<br>'. $nickname.'<br>'. $favourite_card.'<br>'. $password.'<br>'.  $banned_at. '<br>'.$login_try.'<br>'. $id;
         }else{
             $stmt->bind_param($types, $name, $nickname, $favourite_card, $password,  $banned_at, $login_try);
-            //print $types.'<br> name: '. $name.'<br> nick: '. $nickname.'<br> card: '.
-                //$favourite_card.'<br> pw: '. $password.'<br> banned: '.  $banned_at. '<br> login: '.$login_try. '<br>';
         }
         return $stmt;
     }
 
-    public function updateSave($values){
+    /** save / update user */
+    public function updateSave($values)
+    {
         try{
             foreach ($this->fields as $field){ //put the incoming values in to $this->values
                 if (array_key_exists($field, $values))
@@ -94,8 +87,9 @@ class UserModel extends AbstractModel {
         }
     }
 
-    // only in use if i add a admin Sometime
-    public function delete($id){
+    /** delete user, only in use if i add a admin Sometime */
+    public function delete($id)
+    {
         try{
             $this->deleteByID($id);
             //print "deleted";
@@ -104,7 +98,6 @@ class UserModel extends AbstractModel {
             //return false;
         }
     }
-
 }
 
 

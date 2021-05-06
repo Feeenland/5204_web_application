@@ -1,6 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-
 {% block title %}Login{% endblock %}
 
 {% block info %}
@@ -9,17 +8,10 @@
     {% endfor %}
 {% endblock %}
 
-{#  {% if data['content'] %}
-      {{ data['content'] }}
-  {% endif %}#}
-
 {% block content %}
-
     <div class="container login">
         <div class="row justify-content-between">
-            <div class="col-1 col-md-1 login__space">
-
-            </div>
+            <div class="col-1 col-md-1 login__space"></div>
             <div class="col-11 col-lg-11 login__login">
                 <form id="login__form" action="index.php?p=login" method="POST">
                     <div class="row justify-content-between">
@@ -27,37 +19,35 @@
                             <h2>Login</h2>
                         </div>
                         <div class="col-2">
-                            <img src="img/blue.png" class="login__img img-fluid" alt="image drop blue">
+                            <img src="img/Blue.png" class="login__img img-fluid" alt="image drop blue">
                         </div>
                     </div>
-
                     <input type="hidden" name="login_try" value="1">
                     <div class="form-group row">
                         <label for="nickname" class="col col-form-label title_colorless">nick name:</label>
                         <input
                                 type="text"
                                 name="nickname"
-                                class="form-control nickname_has_error {% if errorMessages['nickname'][0] %} has_error {% endif %}"
+                                class="form-control nickname_has_error"
                                 id="nickname"
                                 placeholder="kitty =^.^="
-                                value="{{ values['nickname'][0] }}">
-                        <p class="error_message error_nickname">{{ errorMessages['nickname'][0] }}</p>
+                                value="">
+                        <p class="error_message error_nickname"></p>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword" class="col col-form-label title_colorless">Passwort:</label>
+                        <label for="inputPassword" class="col col-form-label title_colorless">Password:</label>
                         <input
                                 type="password"
                                 name="password"
-                                class="form-control password_has_error {% if errorMessages['password'][0] %} has_error {% endif %}"
+                                class="form-control password_has_error"
                                 id="inputPassword"
                                 placeholder="Password">
-                        <p class="error_message error_password">{{ errorMessages['password'][0] }} <br> {{ errorMessages['generalError'][0] }}</p>
+                        <p class="error_message error_password"></p>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn_1 btn btn_send btn-outline-primary">Senden</button>
                     </div>
                 </form>
-
                 <button class="btn btn_1 btn-outline-secondary">
                     <a class="nav-link" href="index?p=register">Register</a>
                 </button>
@@ -65,12 +55,9 @@
                 <button class="btn btn_1 btn-outline-info">
                     <a class="nav-link" href="index?p=forgotPw">Forgot password!</a>
                 </button>
-
             </div>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block javascripts %}

@@ -1,8 +1,9 @@
 <?php
-
+/**
+ * defines which view is rendered
+ */
 
 namespace Views;
-
 
 class DeckSingleView extends AbstractView
 {

@@ -1,25 +1,28 @@
 <?php
-
+/**
+ * SetEditionModel.php Does the queries for the set in the DB
+ */
 namespace Models;
 
 class SetEditionModel extends AbstractModel {
 
     protected $table = 'set_edition';
-
     protected $fields = [
         'id',
         'set_name',
         'set'
     ];
-
     protected $values = [];
 
-    public function getAllSets(){
-
+    /** get all sets */
+    public function getAllSets()
+    {
         return $this->GetAllEntries('set_name');
     }
 
-    public function getSetById($id) {
+    /** get set by id */
+    public function getSetById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -40,13 +43,17 @@ class SetEditionModel extends AbstractModel {
         }
     }
 
-    public function setFieldValue($fieldName, $value){
+    /** set field values */
+    public function setFieldValue($fieldName, $value)
+    {
         if ( !in_array($fieldName, $this->fields)){
             return 'invalid field';
         }
         $this->values[$fieldName] = $value;
     }
-    // TODO add save => if there are new releases
+
+    /** bind params not in use because i dont want to change or add  sets */
+
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.

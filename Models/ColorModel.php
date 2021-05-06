@@ -1,26 +1,29 @@
 <?php
-
+/**
+ * ColorModel.php Does the queries for the colors in the DB
+ */
 namespace Models;
 
 class ColorModel extends AbstractModel {
 
     protected $table = 'colors';
-
     protected $fields = [
         'id',
         'color',
         'abbr',
         'basic_land'
     ];
-
     protected $values = [];
 
-    public function getAllColors(){
-
+    /** get all colors */
+    public function getAllColors()
+    {
         return $this->GetAllEntries('id');
     }
 
-    public function getColorById($id) {
+    /** get color by id */
+    public function getColorById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -41,6 +44,7 @@ class ColorModel extends AbstractModel {
         }
     }
 
+    /** bind params not in use because i dont want to change or add colors */
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.

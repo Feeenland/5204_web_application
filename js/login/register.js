@@ -23,11 +23,9 @@ $(document).ready(function() {
                 data: $form.serialize(),
                 success: function(data) {
 
-                    console.log('success');
-                    console.log(data);
+                    //console.log('success');
                     data = JSON.parse(data);
                     if (data.status == 'error'){
-                        console.log(data);
                         $('.error_name').empty();
                         $('.name_has_error').removeClass('has_error');
                         $('.error_favourite_card').empty();
@@ -37,8 +35,7 @@ $(document).ready(function() {
                         $('.error_password').empty();
                         $('.password_has_error').removeClass('has_error');
 
-
-                        console.log('errors!');
+                        //console.log('errors!');
                         if (typeof(data.errors.name) != "undefined" && data.errors.name.length > 0) {
                             $('.error_name').html(data.errors.name[0]);
                             $('.name_has_error').addClass('has_error');
@@ -56,16 +53,10 @@ $(document).ready(function() {
                             $('.password_has_error').addClass('has_error');
                         }
 
-
                     }else {
-                        console.log('else = register');
+                        //console.log('else = register');
                         window.location.href = "./index?p=login&info=Register";
                     }
-
-
-                   /* let newDoc = document.open("text/html", "replace");
-                    newDoc.write(data);
-                    newDoc.close();*/
                 }
             });
         }

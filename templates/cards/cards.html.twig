@@ -1,5 +1,3 @@
-
-
 {% extends 'layout.html.twig' %}
 
 {% block title %}Cards{% endblock %}
@@ -18,48 +16,44 @@
 {% block content %}
     <div class="container cards__many">
         <form action="index.php?p=cards&method={{ cards_user_all[0] }}" id="search__cards_form">
-        <div class="row justify-content-between">
-            <div class="col-12 col-md-6">
-                <p class="title_colorless">search card by name:</p>
+            <div class="row justify-content-between">
+                <div class="col-12 col-md-6">
+                    <p class="title_colorless">search card by name:</p>
                     <input id="card__name" name="search_text_card" class="form-control mr-sm-2" type="search" placeholder="card name" aria-label="search">
-
-                <p class="title_colorless">search creature:</p>
+                    <p class="title_colorless">search creature:</p>
                     <input id="card__creature" name="search_text_creature" class="form-control mr-sm-2" type="search" placeholder="creature" aria-label="search">
-
-            </div>
-            <div class="col-12 col-md-6">
-                        <div class="cards__many_filter">
-                            <p class="title_colorless">colors: </p>
-                            <div id="card__color" class="checkbox form-check color__picker">
-                                {% for color in colors[0] %}
-                                        <label class="btn btn-outline-primary">
-                                            <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
-                                            {{ color['color'] }}
-                                        </label><br>
-                                {% endfor %}
-                            </div>
-
-                            <label for="card__legality">legality in deck:</label>
-                            <select id="card__legality" name="format">
-                                <option value="all">all</option>
-                                {% for format in formats[0] %}
-                                    <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <label for="card__set">Edition:</label>
-                            <select class="form-select" id="card__set" name="set">
-                                <option value="0">all</option>
-                                {% for set in sets[0] %}
-                                    <option value="{{ set['id'] }}" name="format[]">{{ set['set_name'] }}</option>
-                                {% endfor %}
-                            </select>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="cards__many_filter">
+                        <p class="title_colorless">colors: </p>
+                        <div id="card__color" class="checkbox form-check color__picker">
+                            {% for color in colors[0] %}
+                                <label class="btn btn-outline-primary">
+                                    <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
+                                    {{ color['color'] }}
+                                </label><br>
+                            {% endfor %}
                         </div>
+                        <label for="card__legality">legality in deck:</label>
+                        <select id="card__legality" name="format">
+                            <option value="all">all</option>
+                            {% for format in formats[0] %}
+                                <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
+                            {% endfor %}
+                        </select>
 
-                <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search My cards</button>
+                        <label for="card__set">Edition:</label>
+                        <select class="form-select" id="card__set" name="set">
+                            <option value="0">all</option>
+                            {% for set in sets[0] %}
+                                <option value="{{ set['id'] }}" name="format[]">{{ set['set_name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn_1 btn-outline-success my-2 my-sm-0" type="submit">search My cards</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
         <div>
             <p>Found <span class="title_warn" id="search__card_count"> {{ cards_count[0] }} </span> Cards</p>
         </div>

@@ -1,7 +1,6 @@
 
 {% for  card in cards %}
      <h1> {{ name }}</h1>
-
     <div class="row card__single">
         <div class="col-12 col-sm-12 col-md-4 col-lg-3">
             <img src="{{ image_uris }}" class="card__single_img img-fluid" alt="magic card">
@@ -13,8 +12,7 @@
                         <p class="card__single_title">rarity: {{ rarity }}{{ card['name'][0][0] }}</p>
                     </div>
                     <div class="col-3">
-                        <button name="cards__add_to_deck" type="button"
-                                class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ id }}">
+                        <button name="cards__add_to_deck" type="button" class="btn btn_1 btn-outline-success cards__add_to_deck" value="{{ id }}">
                             add card to Deck
                         </button>
                         {% if userId %}
@@ -52,7 +50,6 @@
                 <div class="row justify-content-between">
                     <div class="col">
                         <p class="card__single_title">type:</p>
-
                         <p>{{ type_line }}</p>
                     </div>
                     <div class="col">

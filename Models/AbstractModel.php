@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * AbstractModel.php
+ */
 namespace Models;
 use Database\DBConnection;
 use mysqli;
@@ -11,8 +13,7 @@ abstract class AbstractModel
     protected $fields = [];
     protected $values = [];
 
-
-
+    /** get data by a single field */
     protected function getBySingleField($field, $value, $type = 's')
     {
         try{
@@ -31,6 +32,7 @@ abstract class AbstractModel
         }
     }
 
+    /** save data */
     public function save()
     {
         $this->saveValues(
@@ -41,7 +43,9 @@ abstract class AbstractModel
         );
     }
 
-    public function GetAllEntries($groupBy) {
+    /** get all data from a table */
+    public function GetAllEntries($groupBy)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT * FROM " . $this->table . " GROUP BY " . $groupBy;
@@ -53,7 +57,10 @@ abstract class AbstractModel
             die($e->getMessage());
         }
     }
-    public function CountAllEntries() {
+
+    /** count all data from a table */
+    public function CountAllEntries()
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT COUNT(*) FROM " . $this->table ;
@@ -66,7 +73,9 @@ abstract class AbstractModel
         }
     }
 
-    public function GetAllByFKId($id, $field) {
+    /** get all data from a table By FK */
+    public function GetAllByFKId($id, $field)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = "SELECT * FROM " . $this->table . " WHERE " .$field ."=" . $id; //SELECT * FROM `decks` WHERE user_id = 1
@@ -79,6 +88,7 @@ abstract class AbstractModel
         }
     }
 
+    /** save/ update values */
     public function saveValues($fields, $values, $id = 0)
     {
         if (isset($id) && $id !=0){// update
@@ -92,7 +102,6 @@ abstract class AbstractModel
                         $fieldsArray[] = $field;
                         $str[] = '?';
                     }
-
                 }
                 $fieldsArray =implode("= ?, ", $fieldsArray) . '= ?'; //separate by comma
                 //print $fieldsArray . '<br>';
@@ -100,10 +109,8 @@ abstract class AbstractModel
                 $sql = "UPDATE " . $this->table . " SET " . $fieldsArray . " WHERE id = ?";
                 //print "SQL statement:  " .$sql ."  ";
                 $stmt = $conn->prepare($sql);
-
                 // call method, override it in every specific model
                 $this->bindMyParams($stmt, true);
-
                 $stmt->execute();
                 //print "update ";
                 return true;
@@ -125,11 +132,9 @@ abstract class AbstractModel
                 //print $fieldsArray . '<br>';
                 //print $str . '<br>';
                 $conn = DBConnection::getConnection();
-                //$sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 $sql = "INSERT INTO  " . $this->table . "(" . $fieldsArray . ")" . " VALUES " . "(" . $str . ")" ;
                 //print $sql;
                 $stmt = $conn->prepare($sql);
-                //INSERT INTO users(name,nickname,favourite_card,password) VALUES ('test3','test4','island','test');
                 $stmt = $this->bindMyParams($stmt, false);
                 $stmt->execute();
                 //print 'saved? ';
@@ -140,8 +145,10 @@ abstract class AbstractModel
         }
     }
 
+    /** bind params */
     protected abstract function bindMyParams($stmt, $update = false);
 
+    /** load all from many to many relations */
     protected function loadManyToManyRelations($id_source, $fk_source, $fk_dest, $pivot_table)
     {
         $conn = DBConnection::getConnection();
@@ -151,10 +158,11 @@ abstract class AbstractModel
         $stmt->execute();
         return $stmt->get_result()->fetch_all();
         // TODO to secure it by empty result or something
-
         // SELECT $fk_dest FROM $pivot_table WHERE $fk_source = $source_id
         // SELECT colors_id FROM cards_has_colors WHERE cards_id
     }
+
+    /** load a specific from many to many relations */
     protected function loadManyToManyRelationsSpecific($id_source, $id_dest, $fk_source, $fk_dest, $pivot_table)
     {
         $conn = DBConnection::getConnection();
@@ -164,11 +172,11 @@ abstract class AbstractModel
         $stmt->execute();
         return $stmt->get_result()->fetch_all();
         // TODO to secure it by empty result or something
-
         // SELECT $fk_dest FROM $pivot_table WHERE $fk_source = $source_id  AND $fk_dest = $id_dest
         // SELECT id FROM users_has_cards WHERE cards_id =4251 AND users_id = 17
     }
 
+    /** add data to many to many relations */
     protected function addManyToManyRelations( $pivot_table, $fk_dest, $fk_source, $fk_dest_value, $fk_source_value)
     {
         $conn = DBConnection::getConnection();
@@ -177,10 +185,11 @@ abstract class AbstractModel
         $stmt->bind_param('ii', $fk_dest_value,$fk_source_value);
         $stmt->execute();
         return $stmt->get_result();
-
         // INSERT INTO $pivot_table ($fk_dest, $fk_source) VALUES (?, ?)
         // INSERT INTO decks_has_colors (color_id, deck_id) VALUES (1, 1)
     }
+
+    /** delete data from many to many relations */
     protected function deleteManyToManyRelations( $pivot_table, $fk_dest, $fk_source, $fk_dest_value, $fk_source_value)
     {
         $conn = DBConnection::getConnection();
@@ -189,11 +198,11 @@ abstract class AbstractModel
         $stmt->bind_param('ii', $fk_dest_value, $fk_source_value);
         $stmt->execute();
         return $stmt->get_result();
-
         // DELETE FROM $pivot_table WHERE $fk_dest = $fk_dest_value AND $fk_source = $fk_source_value LIMIT 1
         // DELETE FROM `decks_has_cards` WHERE cards_id = 35391 AND deck_id = 15 LIMIT 1
     }
 
+    /** delete data by id */
     protected function deleteByID($id)
     {
         try{
@@ -208,16 +217,19 @@ abstract class AbstractModel
         }
     }
 
-    public function toString(){
+    /** create a sting */
+    public function toString()
+    {
         $infos = '';
         foreach($this->values as $key => $value){
             $infos .= $key . ' - ' . $value . '<br>';
-
         }
         return $infos;
     }
 
-    public function getFieldValue($fieldName){ // get value from one specific field
+    /** get values of a field */
+    public function getFieldValue($fieldName)
+    { // get value from one specific field
         if ( !in_array($fieldName, $this->fields)){
             return 'invalid field';
         }
@@ -227,11 +239,12 @@ abstract class AbstractModel
         return $this->values[$fieldName];
     }
 
-    public function setFieldValue($fieldName, $value){
+    /** set field values */
+    public function setFieldValue($fieldName, $value)
+    {
         if ( !in_array($fieldName, $this->fields)){
             return 'invalid field';
         }
         $this->values[$fieldName] = $value;
     }
-
 }

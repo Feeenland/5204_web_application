@@ -1,8 +1,8 @@
 <?php
-
-
+/**
+ * The ApiModel.php takes the cards from the ApiController.php ans saves the whole card in the DB.
+ */
 namespace Models;
-
 
 use Database\DBConnection;
 use mysqli;
@@ -11,9 +11,8 @@ class ApiModel
 {
     public $sql = "SELECT id, set_name FROM set_edition";
 
-
-
-    public function getAllSet() {
+    public function getAllSet()
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = ("SELECT id, set_name FROM set_edition");
@@ -26,7 +25,9 @@ class ApiModel
         }
     }
 
-    public function getCardsByScryfallId($scryfall_id) {
+    /** get cards by scyfall_id */
+    public function getCardsByScryfallId($scryfall_id)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql = ("SELECT id FROM cards WHERE scryfall_id = ?");
@@ -46,30 +47,26 @@ class ApiModel
         }
     }
 
-    public function createSet($set_name, $set) {
+    /** create new set */
+    public function createSet($set_name, $set)
+    {
         try{
             $conn = DBConnection::getConnection();
-
             $sql =("INSERT INTO set_edition (set_name, `set`) VALUES (?,?)");
             $stmt = $conn->prepare($sql);
-
-            //$test = $set_name;
             $stmt->bind_param('ss', $set_name, $set);
-            //print_r($stmt);
-
             $stmt->execute();
-
             return $stmt->insert_id;
         }catch(Exception $e){
             die($e->getMessage());
         }
     }
 
-    public function putCardsInDB($card, $setId){
-
+    /** add card to db */
+    public function putCardsInDB($card, $setId)
+    {
         try{
             $conn = DBConnection::getConnection();
-
             $sql =("INSERT INTO cards (scryfall_id,
                     lang,
                     scryfall_uri,
@@ -86,23 +83,27 @@ class ApiModel
                     type_line) Values (
                     ?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt = $conn->prepare($sql);
-
             $image_uri = "";
             if(isset($card->image_uris->normal)){
                 $image_uri = $card->image_uris->normal;
             } else if(isset($card->card_faces[0]->image_uris->normal)) {
                 $image_uri = $card->card_faces[0]->image_uris->normal;
             }
-
-            $stmt->bind_param("sssdsssssssiis",$card->id, $card->lang, $card->scryfall_uri, $card->cmc, $card->oracle_text,
+            $stmt->bind_param("sssdsssssssiis",
+                $card->id,
+                $card->lang,
+                $card->scryfall_uri,
+                $card->cmc,
+                $card->oracle_text,
                 $card->mana_cost,
                 $card->name,
                 $card->power,
                 $card->toughness,
                 $image_uri,
                 $card->rarity,
-                $setId,$card->collector_number, $card->type_line );
-
+                $setId,
+                $card->collector_number,
+                $card->type_line );
 
             $stmt->execute();
             //print_r($stmt);
@@ -115,7 +116,9 @@ class ApiModel
         }
     }
 
-    public function putCardColorsInDB($card_colors, $card_id){
+    /** put card colors in db */
+    public function putCardColorsInDB($card_colors, $card_id)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql =("INSERT INTO cards_has_colors (cards_id, colors_id) SELECT " . $card_id . ", id FROM colors WHERE abbr = ?");
@@ -126,20 +129,20 @@ class ApiModel
             foreach($card_colors as $color) {
                 $stmt->execute();
             }
-
             return true;
         }catch(Exception $e){
             die($e->getMessage());
         }
     }
 
-    public function deleteLegalities($card_id) {
+    /** delete card legalities */
+    public function deleteLegalities($card_id)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql =("DELETE FROM cards_has_formats_has_legalities WHERE cards_id = ?");
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $card_id);
-
             $stmt->execute();
             return true;
         }catch(Exception $e){
@@ -147,7 +150,9 @@ class ApiModel
         }
     }
 
-    public function putLegalitiesInDB($formats, $card_id){
+    /** put card legalities in db */
+    public function putLegalitiesInDB($formats, $card_id)
+    {
         try{
             $conn = DBConnection::getConnection();
             $sql =("INSERT INTO cards_has_formats_has_legalities (cards_id, legalities_id, formats_id) 
@@ -226,5 +231,4 @@ class ApiModel
             die($e->getMessage());
         }
     }
-
 }

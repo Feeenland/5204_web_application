@@ -1,6 +1,6 @@
 <?php
 /**
- *this file loads twig,and is inherited from the other view classes
+ * AbstractView.php this file loads twig,and is inherited from the other view classes
  */
 namespace Views;
 
@@ -9,42 +9,40 @@ use Twig\Loader\FilesystemLoader;
 
 abstract class AbstractView
 {
-
     protected $loader;
     protected $twig;
-
     protected $tmpl = 'main.html.twig';
     protected $data= array();
-    // TODO can i also add a string?
 
     public function __construct()
     {
         $this->loader = new FilesystemLoader(__DIR__ . '/../templates');
         $this->twig = new Environment($this->loader);
 
-
         if (isset($_SESSION)){
             if (isset($_SESSION['userId']))
             {
                 $this->assignData('session', 'true');
             }
-            /*if ($_SESSION['userID']){
-                $this->assignData('session', 'true');
-            }*/
         }
-
     }
 
-    public function dumpData() {
+    /** adds data to the view */
+    public function dumpData()
+    {
         print_r($this->data['decks']);
     }
 
-    public function showTemplate(){
+    /** show template */
+    public function showTemplate()
+    {
         $tmpl = $this->twig->load($this->tmpl);
-
         echo $tmpl->render($this->data);
     }
 
+    /**
+     * functions to add data to specific keys
+     */
     public function assignData($key, $value)
     {
         $this->data[$key] = $value;
@@ -59,23 +57,28 @@ abstract class AbstractView
     {
         $this->data['infos'][] = $infos;
     }
+
     public function addCards($card, $field, $value)
     {
         $this->data['cards'][$card][$field][] = $value;
     }
+
     public function addDecks($deck, $field, $value)
     {
         $this->data['decks'][$deck][$field][] = $value;
     }
+
     public function addErrorMessages($errorMessages)
     {
         $this->data['errorMessages'][] = $errorMessages;
     }
+
     public function addErrorMessagesMany($errorKey, $value)
     {
         $this->data['errorMessages'][] = $errorKey;
         $this->data['errorMessages'][$errorKey][] = $value;
     }
+
     public function addValuesMany($valueKey, $value)
     {
         $this->data['values'][] = $valueKey;

@@ -1,19 +1,21 @@
 <?php
-
+/**
+ * LegalitiesModel.php Does the queries for the legalities in the DB
+ */
 namespace Models;
 
 class LegalitiesModel extends AbstractModel {
 
     protected $table = 'legalities';
-
     public $fields = [
         'id',
         'legality'
     ];
-
     public $values = [];
 
-    public function getLegalityById($id) {
+    /** get all legalities */
+    public function getLegalityById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 's');
             if($result->num_rows == 0){
@@ -34,6 +36,7 @@ class LegalitiesModel extends AbstractModel {
         }
     }
 
+    /** bind params not in use because i dont want to change or add  legalities */
     protected function bindMyParams($stmt, $update = false)
     {
         // TODO: Implement bindMyParams() method.

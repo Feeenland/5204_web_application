@@ -87,9 +87,9 @@ $(document).ready(function() {
         handleDeckDeleteCard: function (e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
-            console.log($button.attr('data-card'));
-            console.log($button.attr('data-deck'));
+            //console.log($button.attr('value'));
+            //console.log($button.attr('data-card'));
+            //console.log($button.attr('data-deck'));
             $.ajax({
                 url: 'index.php?p=decks&method=delete_card&data-card=' + $button.attr('data-card') + '&data-deck=' + $button.attr('data-deck'),
                 method: 'GET',

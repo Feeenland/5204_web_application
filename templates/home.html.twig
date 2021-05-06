@@ -8,15 +8,13 @@
     {% endfor %}
 {% endblock %}
 
-
-{% block h1 %}{{ parent() }} Home{% endblock %}
+{% block h1 %}{{ parent() }} from all users{% endblock %}
 
 {% block content %}
     <div class="container filter_deck">
         <form action="index.php?p=home&method=search" id="search__form">
-        <div class="row justify-content-around">
+            <div class="row justify-content-around">
                 <div class="col-12 col-md-6">
-
                     <p class="title_colorless">colors:</p>
                     <div class="checkbox color__picker">
                         {% for color in colors[0] %}
@@ -26,7 +24,6 @@
                             </label><br>
                         {% endfor %}
                     </div>
-
                     <label for="format" class="title_colorless">Deck format:</label>
                     <select id="format" name="format">
                         <option value="0">all</option>
@@ -34,19 +31,17 @@
                             <option value="{{ format['id'] }}" name="format[]">{{ format['format'] }}</option>
                         {% endfor %}
                     </select>
-
                 </div>
                 <div class="col-12 col-md-6">
                         <input class="form-control mr-sm-2" name="search_text" type="search" placeholder="deck name" aria-label="search">
                         <button class="btn btn_1 btn-outline-success" type="submit">search Decks</button>
                 </div>
-        </div>
-    </form>
-        <div class="title_colorless">
-            <p>Found <span class="title_warn" id="search__count"> {{ decks_count[0] }} </span> Decks</p>
-        </div>
+            </div>
+        </form>
+            <div class="title_colorless">
+                <p>Found <span class="title_warn" id="search__count"> {{ decks_count[0] }} </span> Decks</p>
+            </div>
     </div>
-
     <div class="container decks">
         <div class="row" id="search__result">
             {% for deck in decks %}
@@ -71,7 +66,8 @@
                                         <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                                     {% endfor %}
                                     <p>created By:<br>
-                                        <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                                        <span class="title_colorless">{{ deck['nickname'][0] }}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

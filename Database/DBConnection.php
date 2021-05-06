@@ -1,9 +1,9 @@
 <?php
-
-/*
- * database connection according to the singleton Design Pattern
+/**
+ * DBConnection.php database connection according to the singleton Design Pattern
  * - open the connection only once, use it several times
  */
+
 namespace Database;
 use mysqli;
 
@@ -11,7 +11,8 @@ class DBConnection
 {
     private static $connection = null;
 
-    public static function getConnection(){
+    public static function getConnection()
+    {
         // Does connection exist?
         if ( DBConnection::$connection){
             // return open connection
@@ -24,7 +25,8 @@ class DBConnection
         }
     }
 
-    private static function openConnection(){
+    private static function openConnection()
+    {
         // open the connection
      /*   $servername = "fohasoba.mysql.db.internal"; // data for http://magic.webtatze.ch/
         $username = "fohasoba_magic";

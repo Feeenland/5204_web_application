@@ -15,10 +15,8 @@ use Views\HomeView;
 
 include('bootstrap.php');
 
-/*
-session_name('user');*/
+/*session_name('user');*/
 session_start();
-
 
 error_reporting(E_WARNING); // don't show the warnings
 //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); //shows the whole mysqli errors

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * CardsModel.php Do the queries for the card in the DB
+ */
 namespace Models;
 
 class DecksModel extends AbstractModel {
@@ -7,7 +9,6 @@ class DecksModel extends AbstractModel {
     protected $table = 'decks';
     protected $decks = [];
     protected $colors = [];
-
     protected $fields = [
         'id',
         'user_id', //FK
@@ -15,22 +16,23 @@ class DecksModel extends AbstractModel {
         'name',
         'description'
     ];
-
     protected $values = [];
 
 
-    public function getAllDecks(){
-
+    public function getAllDecks()
+    {
         return $this->GetAllEntries('name');
     }
 
-    public function getDecksByUserId($id) {
-
+    /** get all deck from user */
+    public function getDecksByUserId($id)
+    {
         return $this->GetAllByFKId($id, 'user_id');
     }
 
-    public function getDeckById($id) {
-
+    /** get deck by id */
+    public function getDeckById($id)
+    {
         try{
             $result = $this->getBySingleField('id', $id, 'i');
             if($result->num_rows == 0){
@@ -51,21 +53,9 @@ class DecksModel extends AbstractModel {
         }
     }
 
-    public function getDecksBySearch($name = '', $colors = '', $format='') {
-
-        $decks = $this->searchDecks($name, $colors, $format);
-        return $decks;
-    }
-
-    public function countDecksBySearch($name = '', $colors = '', $format='') {
-
-        $decks = $this->searchDecks($name, $colors, $format);
-
-        return $decks;
-    }
-
-    public function getDeckByName($name) {
-
+    /** get deck by name */
+    public function getDeckByName($name)
+    {
         try{
             $result = $this->getBySingleField('name', $name, 's');
             if($result->num_rows == 0){
@@ -86,20 +76,19 @@ class DecksModel extends AbstractModel {
         }
     }
 
-    public function updateSave($values, $colors){
+    /** save/update deck */
+    public function updateSave($values, $colors)
+    {
         try{
             foreach ($this->fields as $field){ //put the incoming values in to $this->values
                 if (array_key_exists($field, $values))
                     $this->setFieldValue($field, $values[$field]);
             }
-
             $result = $this->saveValues($this->fields, $this->values, $this->values['id']);
-            //print $result;
             //colors?
             foreach ( $colors as $color){
                 $this->addManyToManyRelations( 'decks_has_colors', 'color_id', 'deck_id', $color, $result);
             }
-
             if ($result == false) {
                 print 'Speichern fehlgeschlagen ';
                 //die('Speichern fehlgeschlagen');
@@ -113,8 +102,9 @@ class DecksModel extends AbstractModel {
         }
     }
 
-    public function deleteCardFromDeck($cardId, $deckId){
-
+    /** delete card from deck */
+    public function deleteCardFromDeck($cardId, $deckId)
+    {
         try{
             $result = $this->deleteManyToManyRelations(
                 'decks_has_cards',
@@ -122,15 +112,14 @@ class DecksModel extends AbstractModel {
                 'deck_id',
                 $cardId,
                 $deckId);
-
             return true;
-
         }catch(Exception $exception){
             die('Problem with database');
             //return false;
         }
     }
 
+    /** bind params */
     protected function bindMyParams($stmt, $update = false)
     {
         $types = $update ? 'iissi' : 'iiss';

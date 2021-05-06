@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * UserController.php  takes the user out of the session to display him on the page.
+ */
 
 namespace Controllers;
 
@@ -17,8 +19,6 @@ class UserController
     protected $userName;
     protected $userCard;
 
-
-
     public function getUserByNicknameSession()
     {
         if (isset($_SESSION['userNick'])){
@@ -30,10 +30,8 @@ class UserController
             $this->userName = $usr->getFieldValue('name');
             $this->userId = $usr->getFieldValue('id');
             $this->userCard = $usr->getFieldValue('favourite_card');
-
             return $usr;
         }
-
+        return false;
     }
-
 }

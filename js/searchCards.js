@@ -51,23 +51,23 @@ $(document).ready(function() {
             }else if (e.currentTarget['checked'] === false){
                 $(e.currentTarget).parent().toggleClass('checked');
             }
-            console.log(e);
+            //console.log(e);
             let $form = $('#search__cards_form');
 
             if (timer > 0 ){
                 clearTimeout(timer);
-                console.log('timer clear');
+                //console.log('timer clear');
             }
 
             timer = setTimeout( function () {
-                console.log('2sek past! = ajax');
+                //console.log('2sek past! = ajax');
 
                 $.ajax({
                     url: $form.attr('action') + '_count',
                     method: 'POST',
                     data: $form.serialize(),
                     success: function(data) {
-                        console.log('success !');
+                        //console.log('success !');
                         $('#search__card_count').html(data);
                         if(data < 25) {
                             $form.submit();
@@ -75,7 +75,6 @@ $(document).ready(function() {
                     }
                 });
             }, 2000)
-
         },
 
         CardShowSingleListeners: function () {
@@ -85,12 +84,12 @@ $(document).ready(function() {
         handleCardShowSingle: function (e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
+            //console.log($button.attr('value'));
             $.ajax({
                 url: 'index.php?p=allCards&method=show_card&showCard=' + $button.attr('value'),
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#popup_container').html(data);
                     $('#popup_container').addClass('show');
                     search.addCardListeners();
@@ -107,12 +106,11 @@ $(document).ready(function() {
         handleAddCardToDeck: function (e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
+            //console.log($button.attr('value'));
             $.ajax({
                 url: 'index.php?p=allCards&method=add_card&addCard=' + $button.attr('value'),
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
                     $('#popup_container').html(data);
                     $('#popup_container').addClass('show');
                     search.addDeckListeners();
@@ -128,19 +126,18 @@ $(document).ready(function() {
         handleSelectDeck: function(e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('data-card'));
-            console.log($button.attr('data-deck'));
+            //console.log($button.attr('data-card'));
+            //console.log($button.attr('data-deck'));
             $.ajax({
                 url: 'index.php?p=allCards&method=select_deck&data-card=' + $button.attr('data-card') + '&data-deck=' + $button.attr('data-deck'),
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#popup_container').html(data);
                     search.addCloseListeners();
                     //$('#popup_container').removeClass('show')
                 }
             });
-
         },
 
         UserDeleteCardListeners: function () {
@@ -150,12 +147,12 @@ $(document).ready(function() {
         handleUserDeleteCard: function (e) {
             e.preventDefault();
             let $button = $(e.currentTarget);
-            console.log($button.attr('value'));
+            //console.log($button.attr('value'));
             $.ajax({
                 url: 'index.php?p=allCards&method=delete_user_card&cardId=' + $button.attr('value'),
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     //delete!
                     $button.html('Deleted! Notice: card was only deleted from user cards, not from any decks!' +
                         ' If the Delete was a mistake, you can add the card again as long as the page has not been reloaded');
