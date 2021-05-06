@@ -260,7 +260,7 @@ $body-text-align:           center; //null
 //
 // Style anchor elements.
 
-$link-color:                              $light;
+$link-color:                              darken($primary, 10%); //$light;
 $link-decoration:                         none; //underline
 $link-hover-color:                        darken($link-color, 15%);
 $link-hover-decoration:                   none; //null

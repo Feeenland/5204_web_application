@@ -96,7 +96,7 @@ class CardsSearchModel
                 LEFT JOIN cards_has_colors chc ON c.id = chc.cards_id
                 LEFT JOIN cards_has_formats_has_legalities chfhl ON c.id = chfhl.cards_id AND chfhl.legalities_id = 1
                 LEFT JOIN users_has_cards uhc ON c.id = uhc.cards_id
-                INNER JOIN set_edition se ON c.set_name = se.id";
+                INNER JOIN set_edition se ON c.set_name = se.id ";
 
             $sql .= "WHERE `name` LIKE ?
                     AND type_line LIKE ?";
@@ -113,6 +113,7 @@ class CardsSearchModel
             if($id > 0) {
                 $sql .= " and uhc.users_id = " . $id;
             }
+
             $stmt = $conn->prepare($sql);
             $d = new Disinfect();
             $name = $this->search_name . "%";
