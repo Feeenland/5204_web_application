@@ -64,7 +64,7 @@ body{
       color: $dark;
       outline: $primary;
       a{
-        color: $dark;
+        color: $dark !important;
         outline: $primary;
         @include media-breakpoint-down(md) {
           padding: 5px;
@@ -104,7 +104,7 @@ body{
       }
     }
     border-bottom: 1px solid $warning;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     @include media-breakpoint-down(md) {
       margin-bottom: 20px;
     }
@@ -140,10 +140,11 @@ body{
     display: flex;
     flex-wrap: wrap;
     input{
+      margin-bottom: 10px;
     }
-
     label{
-      margin-right: 15px;
+      margin-right: 20px;
+      margin-left: 5px;
     }
     .checked{
       background-color: $primary;
@@ -161,12 +162,14 @@ body{
       }
     }
   }
-/*  .btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active,
-  .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-  }*/
+  input{
+    margin-bottom: 10px;
+  }
+  select{
+    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-left: 5px;
+  }
   .popup__container{
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.95);

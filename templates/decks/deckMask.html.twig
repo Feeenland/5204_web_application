@@ -42,10 +42,10 @@
                         <p class="error_message description_has_error"></p>
                     </div>
                     <div class="checkbox color__picker">
-                        <p class="title_colorless">decide Deck colors: </p>
+                        <p class="title_colorless">decide Deck colors: </p> <br>
                         {% for color in colors[0] %}
-                            <label>
-                                <input type="checkbox" name="color[]" value="{{ color['id'] }}">
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" class="btn-check" autocomplete="off" name="color[]" value="{{ color['id'] }}">
                                 {{ color['color'] }}
                             </label><br>
                         {% endfor %}
