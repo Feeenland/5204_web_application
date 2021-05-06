@@ -32,20 +32,20 @@ $(document).ready(function() {
                         $('.nickname_has_error').removeClass('has_error');
                         $('.infos').empty();
 
-                        if ( data.info.length > 0){
+                        if (typeof(data.info) != "undefined" && data.info.length > 0) {
                             $('.infos').html(data.info);
                         }
-                        if ( data.generalerr.length > 0){
+                        if (typeof(data.generalerr) != "undefined" &&  data.generalerr.length > 0) {
                             $('.error_password').html(data.generalerr);
                             $('.password_has_error').addClass('has_error');
                             $('.nickname_has_error').addClass('has_error');
                         }
                         //console.log('errors!');
-                        if (typeof(data.errors.password) != "undefined" && data.errors.password.length > 0){
+                        if (typeof(data.errors.password) != "undefined" && data.errors.password.length > 0) {
                             $('.error_password').html(data.errors.password[0]);
                             $('.password_has_error').addClass('has_error');
                         }
-                        if (typeof(data.errors.nickname) != "undefined" && data.errors.nickname.length > 0){
+                        if (typeof(data.errors.nickname) != "undefined" && data.errors.nickname.length > 0) {
                             $('.error_nickname').html(data.errors.nickname[0]);
                             $('.nickname_has_error').addClass('has_error');
                         }

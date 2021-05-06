@@ -2,7 +2,6 @@
 
 use Controllers\ApiController;
 use Controllers\CardsController;
-use Controllers\CardSingleController;
 use Controllers\DeckMaskController;
 use Controllers\DecksController;
 use Controllers\ForgotPwController;
@@ -11,7 +10,6 @@ use Controllers\LoginController;
 use Controllers\RegisterController;
 use Controllers\UserController;
 use Views\DefaultView;
-use Views\HomeView;
 
 include('bootstrap.php');
 
@@ -43,8 +41,6 @@ if(isset($_GET['p']) && $_GET['p'] != ''){
         $view= new CardsController($_GET['method']);
     }else if($_GET['p'] == 'allCards'){
         $view= new CardsController($_GET['method']);
-    }else if($_GET['p'] == 'cardSingle'){
-        $view= new CardSingleController();
     }else if($_GET['p'] == 'imprint'){
         $view= new \Views\ImprintView();
         $view->showTemplate();

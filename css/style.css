@@ -36,7 +36,7 @@ $h6-font-size:                $font-size-base;*/
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400px;
   --font-family-sans-serif: system-ui, -apple-system, "Roboto", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Lakki Reddy", "Courier New", monospace; }
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Trade Winds", "Courier New", monospace; }
 
 *,
 *::before,
@@ -156,7 +156,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Lakki Reddy", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Trade Winds", "Courier New", monospace;
   font-size: 1em; }
 
 pre {
@@ -8808,7 +8808,7 @@ button.bg-dark:focus {
   background-color: rgba(0, 0, 0, 0); }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Lakki Reddy", "Courier New", monospace !important; }
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Trade Winds", "Courier New", monospace !important; }
 
 .text-justify {
   text-align: justify !important; }
@@ -9184,9 +9184,6 @@ body {
     padding: 3px;
     border-radius: 5px;
     color: #96939B;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
     max-width: 250px; }
     body select option {
       background-color: #000004;

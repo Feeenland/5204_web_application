@@ -174,7 +174,7 @@ body{
     padding: 3px;
     border-radius: 5px;
     color: #96939B;
-    appearance: none;
+    //appearance: none;
     max-width: 250px;
     option{
       background-color: #000004;
@@ -254,7 +254,6 @@ body{
   }
 
 }
-
 
 @mixin title-warn {
   font-size: 1.3rem;

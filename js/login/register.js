@@ -16,7 +16,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             let $form = $(e.currentTarget);
-            console.log($form.attr('action'));
+            //console.log($form.attr('action'));
             $.ajax({
                 url: $form.attr('action'),
                 method: 'POST',
