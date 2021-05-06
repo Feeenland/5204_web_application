@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="row justify-content-between">
                     <div class="col">
-                        <h2>{{ deck['name'][0] }}</h2>
+                        <h2>{{ deck['name'][0]|raw }}</h2>
                     </div>
                     <div class="col col-md-2">
                         <button name="close" class="btn btn_1 btn-outline-secondary">close</button>
@@ -22,14 +22,14 @@
                         {% endfor %}
                     </div>
                     <div class="col">
-                        <p>created By: <span class="title_colorless">{{ deck['nickname'][0] }}</span></p>
+                        <p>created By: <span class="title_colorless">{{ deck['nickname'][0]|raw }}</span></p>
                     </div>
                     <div class="col">
                         <p>{{ deckCountCards[0] }} cards</p>
                     </div>
                 </div>
                     <p class="title_colorless">Description:</p>
-                    <p>{{ deck['description'][0] }}</p>
+                    <p>{{ deck['description'][0]|raw }}</p>
             </div>
         {% endfor %}
     </div>

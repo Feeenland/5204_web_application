@@ -6,13 +6,13 @@
         <article class="col-12 col-md-6 col-lg-4 decks__deck">
             <img class="decks__img img-fluid" src="{{ deck['image_uris'][0] }}" alt="image from this magic deck">
             <div class="decks__text">
-                <h2>{{ deck['name'][0] }}</h2>
+                <h2>{{ deck['name'][0]|raw }}</h2>
                 <p>format: {{ deck['format'][0] }}</p>
                 {% for color in deck['colors'] %}
                     <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                 {% endfor %}
                 <p>created By:<br>
-                    <span class="title_colorless">{{ deck['nickname'][0] }}</span>
+                    <span class="title_colorless">{{ deck['nickname'][0]|raw }}</span>
                 </p>
                 <button class="btn btn_1 btn-outline-success" name="deck__select_deck" data-card="{{ cardId[0] }}" data-deck="{{ deck['id'][0] }}">Add Card</button>
             </div>

@@ -77,7 +77,7 @@ class DecksController extends UserController
         $this->view = new DecksSearchedView();
         foreach ($decks as $deck){
             $this->view->addDecks($deck['id'], 'id', $deck['id']);
-            $this->view->addDecks($deck['id'], 'name', $deck['name']);
+            $this->view->addDecks($deck['id'], 'name', html_entity_decode($deck['name']));
             $this->view->addDecks($deck['id'], 'format', $deck['format']);
             $this->view->addDecks($deck['id'], 'nickname', $deck['nickname']);
             $colors = explode(',', $deck['colors']);
@@ -117,7 +117,7 @@ class DecksController extends UserController
 
         foreach ($decks as $deck){
             $this->view->addDecks($deck[1], 'id', $deck[1]);
-            $this->view->addDecks($deck[1], 'name', $deck[0]);
+            $this->view->addDecks($deck[1], 'name',  html_entity_decode($deck[0]));
             $this->view->addDecks($deck[1], 'format', $deck[2]);
             $this->view->addDecks($deck[1], 'nickname', $deck[3]);
             $colors = explode(',', $deck[4]);
@@ -155,8 +155,8 @@ class DecksController extends UserController
         }
         foreach ($singleDeck as $deck){
             $this->view->addDecks($deck[2], 'id', $deck[2]);
-            $this->view->addDecks($deck[2], 'name', $deck[0]);
-            $this->view->addDecks($deck[2], 'description', $deck[1]);
+            $this->view->addDecks($deck[2], 'name', html_entity_decode($deck[0]));
+            $this->view->addDecks($deck[2], 'description', html_entity_decode($deck[1]));
             $this->view->addDecks($deck[2], 'format', $deck[3]);
             $this->view->addDecks($deck[2], 'nickname', $deck[4]);
             $colors = explode(',', $deck[5]);

@@ -30,6 +30,10 @@ class UserController
             $this->userName = $usr->getFieldValue('name');
             $this->userId = $usr->getFieldValue('id');
             $this->userCard = $usr->getFieldValue('favourite_card');
+
+            $this->userNick = html_entity_decode($this->userNick);
+            $this->userName = html_entity_decode($this->userName);
+            $this->userCard = html_entity_decode($this->userCard);
             return $usr;
         }
         return false;

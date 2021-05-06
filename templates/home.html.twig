@@ -4,7 +4,7 @@
 
 {% block info %}
     {% for info in infos %}
-        {{ info }}
+        {{ info|raw }}
     {% endfor %}
 {% endblock %}
 
@@ -49,7 +49,7 @@
                     <article class=" decks__deck">
                         <div class="row justify-content-between">
                             <div class="col">
-                                <h2>{{ deck['name'][0] }}</h2>
+                                <h2>{{ deck['name'][0]|raw }}</h2>
                             </div>
                             <div class="col">
                                 <button class="btn btn_1 btn-outline-success" name="show_deck" value="{{ deck['id'][0] }}">&#8599;</button>
@@ -66,7 +66,7 @@
                                         <img class="color__img img-fluid" src="img/{% if color %}{{ color }}{% else %}nocolor{% endif %}.png" alt="image from the color {{ color }}">
                                     {% endfor %}
                                     <p>created By:<br>
-                                        <span class="title_colorless">{{ deck['nickname'][0] }}</span>
+                                        <span class="title_colorless">{{ deck['nickname'][0]|raw }}</span>
                                     </p>
                                 </div>
                             </div>

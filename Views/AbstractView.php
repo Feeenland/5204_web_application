@@ -11,7 +11,7 @@ abstract class AbstractView
 {
     protected $loader;
     protected $twig;
-    protected $tmpl = 'main.html.twig';
+    protected $tmpl = 'home.html.twig';
     protected $data= array();
 
     public function __construct()
