@@ -5,7 +5,7 @@
 namespace Models;
 use Database\DBConnection;
 use mysqli;
-use Helpers\disinfect;
+use Helpers\Disinfect;
 
 abstract class AbstractModel
 {

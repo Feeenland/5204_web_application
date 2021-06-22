@@ -6,7 +6,7 @@
 namespace Models;
 
 use Database\DBConnection;
-use Helpers\disinfect;
+use Helpers\Disinfect;
 use mysqli;
 
 

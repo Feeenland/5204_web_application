@@ -4,7 +4,7 @@
  */
 namespace Helpers;
 
-class disinfect{
+class Disinfect{
 
     function disinfect($str)
     {

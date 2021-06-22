@@ -5,7 +5,7 @@
 namespace Controllers;
 
 use DateTime;
-use Helpers\disinfect;
+use Helpers\Disinfect;
 use Helpers\Validation;
 use Models\UserModel;
 use Views\DecksView;

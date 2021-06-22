@@ -6,7 +6,7 @@
 namespace Controllers;
 
 
-use Helpers\disinfect;
+use Helpers\Disinfect;
 use Helpers\Validation;
 use Models\ColorModel;
 use Models\DecksModel;

@@ -28,6 +28,11 @@ class DBConnection
     private static function openConnection()
     {
         // open the connection
+    /*        $servername = "fohasoba.mysql.db.internal"; // data for http://magic.webtatze.ch/
+        $username = "fohasoba_magic";
+        $password = "KGYxkmG9AVSyn+RSRTdy";
+        $dbname = "fohasoba_magic";*/
+
         $servername = "localhost";
         $username = "root";
         $password = "";
